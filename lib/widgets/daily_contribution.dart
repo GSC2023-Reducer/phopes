@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/utils.dart';
 
 class DailyContribution extends StatelessWidget {
   final int contribution;
@@ -22,22 +23,16 @@ class DailyContribution extends StatelessWidget {
     }
   }
 
-  String _getFormattedDate(DateTime date) {
-    return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-  }
-
-  String _getLectureLabel(int contribution) =>
-      contribution <= 1 ? 'lecture' : 'lectures';
-
   @override
   Widget build(BuildContext context) {
-    final String formattedDate = _getFormattedDate(date);
-    final String lectureLabel = _getLectureLabel(contribution);
+    final String tooltipMessage =
+        '$contribution ${contribution <= 1 ? 'lecture' : 'lectures'} on ${formatDate(date)}';
+
     final Color contribColor = _getContributionColor(contribution);
 
     return Center(
       child: Tooltip(
-        message: "$contribution $lectureLabel in $formattedDate",
+        message: tooltipMessage,
         child: Container(
           height: 50,
           width: 50,
