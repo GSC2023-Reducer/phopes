@@ -10,24 +10,15 @@ class DailyContribution extends StatelessWidget {
     required this.date,
   });
 
-  Color _getContribColor(int contribution) {
-    const int level4Standard = 5;
-    const int level3Standard = 3;
-    const int level2Standard = 1;
-
-    const Color level4Contribution = Color.fromRGBO(32, 121, 255, 1);
-    const Color level3Contribution = Color.fromRGBO(112, 164, 242, 1);
-    const Color level2Contribution = Color.fromRGBO(199, 214, 237, 1);
-    const Color level1Contribution = Color.fromRGBO(255, 255, 255, 1);
-
-    if (contribution >= level4Standard) {
-      return level4Contribution;
-    } else if (contribution >= level3Standard) {
-      return level3Contribution;
-    } else if (contribution >= level2Standard) {
-      return level2Contribution;
+  Color _getContributionColor(int contribution) {
+    if (contribution >= ContributionLevels.level4) {
+      return ContributionColors.level4;
+    } else if (contribution >= ContributionLevels.level3) {
+      return ContributionColors.level3;
+    } else if (contribution >= ContributionLevels.level2) {
+      return ContributionColors.level2;
     } else {
-      return level1Contribution;
+      return ContributionColors.level1;
     }
   }
 
@@ -42,7 +33,7 @@ class DailyContribution extends StatelessWidget {
   Widget build(BuildContext context) {
     final String formattedDate = _getFormattedDate(date);
     final String lectureLabel = _getLectureLabel(contribution);
-    final Color contribColor = _getContribColor(contribution);
+    final Color contribColor = _getContributionColor(contribution);
 
     return Center(
       child: Tooltip(
@@ -64,4 +55,18 @@ class DailyContribution extends StatelessWidget {
       ),
     );
   }
+}
+
+class ContributionColors {
+  static Color get level4 => const Color.fromRGBO(32, 121, 255, 1);
+  static Color get level3 => const Color.fromRGBO(112, 164, 242, 1);
+  static Color get level2 => const Color.fromRGBO(199, 214, 237, 1);
+  static Color get level1 => const Color.fromRGBO(255, 255, 255, 1);
+}
+
+class ContributionLevels {
+  static int get level4 => 5;
+  static int get level3 => 3;
+  static int get level2 => 1;
+  static int get level1 => 0;
 }
