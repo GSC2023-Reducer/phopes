@@ -1,9 +1,12 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:classdetailpage/services/api_service.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import './pdf_viewer.dart';
 
 class DetailScreen extends StatelessWidget {
-  final String title, asset, author;
+  final String title, asset, author, genre, thumb;
   var isRead;
 
   DetailScreen({
@@ -12,6 +15,8 @@ class DetailScreen extends StatelessWidget {
     required this.asset,
     required this.author,
     required this.isRead,
+    required this.genre,
+    required this.thumb,
   });
 
   @override
@@ -19,8 +24,14 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        // leading action 등 버튼 아이콘의 위치에 원하는 아이콘을 지정한다.
-        title: Text('${this.title}', style: TextStyle(color: Colors.black)),
+        title: Text('${this.title}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 40 / 2,
+              letterSpacing: -1.0,
+              fontWeight: FontWeight.w200,
+              fontFamily: 'Noto Sans CJK KR, Medium',
+            )),
         centerTitle: true,
         elevation: 0.0,
         iconTheme: IconThemeData(
@@ -28,47 +39,78 @@ class DetailScreen extends StatelessWidget {
           weight: 700,
         ),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.45,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(48 / 2, 25 / 2, 48 / 2, 10),
+        child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              ClipRRect(
-                //둥근 모서리
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image(
-                    image:
-                        // 해당 파일의 title과 author 값을 가지고 api 값을 호출한다.
-                        AssetImage(this.asset),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    fit: BoxFit.fill),
-              ),
+              Container(
+                  width: 654 / 2,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image(
+                                image: AssetImage(this.thumb),
+                                width: 654 / 2,
+                                height: 400 / 2,
+                                fit: BoxFit.fill)),
+                        SizedBox(height: 24 / 2),
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          title: Text('${this.author}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  letterSpacing: -0.6,
+                                  fontSize: 48 / 2,
+                                  fontFamily: 'Noto Sans CJK KR, Medium',
+                                  fontWeight: FontWeight.w600)),
+                          subtitle: Text('${this.genre}',
+                              style: TextStyle(
+                                  color: Color(0xff767676),
+                                  fontSize: 24 / 2,
+                                  letterSpacing: -0.6,
+                                  fontFamily: 'Noto Sans CJK KR, Medium',
+                                  fontWeight: FontWeight.w200)),
+                        ),
+                      ],
+                    ),
+                  )),
+              SizedBox(height: 24 / 2),
               Container(
                 child: Column(
-                  children: <Widget>[
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                    ListTile(
-                      title: Text('${this.title}',
-                          style: TextStyle(
-                              color: Colors.black,
-                              letterSpacing: 2,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.03,
-                              fontWeight: FontWeight.bold)),
-                      subtitle: Text('${this.author}',
-                          style: TextStyle(
-                              color: Colors.black,
-                              letterSpacing: 2,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.018,
-                              fontWeight: FontWeight.bold)),
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => pdf_viewer(asset: indexAsset),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Full-Screen Click',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Color.fromARGB(170, 244, 101, 91),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 24 / 2),
+                    SingleChildScrollView(
+                      child: Container(
+                        height: 350,
+                        child: SfPdfViewer.asset('assets/q656.pdf'),
+                      ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
