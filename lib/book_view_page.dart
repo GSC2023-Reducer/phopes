@@ -1,10 +1,5 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'book_detail_page.dart';
-import 'services/api_services.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-
 
 class BookViewPage extends StatelessWidget {
   final String title, asset, author, genre, thumb;
@@ -25,7 +20,7 @@ class BookViewPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('${this.title}',
+        title: Text(title,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 40 / 2,
@@ -35,7 +30,7 @@ class BookViewPage extends StatelessWidget {
             )),
         centerTitle: true,
         elevation: 0.0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black,
           weight: 700,
         ),
@@ -46,7 +41,7 @@ class BookViewPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
+              SizedBox(
                   width: 654 / 2,
                   child: Center(
                     child: Column(
@@ -54,22 +49,22 @@ class BookViewPage extends StatelessWidget {
                         ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image(
-                                image: AssetImage(this.thumb),
+                                image: AssetImage(thumb),
                                 width: 654 / 2,
                                 height: 400 / 2,
                                 fit: BoxFit.fill)),
-                        SizedBox(height: 24 / 2),
+                        const SizedBox(height: 24 / 2),
                         ListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: Text('${this.author}',
+                          title: Text(author,
                               style: const TextStyle(
                                   color: Colors.black,
                                   letterSpacing: -0.6,
                                   fontSize: 48 / 2,
                                   fontFamily: 'Noto Sans CJK KR, Medium',
                                   fontWeight: FontWeight.w600)),
-                          subtitle: Text('${this.genre}',
-                              style: TextStyle(
+                          subtitle: Text(genre,
+                              style: const TextStyle(
                                   color: Color(0xff767676),
                                   fontSize: 24 / 2,
                                   letterSpacing: -0.6,
@@ -79,14 +74,13 @@ class BookViewPage extends StatelessWidget {
                       ],
                     ),
                   )),
-              SizedBox(height: 24 / 2),
+              const SizedBox(height: 24 / 2),
               Container(
                 child: Column(
                   children: [
-
-                    SizedBox(height: 24 / 2),
+                    const SizedBox(height: 24 / 2),
                     SingleChildScrollView(
-                      child: Container(
+                      child: SizedBox(
                         height: 350,
                         child: SfPdfViewer.asset('assets/q656.pdf'),
                       ),

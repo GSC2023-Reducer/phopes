@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-class Class{
+class Class {
   String className;
   bool finish;
   DateTime recentTime;
@@ -8,6 +6,12 @@ class Class{
   double progress;
   DateTime startTime;
 
-  Class({required this.className, required this.finish, required this.recentTime, required this.imagePath, required this.progress,
-   required this.startTime});
+  Class({
+    required this.className,
+    required this.finish,
+    required this.recentTime,
+    required this.imagePath,
+    required this.progress,
+    required this.startTime,
+  });
 }
