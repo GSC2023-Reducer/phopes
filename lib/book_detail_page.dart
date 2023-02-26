@@ -1,32 +1,8 @@
 import './services/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:flutter/services.dart';
 import 'book_view_page.dart';
 import './models/book_model.dart';
-
-/*WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]); */
-
-/*void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Phopes',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const DetailPage(title: 'Phopes_DetailPage'),
-    );
-  }
-}*/
 
 class BookDetailPage extends StatefulWidget {
   const BookDetailPage({super.key, required this.title});
@@ -47,7 +23,7 @@ class _BookDetailPage extends State<BookDetailPage> {
   List<OneBook> books = [];
 
   void waitForBooks() async {
-    books = await dataSerive.getData();
+    books = await dataService.getData();
 
     setState(() {});
   }
@@ -72,7 +48,7 @@ class _BookDetailPage extends State<BookDetailPage> {
           onPressed: null,
         ),
         title: Text(
-          '${books[0].genre}',
+          books[0].genre,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 40 / 2,
@@ -91,7 +67,7 @@ class _BookDetailPage extends State<BookDetailPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
+              SizedBox(
                   width: 654 / 2,
                   height: 648 / 2,
                   child: Center(
@@ -123,11 +99,11 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fit: BoxFit.fill),
                             ),
                           ),
-                          SizedBox(height: 24 / 2),
+                          const SizedBox(height: 24 / 2),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             title: Text(
-                              '${indexTitle}',
+                              indexTitle,
                               style: const TextStyle(
                                   color: Colors.black,
                                   letterSpacing: -0.6,
@@ -145,15 +121,15 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fontWeight: FontWeight.w200),
                             ),
                           ),
-                          SizedBox(height: 24 / 2),
+                          const SizedBox(height: 24 / 2),
                           LinearPercentIndicator(
                             width: 654 / 2,
                             animation: true,
                             animationDuration: 1000,
                             lineHeight: 36 / 2,
                             percent:
-                            books.where((x) => x.isRead == 'true').length /
-                                books.length,
+                                books.where((x) => x.isRead == 'true').length /
+                                    books.length,
                             center: Text(
                               "${((books.where((x) => (x.isRead == 'true')).length / books.length) * 100).toStringAsFixed(2)}%",
                               style: const TextStyle(
@@ -164,29 +140,29 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fontWeight: FontWeight.w100),
                             ), // 변수로 받고 문자열로 대입
                             linearStrokeCap: LinearStrokeCap.roundAll,
-                            progressColor: Color(0xff2079FF),
-                            backgroundColor: Color(0xffF1F1F5),
+                            progressColor: const Color(0xff2079FF),
+                            backgroundColor: const Color(0xffF1F1F5),
                           )
                         ]),
                   )),
-              SizedBox(height: 40 / 2),
-              Container(
+              const SizedBox(height: 40 / 2),
+              SizedBox(
                 width: 654 / 2,
                 height: 720 / 2,
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: books.map(
-                        (x) {
+                    (x) {
                       return GestureDetector(
                         onLongPress: () {
                           setState(
-                                () {
+                            () {
                               indexAuthor = x.author;
                               indexTitle = x.title;
                               indexThumb =
                                   ('${(books.where((x) => (x.title == indexTitle))).map((x) {
-                                    return x.thumb;
-                                  })}')
+                                return x.thumb;
+                              })}')
                                       .replaceAll('(', '')
                                       .replaceAll(')', '');
                               indexIsRead = x.isRead;
@@ -220,7 +196,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          activeColor: Color(0xff2079FF),
+                          activeColor: const Color(0xff2079FF),
                           checkColor: Colors.white,
                           secondary: const Icon(
                             Icons.book,
@@ -229,9 +205,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                           value: (x.isRead == 'true'),
                           onChanged: (value) {
                             setState(
-                                  () => {
-                                x.isRead = '${value}',
-                              },
+                              () => x.isRead = '$value',
                             );
                           },
                           selected: (x.isRead == 'true'),
