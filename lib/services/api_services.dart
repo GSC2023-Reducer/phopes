@@ -1,8 +1,6 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import '../models/book_model.dart';
 
-class dataSerive {
+class dataService {
   static getData() {
     final List<Map<String, dynamic>> booksData = [
       {
