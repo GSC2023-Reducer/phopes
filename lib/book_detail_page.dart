@@ -1,32 +1,8 @@
 import './services/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:flutter/services.dart';
 import 'book_view_page.dart';
 import './models/book_model.dart';
-
-/*WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]); */
-
-/*void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Phopes',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const DetailPage(title: 'Phopes_DetailPage'),
-    );
-  }
-}*/
 
 class BookDetailPage extends StatefulWidget {
   const BookDetailPage({
@@ -48,7 +24,7 @@ class _BookDetailPage extends State<BookDetailPage> {
   List<OneBook> books = [];
 
   void waitForBooks() async {
-    books = await dataSerive.getData();
+    books = await dataService.getData();
 
     setState(() {});
   }
@@ -71,7 +47,7 @@ class _BookDetailPage extends State<BookDetailPage> {
             },
             color: Color(0xff191919)),
         title: Text(
-          '${books[0].genre}',
+          books[0].genre,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 40 / 2,
@@ -90,7 +66,7 @@ class _BookDetailPage extends State<BookDetailPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
+              SizedBox(
                   width: 654 / 2,
                   height: 648 / 2,
                   child: Center(
@@ -122,11 +98,11 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fit: BoxFit.fill),
                             ),
                           ),
-                          SizedBox(height: 24 / 2),
+                          const SizedBox(height: 24 / 2),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             title: Text(
-                              '${indexTitle}',
+                              indexTitle,
                               style: const TextStyle(
                                   color: Colors.black,
                                   letterSpacing: -0.6,
@@ -144,7 +120,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fontWeight: FontWeight.w200),
                             ),
                           ),
-                          SizedBox(height: 24 / 2),
+                          const SizedBox(height: 24 / 2),
                           LinearPercentIndicator(
                             width: 654 / 2,
                             animation: true,
@@ -162,14 +138,14 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fontFamily: 'Noto Sans CJK KR, Medium',
                                   fontWeight: FontWeight.w100),
                             ), // 변수로 받고 문자열로 대입
+                            progressColor: const Color(0xff2079FF),
+                            backgroundColor: const Color(0xffF1F1F5),
                             barRadius: const Radius.circular(16),
-                            progressColor: Color(0xff2079FF),
-                            backgroundColor: Color(0xffF1F1F5),
                           )
                         ]),
                   )),
-              SizedBox(height: 40 / 2),
-              Container(
+              const SizedBox(height: 40 / 2),
+              SizedBox(
                 width: 654 / 2,
                 height: 720 / 2,
                 child: ListView(
@@ -219,7 +195,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          activeColor: Color(0xff2079FF),
+                          activeColor: const Color(0xff2079FF),
                           checkColor: Colors.white,
                           secondary: const Icon(
                             Icons.book,
@@ -228,9 +204,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                           value: (x.isRead == 'true'),
                           onChanged: (value) {
                             setState(
-                              () => {
-                                x.isRead = '${value}',
-                              },
+                              () => x.isRead = '$value',
                             );
                           },
                           selected: (x.isRead == 'true'),

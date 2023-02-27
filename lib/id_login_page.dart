@@ -1,18 +1,12 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:crypto/crypto.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'code_login_page.dart';
 import "sign_page.dart";
-import 'student_home_page.dart';
 import 'data/user.dart';
 /*import 'package:firebase_auth/firebase_auth.dart';*/
 
 class IdLoginPage extends StatefulWidget {
+  const IdLoginPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _IdLoginPage();
 }
@@ -55,30 +49,30 @@ class _IdLoginPage extends State<IdLoginPage>
 
   @override
   Widget build(BuildContext context) {
-    bool? _isChecked = false;
+    bool? isChecked = false;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("로그인",
+        title: const Text("로그인",
             style: TextStyle(
               fontFamily: 'NotoSansKR',
               fontWeight: FontWeight.w500,
               color: Color(0xff191919),
             )),
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: const Color(0xffffffff),
         leading: IconButton(
-            icon: Icon(Icons.arrow_back_outlined),
+            icon: const Icon(Icons.arrow_back_outlined),
             onPressed: () {
               Navigator.pop(context);
             },
-            color: Color(0xff191919)),
+            color: const Color(0xff191919)),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 80),
-            SizedBox(
+            const SizedBox(height: 80),
+            const SizedBox(
               width: 330,
               child: Text("일반회원\n로그인",
                   style: TextStyle(
@@ -88,14 +82,14 @@ class _IdLoginPage extends State<IdLoginPage>
                       color: Color(0xff191919),
                       fontSize: 30)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
                 width: 340,
                 child: TextField(
                   controller: _idTextController,
                   maxLines: 1,
-                  decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
+                  decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffffffff)),
                       ),
                       hintText: ('아이디 또는 이메일을 입력해주세요'),
@@ -112,8 +106,8 @@ class _IdLoginPage extends State<IdLoginPage>
                 child: TextField(
                   controller: _pwTextController,
                   maxLines: 1,
-                  decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
+                  decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffffffff)),
                       ),
                       hintText: ('비밀번호를 입력해주세요'),
@@ -131,12 +125,12 @@ class _IdLoginPage extends State<IdLoginPage>
               children: <Widget>[
                 SizedBox(
                     child: Checkbox(
-                  activeColor: Color(0xff2079FF),
+                  activeColor: const Color(0xff2079FF),
                   checkColor: Colors.white,
-                  value: _isChecked,
+                  value: isChecked,
                   onChanged: (value) {
                     setState(() {
-                      _isChecked = value;
+                      isChecked = value;
                     });
                   },
                   shape: RoundedRectangleBorder(
@@ -144,10 +138,10 @@ class _IdLoginPage extends State<IdLoginPage>
                   ),
                   side: MaterialStateBorderSide.resolveWith(
                     (states) =>
-                        BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
+                        const BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
                   ),
                 )),
-                SizedBox(
+                const SizedBox(
                     child: Text("자동 로그인",
                         style: TextStyle(
                             fontFamily: 'NotoSansKR',
@@ -156,29 +150,29 @@ class _IdLoginPage extends State<IdLoginPage>
                             fontSize: 15))),
                 SizedBox(
                     child: Checkbox(
-                  activeColor: Color(0xff2079FF),
+                  activeColor: const Color(0xff2079FF),
                   checkColor: Colors.white,
-                  value: _isChecked,
+                  value: isChecked,
                   onChanged: (value) {
                     setState(() {
-                      _isChecked = value;
+                      isChecked = value;
                     });
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   side: MaterialStateBorderSide.resolveWith(
                     (states) =>
-                        BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
+                        const BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
                   ),
                 )),
-                SizedBox(
+                const SizedBox(
                     child: Text("아이디 저장",
                         style: TextStyle(
                             fontFamily: 'NotoSansKR',
                             fontWeight: FontWeight.w500,
                             color: Color(0xff191919),
                             fontSize: 15))),
-                SizedBox(width: 120),
+                const SizedBox(width: 120),
               ],
             ),
             MaterialButton(
@@ -186,8 +180,8 @@ class _IdLoginPage extends State<IdLoginPage>
                 height: 50,
                 onPressed: () {
                   /*userlist에서 아이디, 비번을 조회하는 것이 아니라 db에서 조회해야함*/
-                  if (_idTextController?.value.text.length == 0 ||
-                      _pwTextController?.value.text.length == 0) {
+                  if (_idTextController?.value.text.isEmpty ||
+                      _pwTextController?.value.text.isEmpty) {
                     makeDialog("아이디와 비밀번호를 입력하세요");
                   } else {
                     if (idCheck(_idTextController?.value.text) == -1) {
@@ -204,18 +198,18 @@ class _IdLoginPage extends State<IdLoginPage>
                     }
                   }
                 },
-                child: Text("로그인",
+                color: Colors.blueAccent,
+                child: const Text("로그인",
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,
                         color: Color(0xffFFFFFF),
-                        fontSize: 17)),
-                color: Colors.blueAccent),
-            SizedBox(height: 10),
+                        fontSize: 17))),
+            const SizedBox(height: 10),
             SizedBox(
               child: RichText(
                 text: TextSpan(children: [
-                  TextSpan(
+                  const TextSpan(
                       text: '계정을 잊으셨나요?',
                       style: TextStyle(color: Colors.black)),
                   TextSpan(
@@ -224,25 +218,26 @@ class _IdLoginPage extends State<IdLoginPage>
                         ..onTapDown = (details) {
                           print(details.globalPosition);
                         },
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
-                  TextSpan(text: ' 또는', style: TextStyle(color: Colors.black)),
+                  const TextSpan(
+                      text: ' 또는', style: TextStyle(color: Colors.black)),
                   TextSpan(
                       text: ' 비밀번호 찾기',
                       recognizer: TapGestureRecognizer()
                         ..onTapDown = (details) {
                           print(details.globalPosition);
                         },
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold)),
                 ]),
               ),
             ),
-            SizedBox(height: 140),
+            const SizedBox(height: 140),
             SizedBox(
               child: RichText(
                 text: TextSpan(children: [
-                  TextSpan(
+                  const TextSpan(
                       text: '아직 회원이 아니신가요?',
                       style: TextStyle(
                           fontFamily: 'NotoSansKR',
@@ -256,7 +251,7 @@ class _IdLoginPage extends State<IdLoginPage>
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => SignPage()));
                         },
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'NotoSansKR',
                           fontWeight: FontWeight.w500,
                           color: Color(0xff191919),

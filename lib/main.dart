@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '/code_login_page.dart';
-import '/study_plan_page.dart';
-import 'id_login_page.dart';
+import 'package:phopes_cjw/code_login_page.dart';
+import 'package:phopes_cjw/study_plan_page.dart';
 import 'student_home_page.dart';
 import 'first_page.dart';
-import 'book_detail_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,11 +18,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primarySwatch: Colors.blue),
         initialRoute: '/first',
         routes: {
-          '/first': (context) => FirstPage(),
-          '/main': (context) => StudentHomePage(),
-          '/code': (context) => CodeLoginPage(),
-          '/study_plan': (context) => StudyPlanPage(),
-          '/book_detail_page': (context) => BookDetailPage(),
+          '/first': (context) => const FirstPage(),
+          '/main': (context) => const StudentHomePage(),
+          '/code': (context) => const CodeLoginPage(),
+          '/study_plan': (context) => const StudyPlanPage(),
         });
   }
 }

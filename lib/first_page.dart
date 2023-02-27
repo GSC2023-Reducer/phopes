@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'code_login_page.dart';
 
 class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -13,14 +14,14 @@ class FirstPage extends StatelessWidget {
         child: MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
           child: Scaffold(
-            backgroundColor: Color(0xffE6E5E5),
+            backgroundColor: const Color(0xffE6E5E5),
             body: Container(
                 child: Stack(
               children: <Widget>[
-                Positioned(
+                const Positioned(
                   top: 430,
                   left: 25,
-                  child: Container(
+                  child: SizedBox(
                       width: 220,
                       height: 150,
                       child: Text("나의 공기계가\n아이들에게\n교육의 기회를",
@@ -31,10 +32,10 @@ class FirstPage extends StatelessWidget {
                               color: Color(0xff707070),
                               fontSize: 36))),
                 ),
-                Positioned(
+                const Positioned(
                   top: 575,
                   left: 25,
-                  child: Container(
+                  child: SizedBox(
                       width: 250,
                       height: 100,
                       child: Text("나눔의 주인공이 되어보세요",
@@ -50,10 +51,10 @@ class FirstPage extends StatelessWidget {
                   child: FloatingActionButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CodeLoginPage()));
+                          builder: (context) => const CodeLoginPage()));
                     },
-                    child: Icon(Icons.arrow_forward_rounded),
-                    backgroundColor: Color(0xff2079FF),
+                    backgroundColor: const Color(0xff2079FF),
+                    child: const Icon(Icons.arrow_forward_rounded),
                   ),
                 ),
               ],
