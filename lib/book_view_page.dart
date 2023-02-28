@@ -1,26 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'services/chapter_services.dart';
+import 'models/chapter_model.dart';
 
-class BookViewPage extends StatelessWidget {
-  final String title, asset, author, genre, thumb;
+class BookViewPage extends StatefulWidget {
+  String tapChapterTitle, tapChapterId;
   var isRead;
 
   BookViewPage({
     super.key,
-    required this.title,
-    required this.asset,
-    required this.author,
+    required this.tapChapterTitle,
+    required this.tapChapterId,
     required this.isRead,
-    required this.genre,
-    required this.thumb,
   });
+
+  @override
+  State<BookViewPage> createState() => _BookViewPageState();
+}
+
+class _BookViewPageState extends State<BookViewPage> {
+  ChapterModel chapterInfo = ChapterModel(
+    id: '',
+    name: '',
+    isRead: false,
+    prev: '',
+    next: '',
+    content: '',
+  );
+
+  void waitForData() async {
+    chapterInfo = await ChapterInfo.getData(widget.tapChapterId);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    waitForData();
+  }
+
+  // 버튼을 누르면 다음 또는 이전 페이지로 이동하는 것을 tapChpaterID = prev or next로 해서 waitForData 상태를 새로 변경하기
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(title,
+        title: Text(widget.tapChapterTitle,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 40 / 2,
@@ -41,46 +66,34 @@ class BookViewPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                width: 654 / 2,
-                child: Center(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 24 / 2),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(author,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                letterSpacing: -0.6,
-                                fontSize: 48 / 2,
-                                fontFamily: 'Noto Sans CJK KR, Medium',
-                                fontWeight: FontWeight.w600)),
-                        subtitle: Text(genre,
-                            style: const TextStyle(
-                                color: Color(0xff767676),
-                                fontSize: 24 / 2,
-                                letterSpacing: -0.6,
-                                fontFamily: 'Noto Sans CJK KR, Medium',
-                                fontWeight: FontWeight.w200)),
-                      ),
-                    ],
+              const SizedBox(height: 24 / 2),
+              Container(
+                child: Container(
+                  height: 600,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Text(chapterInfo.content,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 40 / 2,
+                          letterSpacing: -1.0,
+                          fontWeight: FontWeight.w200,
+                          fontFamily: 'Noto Sans CJK KR, Medium',
+                        )),
                   ),
                 ),
               ),
-              const SizedBox(height: 24 / 2),
-              Container(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 24 / 2),
-                    SingleChildScrollView(
-                      child: SizedBox(
-                        height: 600,
-                        child: SfPdfViewer.asset('assets/q656.pdf'),
-                      ),
-                    ),
-                  ],
-                ),
+              FloatingActionButton.small(
+                child: Icon(Icons.navigate_next),
+                onPressed: () {
+                  widget.tapChapterId = chapterInfo.next;
+                },
+              ),
+              FloatingActionButton.small(
+                child: Icon(Icons.navigate_before),
+                onPressed: () {
+                  widget.tapChapterId = chapterInfo.prev;
+                },
               ),
             ],
           ),

@@ -110,7 +110,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      const Column(
+                      Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(
@@ -156,8 +156,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                                 color: Color(0xff767676),
                                 fontSize: 20)),
                         onTap: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed('/study_plan');
+                          Navigator.of(context).pushNamed('/study_plan');
                         } /*학습플랜 창으로 넘어가기*/
                         )),
                 Container(
@@ -193,12 +192,12 @@ class _StudentHomePage extends State<StudentHomePage> {
               if (position == 0) {
                 return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BookDetailPage(
-                                    title: indexTitle,
-                                  )));
+                      Navigator.of(context).pushNamed(
+                        '/book_detail_page',
+                        /*arguments: const BookDetailPage(
+                          bookId: '3bqdJxSYWZ25UNiN6pT0',
+                        ),*/
+                      );
                     },
                     child: Card(
                         elevation: 0,
