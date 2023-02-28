@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   convert: ^3.0.1
+  provider: ^6.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -88,6 +89,7 @@ flutter:
     - assets/littleprince/bookChapter/7.json 
     - assets/littleprince/bookChapter/8.json 
     - assets/littleprince/bookChapter/9.json 
+    - assets/littleprince/bookChapter/10.json 
     - assets\images\littlePrince.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
