@@ -1,0 +1,6 @@
+{
+    "emulator.emulatorPath": "~/Library/Android/sdk/emulator",
+    "emulator.emulatorPathWindows": "",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.formatOnSave": true
+}

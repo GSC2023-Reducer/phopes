@@ -180,8 +180,8 @@ class _IdLoginPage extends State<IdLoginPage>
                 height: 50,
                 onPressed: () {
                   /*userlist에서 아이디, 비번을 조회하는 것이 아니라 db에서 조회해야함*/
-                  if (_idTextController?.value.text.isEmpty ||
-                      _pwTextController?.value.text.isEmpty) {
+                  if (_idTextController!.value.text.isEmpty ||
+                      _pwTextController!.value.text.isEmpty) {
                     makeDialog("아이디와 비밀번호를 입력하세요");
                   } else {
                     if (idCheck(_idTextController?.value.text) == -1) {

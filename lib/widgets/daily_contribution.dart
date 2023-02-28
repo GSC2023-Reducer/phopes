@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phopes_cjw/utils.dart';
+import '/utils.dart';
 
 class DailyContribution extends StatelessWidget {
   final int contribution;

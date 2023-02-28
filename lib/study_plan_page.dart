@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phopes_cjw/widgets/daily_contribution.dart';
+import '/widgets/daily_contribution.dart';
 
 final List<Map> item = [
   {
@@ -46,6 +46,11 @@ class StudyPlanPage extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
+              IconButton(
+                  icon: Icon(Icons.arrow_back_outlined),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
               const Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: 26,

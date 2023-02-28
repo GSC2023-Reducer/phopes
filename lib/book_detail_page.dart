@@ -1,54 +1,67 @@
-import './services/api_services.dart';
+import 'package:phopes/models/book_model.dart';
+import 'package:phopes/models/chapters_model.dart';
+import 'package:phopes/services/chapters_services.dart';
+import 'services/book_services.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'book_view_page.dart';
-import './models/book_model.dart';
 
 class BookDetailPage extends StatefulWidget {
-  const BookDetailPage({super.key, required this.title});
-  final String title;
+  // final String bookId;
+
+  const BookDetailPage({
+    super.key,
+    // required this.bookId,
+  });
 
   @override
   State<BookDetailPage> createState() => _BookDetailPage();
 }
 
-var indexTitle = '강의를 선택하세요';
-var indexThumb = 'assets/images/books.jpg';
-var indexIsRead = '';
-var indexAuthor = '';
-var indexGenre = '';
-var indexAsset = '';
-
 class _BookDetailPage extends State<BookDetailPage> {
-  List<OneBook> books = [];
+  BookModel bookInfo = BookModel(
+    title: '',
+    thumbnail: '',
+    isRead: false,
+    numChapters: 0,
+    id: '',
+    author: '',
+  );
 
-  void waitForBooks() async {
-    books = await dataService.getData();
+  ChaptersModel chaptersInfo = ChaptersModel(
+    chapters: [],
+    isRead: false,
+    id: '',
+    bookId: '',
+  );
 
+  void waitForData() async {
+    bookInfo = await BookInfo.getData();
+    chaptersInfo = await ChaptersInfo.getData();
     setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    waitForBooks();
+    waitForData();
   }
+
+  var tapChapterTitle = '목차를 선택하세요';
+  var tapChapterId = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: const IconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: null,
-        ),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_outlined),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            color: const Color(0xff191919)),
         title: Text(
-          books[0].genre,
+          bookInfo.title,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 40 / 2,
@@ -82,18 +95,16 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => BookViewPage(
-                                        title: indexTitle,
-                                        asset: indexAsset,
-                                        author: indexAuthor,
-                                        isRead: indexIsRead,
-                                        thumb: indexThumb,
-                                        genre: indexGenre),
+                                      tapChapterTitle: tapChapterTitle,
+                                      tapChapterId: tapChapterId,
+                                      isRead: true,
+                                    ),
                                     fullscreenDialog: true,
                                   ),
                                 );
                               },
                               child: Image(
-                                  image: AssetImage(indexThumb),
+                                  image: AssetImage(bookInfo.thumbnail),
                                   width: 654 / 2,
                                   height: 400 / 2,
                                   fit: BoxFit.fill),
@@ -103,7 +114,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             title: Text(
-                              indexTitle,
+                              tapChapterTitle,
                               style: const TextStyle(
                                   color: Colors.black,
                                   letterSpacing: -0.6,
@@ -111,38 +122,8 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fontFamily: 'Noto Sans CJK KR, Medium',
                                   fontWeight: FontWeight.w600),
                             ),
-                            subtitle: const Text(
-                              '나의 학습 진도율',
-                              style: TextStyle(
-                                  color: Color(0xff767676),
-                                  fontSize: 24 / 2,
-                                  letterSpacing: -0.6,
-                                  fontFamily: 'Noto Sans CJK KR, Medium',
-                                  fontWeight: FontWeight.w200),
-                            ),
                           ),
                           const SizedBox(height: 24 / 2),
-                          LinearPercentIndicator(
-                            width: 654 / 2,
-                            animation: true,
-                            animationDuration: 1000,
-                            lineHeight: 36 / 2,
-                            percent:
-                                books.where((x) => x.isRead == 'true').length /
-                                    books.length,
-                            center: Text(
-                              "${((books.where((x) => (x.isRead == 'true')).length / books.length) * 100).toStringAsFixed(2)}%",
-                              style: const TextStyle(
-                                  fontSize: 35 / 2,
-                                  color: Colors.black,
-                                  letterSpacing: 0,
-                                  fontFamily: 'Noto Sans CJK KR, Medium',
-                                  fontWeight: FontWeight.w100),
-                            ), // 변수로 받고 문자열로 대입
-                            linearStrokeCap: LinearStrokeCap.roundAll,
-                            progressColor: const Color(0xff2079FF),
-                            backgroundColor: const Color(0xffF1F1F5),
-                          )
                         ]),
                   )),
               const SizedBox(height: 40 / 2),
@@ -151,30 +132,21 @@ class _BookDetailPage extends State<BookDetailPage> {
                 height: 720 / 2,
                 child: ListView(
                   scrollDirection: Axis.vertical,
-                  children: books.map(
+                  children: chaptersInfo.chapters.map(
                     (x) {
                       return GestureDetector(
                         onLongPress: () {
                           setState(
                             () {
-                              indexAuthor = x.author;
-                              indexTitle = x.title;
-                              indexThumb =
-                                  ('${(books.where((x) => (x.title == indexTitle))).map((x) {
-                                return x.thumb;
-                              })}')
-                                      .replaceAll('(', '')
-                                      .replaceAll(')', '');
-                              indexIsRead = x.isRead;
-                              indexGenre = x.genre;
-                              indexAsset = x.asset;
+                              tapChapterTitle = x.name;
+                              tapChapterId = x.bookChapterId;
                             },
                           );
                         },
-                        child: CheckboxListTile(
+                        child: ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: Text(
-                            x.title,
+                            '${x.name}',
                             style: const TextStyle(
                               color: Color(0xff767676),
                               fontSize: 16,
@@ -183,32 +155,9 @@ class _BookDetailPage extends State<BookDetailPage> {
                               fontFamily: 'Noto Sans CJK KR, Medium',
                             ),
                           ),
-                          subtitle: Text(
-                            x.author,
-                            style: const TextStyle(
-                              color: Color(0xff767676),
-                              fontSize: 13,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.w100,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
-                            ),
-                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          activeColor: const Color(0xff2079FF),
-                          checkColor: Colors.white,
-                          secondary: const Icon(
-                            Icons.book,
-                            size: 24,
-                          ),
-                          value: (x.isRead == 'true'),
-                          onChanged: (value) {
-                            setState(
-                              () => x.isRead = '$value',
-                            );
-                          },
-                          selected: (x.isRead == 'true'),
                         ),
                       );
                     },

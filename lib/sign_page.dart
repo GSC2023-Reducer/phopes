@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 //import 'package:crypto/crypto.dart';
-//import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart';
 /*import 'package:phopes_firstpage/data/user_register.dart';*/
 
 class SignPage extends StatefulWidget {
