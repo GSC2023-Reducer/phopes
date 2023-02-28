@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'book_view_page.dart';
 
 class BookDetailPage extends StatefulWidget {
-  // final String bookId;
-
   const BookDetailPage({
     super.key,
     // required this.bookId,
@@ -51,6 +49,8 @@ class _BookDetailPage extends State<BookDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final String args = ModalRoute.of(context)!.settings.arguments
+        as String; //넘어온 arguments(id)저장
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
