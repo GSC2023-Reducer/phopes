@@ -1,7 +1,7 @@
 class BookModel {
   final String title, author, thumbnail, id;
-  int numChapters;
-  bool isRead = false;
+  final int numChapters;
+  bool isRead;
   BookModel({
     required this.title,
     required this.author,

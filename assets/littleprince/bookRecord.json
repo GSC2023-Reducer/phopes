@@ -1,0 +1,15 @@
+{
+    "bookId": "3bqdJxSYWZ25UNiN6pT0",
+    "currentChapter": "3",
+    "isFinished": false,
+    "startedAt": "2023'-'01'-'02",
+    "lastReadAt": "2023'-'02'-'22",
+    "readChapters": [
+        {
+            "bookChapterId": "1"
+        },
+        {
+            "bookChapterId": "2"
+        }
+    ]
+}
