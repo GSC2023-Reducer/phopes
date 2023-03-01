@@ -1,11 +1,11 @@
 import 'package:intl/intl.dart';
+//import 'package:crypto/crypto.dart';
+import 'package:firebase_database/firebase_database.dart';
+/*import 'package:phopes_firstpage/data/user_register.dart';*/
 import 'package:flutter/material.dart';
+import 'data/class.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'book_detail_page.dart';
-import 'package:phopes/models/book_model.dart';
-import 'package:phopes/models/bookRecord_model.dart';
-import 'services/book_services.dart';
-import 'services/bookRecord_services.dart';
 
 class StudentHomePage extends StatefulWidget {
   const StudentHomePage({super.key});
@@ -15,39 +15,60 @@ class StudentHomePage extends StatefulWidget {
 }
 
 class _StudentHomePage extends State<StudentHomePage> {
-  // List<Class> classList = List.empty(growable: true);
-  // int maxIndex = 0;
-
-  BookModel bookInfo = BookModel(
-    title: '',
-    thumbnail: '',
-    isRead: false,
-    numChapters: 0,
-    id: '',
-    author: '',
-  );
-  BookRecordModel bookRecordInfo = BookRecordModel(
-      bookId: '',
-      currentChapter: '',
-      isFinished: false,
-      startedAt: '',
-      lastReadAt: '',
-      readChapters: []);
-
-  void waitForData() async {
-    print("a");
-    bookInfo = await BookInfo.getData();
-    print("b");
-    bookRecordInfo = await BookRecordInfo.getData();
-    print("c");
-    setState(() {});
-  }
-
+  List<Class> classList = List.empty(growable: true);
+  int maxIndex = 0;
   @override
   void initState() {
     super.initState();
-    print("d");
-    waitForData();
+    /* DB에 담겨야할 내용*/
+    classList.add(Class(
+        className: "어린왕자",
+        finish: false,
+        recentTime: DateTime.utc(2023, 2, 20),
+        imagePath: "repo/images/littlePrince.jpg",
+        progress: 0.7,
+        startTime: DateTime.utc(2023, 2, 1)));
+    classList.add(Class(
+        className: "시지프 신화",
+        finish: false,
+        recentTime: DateTime.utc(2023, 2, 19),
+        imagePath: "repo/images/sisyphus.jpg",
+        progress: 0.3,
+        startTime: DateTime.utc(2023, 2, 2)));
+    classList.add(Class(
+        className: "삼국지",
+        finish: false,
+        recentTime: DateTime.utc(2023, 2, 21),
+        imagePath: "repo/images/samguk.jpeg",
+        progress: 0.1,
+        startTime: DateTime.utc(2023, 2, 3)));
+    classList.add(Class(
+        className: "슬램덩크",
+        finish: false,
+        recentTime: DateTime.utc(2023, 2, 22),
+        imagePath: "repo/images/slamdunk.jpeg",
+        progress: 0.9,
+        startTime: DateTime.utc(2023, 2, 4)));
+    classList.add(Class(
+        className: "로미오와 줄리엣",
+        finish: false,
+        recentTime: DateTime.utc(2023, 2, 17),
+        imagePath: "repo/images/romeo.jpg",
+        progress: 0.5,
+        startTime: DateTime.utc(2023, 2, 5)));
+
+    DateTime max = classList[0].recentTime;
+
+    for (int i = 0; i < classList.length; i++) {
+      if (DateFormat.yMMMd('en_US')
+              .format(classList[maxIndex].recentTime)
+              .compareTo(
+                  DateFormat.yMMMd('en_US').format(classList[i].recentTime)) ==
+          1) {
+        maxIndex = i;
+        max = classList[i].recentTime;
+      }
+    }
   }
 
   @override
@@ -166,14 +187,16 @@ class _StudentHomePage extends State<StudentHomePage> {
               child: Center(
                   child: ListView.builder(
             padding: const EdgeInsets.all(20),
-            itemCount: 1,
+            itemCount: classList.length + 1,
             itemBuilder: (context, position) {
               if (position == 0) {
                 return GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         '/book_detail_page',
-                        arguments: bookInfo.id,
+                        /*arguments: const BookDetailPage(
+                          bookId: '3bqdJxSYWZ25UNiN6pT0',
+                        ),*/
                       );
                     },
                     child: Card(
@@ -199,7 +222,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                                     topLeft: Radius.circular(20),
                                     topRight: Radius.circular(20)),
                               ),
-                              child: Image.asset(bookInfo.thumbnail,
+                              child: Image.asset(classList[maxIndex].imagePath,
                                   height: 200, width: 700)),
                           Container(
                             color: Colors.white,
@@ -207,7 +230,8 @@ class _StudentHomePage extends State<StudentHomePage> {
                                 width: double.infinity,
                                 transform:
                                     Matrix4.translationValues(0.0, -13.0, 0.0),
-                                child: Text("   ${bookInfo.title}",
+                                child: Text(
+                                    "   ${classList[maxIndex].className}",
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                         fontFamily: 'NotoSansKR',
@@ -223,14 +247,14 @@ class _StudentHomePage extends State<StudentHomePage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    const Text("나의 학습 진도율",
+                                    const Text("나의 진행도",
                                         style: TextStyle(
                                             fontFamily: 'NotoSansKR',
                                             fontWeight: FontWeight.w500,
                                             color: Color(0xff767676),
                                             fontSize: 12)),
                                     Text(
-                                        "${int.parse(bookRecordInfo.currentChapter).toDouble() / bookInfo.numChapters.toDouble() * 100}",
+                                        "${classList[maxIndex].progress * 100}%",
                                         style: const TextStyle(
                                             fontFamily: 'NotoSansKR',
                                             fontWeight: FontWeight.w500,
@@ -243,10 +267,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                               child: Container(
                                 child: LinearPercentIndicator(
                                     padding: EdgeInsets.zero,
-                                    percent:
-                                        int.parse(bookRecordInfo.currentChapter)
-                                                .toDouble() /
-                                            bookInfo.numChapters.toDouble(),
+                                    percent: classList[maxIndex].progress,
                                     lineHeight: 7,
                                     backgroundColor: const Color(0xffF1F1F5),
                                     progressColor: const Color(0x442079ff)),
@@ -264,14 +285,14 @@ class _StudentHomePage extends State<StudentHomePage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                        "학습 시작일 ${DateTime.parse(bookRecordInfo.startedAt)}",
+                                        "독서 시작일 ${DateFormat.yMMMd('en_US').format(classList[maxIndex].startTime)}",
                                         style: const TextStyle(
                                             fontFamily: 'NotoSansKR',
                                             fontWeight: FontWeight.w500,
                                             color: Color(0xff767676),
                                             fontSize: 12)),
                                     Text(
-                                        "최근 학습일 ${DateTime.parse(bookRecordInfo.lastReadAt)}",
+                                        "최근 독서 ${DateFormat.yMMMd('en_US').format(classList[maxIndex].recentTime)}",
                                         style: const TextStyle(
                                             fontFamily: 'NotoSansKR',
                                             fontWeight: FontWeight.w500,
@@ -302,14 +323,14 @@ class _StudentHomePage extends State<StudentHomePage> {
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
                         ),
-                        child: Image.asset(bookInfo.thumbnail,
+                        child: Image.asset(classList[position - 1].imagePath,
                             height: 200, width: 700)),
                     Container(
                       color: Colors.white,
                       child: Container(
                           width: double.infinity,
                           transform: Matrix4.translationValues(0.0, -13.0, 0.0),
-                          child: Text("   ${bookInfo.title}",
+                          child: Text("   ${classList[position - 1].className}",
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                   fontFamily: 'NotoSansKR',
@@ -324,14 +345,13 @@ class _StudentHomePage extends State<StudentHomePage> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              const Text("나의 학습 진도율",
+                              const Text("나의 진행도",
                                   style: TextStyle(
                                       fontFamily: 'NotoSansKR',
                                       fontWeight: FontWeight.w500,
                                       color: Color(0xff767676),
                                       fontSize: 12)),
-                              Text(
-                                  "${int.parse(bookRecordInfo.currentChapter).toDouble() / bookInfo.numChapters.toDouble() * 100}",
+                              Text("${classList[position - 1].progress * 100}%",
                                   style: const TextStyle(
                                       fontFamily: 'NotoSansKR',
                                       fontWeight: FontWeight.w500,
@@ -344,7 +364,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                         child: Container(
                           child: LinearPercentIndicator(
                               padding: EdgeInsets.zero,
-                              percent: 0.5,
+                              percent: classList[position - 1].progress,
                               lineHeight: 7,
                               backgroundColor: const Color(0xffF1F1F5),
                               progressColor: const Color(0x442079ff)),
@@ -361,14 +381,14 @@ class _StudentHomePage extends State<StudentHomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                  "학습 시작일 ${DateTime.parse(bookRecordInfo.startedAt)}",
+                                  "독서 시작일 ${DateFormat.yMMMd('en_US').format(classList[position - 1].startTime)}",
                                   style: const TextStyle(
                                       fontFamily: 'NotoSansKR',
                                       fontWeight: FontWeight.w500,
                                       color: Color(0xff767676),
                                       fontSize: 12)),
                               Text(
-                                  "최근 학습일 ${DateTime.parse(bookRecordInfo.lastReadAt)}",
+                                  "최근 독서 ${DateFormat.yMMMd('en_US').format(classList[position - 1].recentTime)}",
                                   style: const TextStyle(
                                       fontFamily: 'NotoSansKR',
                                       fontWeight: FontWeight.w500,

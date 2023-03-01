@@ -4,8 +4,12 @@ import 'package:phopes/services/chapters_services.dart';
 import 'services/book_services.dart';
 import 'package:flutter/material.dart';
 import 'book_view_page.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class BookDetailPage extends StatefulWidget {
+  // final String bookId = '3bqdJxSYWZ25UNiN6pT0';
+  // 어떤 책을 가져올 것인지 구분하는 것을 생각해야한다.
+
   const BookDetailPage({
     super.key,
     // required this.bookId,
@@ -44,13 +48,22 @@ class _BookDetailPage extends State<BookDetailPage> {
     waitForData();
   }
 
-  var tapChapterTitle = '목차를 선택하세요';
+  /* void tapChangeIsRead(chapterId, tapIsRead) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        chaptersInfo.chapters
+            .where((x) => x.bookChapterId == chapterId)
+            .map((x) => {
+                  x.isRead = tapIsRead,
+                });
+      });
+    });
+  } */
+
   var tapChapterId = '';
 
   @override
   Widget build(BuildContext context) {
-    final String args = ModalRoute.of(context)!.settings.arguments
-        as String; //넘어온 arguments(id)저장
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -61,7 +74,7 @@ class _BookDetailPage extends State<BookDetailPage> {
             },
             color: const Color(0xff191919)),
         title: Text(
-          bookInfo.title,
+          '${bookInfo.title} 상세 페이지',
           style: const TextStyle(
             color: Colors.black,
             fontSize: 40 / 2,
@@ -89,32 +102,17 @@ class _BookDetailPage extends State<BookDetailPage> {
                         children: <Widget>[
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => BookViewPage(
-                                      tapChapterTitle: tapChapterTitle,
-                                      tapChapterId: tapChapterId,
-                                      isRead: true,
-                                    ),
-                                    fullscreenDialog: true,
-                                  ),
-                                );
-                              },
-                              child: Image(
-                                  image: AssetImage(bookInfo.thumbnail),
-                                  width: 654 / 2,
-                                  height: 400 / 2,
-                                  fit: BoxFit.fill),
-                            ),
+                            child: Image(
+                                image: AssetImage(bookInfo.thumbnail),
+                                width: 654 / 2,
+                                height: 400 / 2,
+                                fit: BoxFit.fill),
                           ),
                           const SizedBox(height: 24 / 2),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             title: Text(
-                              tapChapterTitle,
+                              bookInfo.title,
                               style: const TextStyle(
                                   color: Colors.black,
                                   letterSpacing: -0.6,
@@ -122,8 +120,39 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   fontFamily: 'Noto Sans CJK KR, Medium',
                                   fontWeight: FontWeight.w600),
                             ),
+                            subtitle: Text(
+                              bookInfo.author,
+                              style: const TextStyle(
+                                  color: Color(0xff767676),
+                                  fontSize: 24 / 2,
+                                  letterSpacing: -0.6,
+                                  fontFamily: 'Noto Sans CJK KR, Medium',
+                                  fontWeight: FontWeight.w200),
+                            ),
                           ),
                           const SizedBox(height: 24 / 2),
+                          LinearPercentIndicator(
+                            width: 654 / 2,
+                            animation: true,
+                            animationDuration: 1000,
+                            lineHeight: 36 / 2,
+                            percent: chaptersInfo.chapters
+                                    .where((x) => x.isRead == true)
+                                    .length /
+                                bookInfo.numChapters,
+                            center: Text(
+                              "${((chaptersInfo.chapters.where((x) => x.isRead == true).length / bookInfo.numChapters) * 100).toStringAsFixed(2)}%",
+                              style: const TextStyle(
+                                  fontSize: 35 / 2,
+                                  color: Colors.black,
+                                  letterSpacing: 0,
+                                  fontFamily: 'Noto Sans CJK KR, Medium',
+                                  fontWeight: FontWeight.w100),
+                            ),
+                            barRadius: const Radius.circular(16),
+                            progressColor: const Color(0xff2079FF),
+                            backgroundColor: const Color(0xffF1F1F5),
+                          )
                         ]),
                   )),
               const SizedBox(height: 40 / 2),
@@ -135,12 +164,19 @@ class _BookDetailPage extends State<BookDetailPage> {
                   children: chaptersInfo.chapters.map(
                     (x) {
                       return GestureDetector(
-                        onLongPress: () {
-                          setState(
-                            () {
-                              tapChapterTitle = x.name;
-                              tapChapterId = x.bookChapterId;
-                            },
+                        onTap: () {
+                          setState(() {
+                            tapChapterId = x.bookChapterId;
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BookViewPage(
+                                tapChapterId: tapChapterId,
+                                // tapChangeIsRead: tapChangeIsRead,
+                              ),
+                              fullscreenDialog: true,
+                            ),
                           );
                         },
                         child: ListTile(
@@ -155,6 +191,12 @@ class _BookDetailPage extends State<BookDetailPage> {
                               fontFamily: 'Noto Sans CJK KR, Medium',
                             ),
                           ),
+                          leading: const Icon(Icons.book),
+                          trailing: const Icon(Icons.check_circle),
+                          iconColor: (x.isRead == true)
+                              ? const Color.fromARGB(255, 50, 47, 255)
+                              : null,
+                          // 논리 수정 필요
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

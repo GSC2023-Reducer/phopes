@@ -3,14 +3,14 @@ import 'services/chapter_services.dart';
 import 'models/chapter_model.dart';
 
 class BookViewPage extends StatefulWidget {
-  String tapChapterTitle, tapChapterId;
-  var isRead;
+  final String tapChapterId;
+  // final Function(String, bool) tapChangeIsRead;
+  // final Function(String, bool) tapChangeIsRead;
 
   BookViewPage({
     super.key,
-    required this.tapChapterTitle,
     required this.tapChapterId,
-    required this.isRead,
+    // required this.tapChangeIsRead,
   });
 
   @override
@@ -21,7 +21,6 @@ class _BookViewPageState extends State<BookViewPage> {
   ChapterModel chapterInfo = ChapterModel(
     id: '',
     name: '',
-    isRead: false,
     prev: '',
     next: '',
     content: '',
@@ -45,7 +44,7 @@ class _BookViewPageState extends State<BookViewPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(widget.tapChapterTitle,
+        title: Text(chapterInfo.name,
             style: const TextStyle(
               color: Colors.black,
               fontSize: 40 / 2,
@@ -67,33 +66,63 @@ class _BookViewPageState extends State<BookViewPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               const SizedBox(height: 24 / 2),
-              Container(
-                child: Container(
-                  height: 600,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Text(chapterInfo.content,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 40 / 2,
-                          letterSpacing: -1.0,
-                          fontWeight: FontWeight.w200,
-                          fontFamily: 'Noto Sans CJK KR, Medium',
-                        )),
-                  ),
+              SizedBox(
+                height: 630,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(chapterInfo.content,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 40 / 2,
+                        letterSpacing: -1.0,
+                        fontWeight: FontWeight.w200,
+                        fontFamily: 'Noto Sans CJK KR, Medium',
+                      )),
                 ),
               ),
-              FloatingActionButton.small(
-                child: Icon(Icons.navigate_next),
-                onPressed: () {
-                  widget.tapChapterId = chapterInfo.next;
-                },
-              ),
-              FloatingActionButton.small(
-                child: Icon(Icons.navigate_before),
-                onPressed: () {
-                  widget.tapChapterId = chapterInfo.prev;
-                },
+              const SizedBox(height: 24 / 2),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  FloatingActionButton.extended(
+                    backgroundColor: Colors.blueGrey,
+                    icon: const Icon(Icons.navigate_before),
+                    onPressed: () {
+                      setState(() async {
+                        chapterInfo =
+                            await ChapterInfo.getData(chapterInfo.prev);
+                        setState(() {});
+                      });
+                    },
+                    label: const Text('Prev'),
+                  ),
+                  FloatingActionButton.extended(
+                    backgroundColor: Colors.blue,
+                    icon: const Icon(Icons.check),
+                    onPressed: () {
+                      // widget.tapChangeIsRead(chapterInfo.id, true);
+                    },
+                    label: const Text('Read'),
+                  ),
+                  FloatingActionButton.extended(
+                    backgroundColor: Colors.blueGrey,
+                    label: Row(
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: <Widget>[
+                        const Text("Next"),
+                        const Icon(Icons.navigate_next),
+                      ],
+                    ),
+                    icon: Container(),
+                    onPressed: () {
+                      setState(() async {
+                        chapterInfo =
+                            await ChapterInfo.getData(chapterInfo.next);
+                        setState(() {});
+                      });
+                    },
+                  ),
+                ],
               ),
             ],
           ),
