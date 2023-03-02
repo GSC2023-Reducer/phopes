@@ -7,7 +7,7 @@ class BookViewPage extends StatefulWidget {
   // final Function(String, bool) tapChangeIsRead;
   // final Function(String, bool) tapChangeIsRead;
 
-  BookViewPage({
+  const BookViewPage({
     super.key,
     required this.tapChapterId,
     // required this.tapChangeIsRead,
@@ -85,18 +85,17 @@ class _BookViewPageState extends State<BookViewPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   FloatingActionButton.extended(
+                    heroTag: 'prev',
                     backgroundColor: Colors.blueGrey,
                     icon: const Icon(Icons.navigate_before),
-                    onPressed: () {
-                      setState(() async {
-                        chapterInfo =
-                            await ChapterInfo.getData(chapterInfo.prev);
-                        setState(() {});
-                      });
+                    onPressed: () async {
+                      chapterInfo = await ChapterInfo.getData(chapterInfo.prev);
+                      setState(() {});
                     },
                     label: const Text('Prev'),
                   ),
                   FloatingActionButton.extended(
+                    heroTag: 'check',
                     backgroundColor: Colors.blue,
                     icon: const Icon(Icons.check),
                     onPressed: () {
@@ -105,6 +104,7 @@ class _BookViewPageState extends State<BookViewPage> {
                     label: const Text('Read'),
                   ),
                   FloatingActionButton.extended(
+                    heroTag: 'next',
                     backgroundColor: Colors.blueGrey,
                     label: Row(
                       // ignore: prefer_const_literals_to_create_immutables
@@ -114,12 +114,9 @@ class _BookViewPageState extends State<BookViewPage> {
                       ],
                     ),
                     icon: Container(),
-                    onPressed: () {
-                      setState(() async {
-                        chapterInfo =
-                            await ChapterInfo.getData(chapterInfo.next);
-                        setState(() {});
-                      });
+                    onPressed: () async {
+                      chapterInfo = await ChapterInfo.getData(chapterInfo.next);
+                      setState(() {});
                     },
                   ),
                 ],
