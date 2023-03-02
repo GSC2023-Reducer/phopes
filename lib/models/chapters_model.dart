@@ -27,16 +27,19 @@ class ChaptersModel {
 
 class ChaptersModelChapter {
   final String bookChapterId, name;
+  bool isRead;
 
   ChaptersModelChapter({
     required this.bookChapterId,
     required this.name,
+    required this.isRead,
   });
 
   factory ChaptersModelChapter.fromJson(Map<String, dynamic> chaptersJsonData) {
     return ChaptersModelChapter(
       bookChapterId: chaptersJsonData['bookChapterId'],
       name: chaptersJsonData['name'],
+      isRead: chaptersJsonData['isRead'],
     );
   }
 }
