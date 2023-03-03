@@ -2,284 +2,245 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "sign_page.dart";
 import 'data/user.dart';
-/*import 'package:firebase_auth/firebase_auth.dart';*/
+import 'models/auth_model.dart';
+import 'models/login_model.dart';
+import 'package:provider/provider.dart';
 
-class IdLoginPage extends StatefulWidget {
-  const IdLoginPage({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _IdLoginPage();
-}
-
-class _IdLoginPage extends State<IdLoginPage>
-    with SingleTickerProviderStateMixin {
-  /*FirebaseDatabase? _database;
-  DatabaseReference? reference;
-  String _databaseURL = 'https://phopescjw-43128-default-rtdb.firebaseio.com/';*/
-
-  TextEditingController? _idTextController;
-  TextEditingController? _pwTextController;
-  List<User> userList = List.empty(growable: true);
-
-  @override
-  void initState() {
-    super.initState();
-    /* signPage에서 DB에 담겨야할 내용*/
-    userList.add(User(
-        userName: "호날두",
-        id: "ronaldo",
-        password: "cr7",
-        createTime: DateTime.utc(2023, 2, 20)));
-    userList.add(User(
-        userName: "메시",
-        id: "messi",
-        password: "lm10",
-        createTime: DateTime.utc(2023, 2, 19)));
-    userList.add(User(
-        userName: "음바페",
-        id: "mbappe",
-        password: "km10",
-        createTime: DateTime.utc(2023, 2, 18)));
-
-    _idTextController = TextEditingController();
-    _pwTextController = TextEditingController();
-    /*_database = FirebaseDatabase(databaseURL : _databaseURL);
-    reference = _database?.reference().child("user");*/
-  }
-
+class IdLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool? isChecked = false;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text("로그인",
-            style: TextStyle(
-              fontFamily: 'NotoSansKR',
-              fontWeight: FontWeight.w500,
-              color: Color(0xff191919),
-            )),
-        backgroundColor: const Color(0xffffffff),
-        leading: IconButton(
-            icon: const Icon(Icons.arrow_back_outlined),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            color: const Color(0xff191919)),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(height: 80),
-            const SizedBox(
-              width: 330,
-              child: Text("일반회원\n로그인",
+    return ChangeNotifierProvider(
+        create: (_) => LoginModel(),
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              title: const Text("로그인",
                   style: TextStyle(
-                      height: 1.3,
-                      fontFamily: 'NotoSansKR',
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff191919),
-                      fontSize: 30)),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-                width: 340,
-                child: TextField(
-                  controller: _idTextController,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xffffffff)),
-                      ),
-                      hintText: ('아이디 또는 이메일을 입력해주세요'),
-                      hintStyle: TextStyle(
-                          fontSize: 15,
-                          color: Color(0xff999999),
-                          fontFamily: 'NotoSansKR',
-                          fontWeight: FontWeight.w500),
-                      filled: true,
-                      fillColor: Color(0xffF1F1F5)),
-                )),
-            SizedBox(
-                width: 340,
-                child: TextField(
-                  controller: _pwTextController,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xffffffff)),
-                      ),
-                      hintText: ('비밀번호를 입력해주세요'),
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        color: Color(0xff999999),
-                        fontFamily: 'NotoSansKR',
-                        fontWeight: FontWeight.w500,
-                      ),
-                      filled: true,
-                      fillColor: Color(0xffF1F1F5)),
-                )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                    child: Checkbox(
-                  activeColor: const Color(0xff2079FF),
-                  checkColor: Colors.white,
-                  value: isChecked,
-                  onChanged: (value) {
-                    setState(() {
-                      isChecked = value;
-                    });
+                    fontFamily: 'NotoSansKR',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff191919),
+                  )),
+              backgroundColor: const Color(0xffffffff),
+              leading: IconButton(
+                  icon: const Icon(Icons.arrow_back_outlined),
+                  onPressed: () {
+                    Navigator.pop(context);
                   },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  side: MaterialStateBorderSide.resolveWith(
-                    (states) =>
-                        const BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
-                  ),
-                )),
-                const SizedBox(
-                    child: Text("자동 로그인",
-                        style: TextStyle(
-                            fontFamily: 'NotoSansKR',
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff191919),
-                            fontSize: 15))),
-                SizedBox(
-                    child: Checkbox(
-                  activeColor: const Color(0xff2079FF),
-                  checkColor: Colors.white,
-                  value: isChecked,
-                  onChanged: (value) {
-                    setState(() {
-                      isChecked = value;
-                    });
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  side: MaterialStateBorderSide.resolveWith(
-                    (states) =>
-                        const BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
-                  ),
-                )),
-                const SizedBox(
-                    child: Text("아이디 저장",
-                        style: TextStyle(
-                            fontFamily: 'NotoSansKR',
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xff191919),
-                            fontSize: 15))),
-                const SizedBox(width: 120),
-              ],
+                  color: const Color(0xff191919)),
             ),
-            MaterialButton(
-                minWidth: 340,
-                height: 50,
-                onPressed: () {
-                  /*userlist에서 아이디, 비번을 조회하는 것이 아니라 db에서 조회해야함*/
-                  if (_idTextController!.value.text.isEmpty ||
-                      _pwTextController!.value.text.isEmpty) {
-                    makeDialog("아이디와 비밀번호를 입력하세요");
-                  } else {
-                    if (idCheck(_idTextController?.value.text) == -1) {
-                      print(_idTextController?.value.text);
-                      makeDialog('아이디가 없습니다');
-                    } else {
-                      if (_pwTextController?.value.text ==
-                          userList[idCheck(_idTextController?.value.text)]) {
-                        Navigator.of(context).pushReplacementNamed('/main',
-                            arguments: _idTextController!.value.text);
-                      } else {
-                        makeDialog("비밀번호가 틀립니다");
-                      }
-                    }
-                  }
-                },
-                color: Colors.blueAccent,
-                child: const Text("로그인",
-                    style: TextStyle(
-                        fontFamily: 'NotoSansKR',
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xffFFFFFF),
-                        fontSize: 17))),
-            const SizedBox(height: 10),
-            SizedBox(
-              child: RichText(
-                text: TextSpan(children: [
-                  const TextSpan(
-                      text: '계정을 잊으셨나요?',
-                      style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                      text: ' ID찾기',
-                      recognizer: TapGestureRecognizer()
-                        ..onTapDown = (details) {
-                          print(details.globalPosition);
-                        },
-                      style: const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
-                  const TextSpan(
-                      text: ' 또는', style: TextStyle(color: Colors.black)),
-                  TextSpan(
-                      text: ' 비밀번호 찾기',
-                      recognizer: TapGestureRecognizer()
-                        ..onTapDown = (details) {
-                          print(details.globalPosition);
-                        },
-                      style: const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold)),
-                ]),
-              ),
-            ),
-            const SizedBox(height: 140),
-            SizedBox(
-              child: RichText(
-                text: TextSpan(children: [
-                  const TextSpan(
-                      text: '아직 회원이 아니신가요?',
-                      style: TextStyle(
-                          fontFamily: 'NotoSansKR',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff767676),
-                          fontSize: 13)),
-                  TextSpan(
-                      text: ' 회원가입 >',
-                      recognizer: TapGestureRecognizer()
-                        ..onTapDown = (details) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignPage()));
-                        },
-                      style: const TextStyle(
-                          fontFamily: 'NotoSansKR',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff191919),
-                          fontSize: 13)),
-                ]),
-              ),
-            )
-          ],
+            body: Column(children: [
+              EmailInput(),
+              PasswordInput(),
+              AutoLogin(),
+              LoginButton(),
+              const SizedBox(height: 10),
+              FindIdpw(),
+              const SizedBox(height: 140),
+              GotoSign()
+            ])));
+  }
+}
+
+class EmailInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final login = Provider.of<LoginModel>(context, listen: false);
+    return Column(
+      children: [
+        const SizedBox(
+          width: 330,
+          child: Text("일반회원\n로그인",
+              style: TextStyle(
+                  height: 1.3,
+                  fontFamily: 'NotoSansKR',
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff191919),
+                  fontSize: 30)),
         ),
+        const SizedBox(height: 20),
+        SizedBox(
+            width: 340,
+            child: TextField(
+              onChanged: (email) {
+                login.setEmail(email);
+              },
+              maxLines: 1,
+              decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffffffff)),
+                  ),
+                  hintText: ('아이디 또는 이메일을 입력해주세요'),
+                  hintStyle: TextStyle(
+                      fontSize: 15,
+                      color: Color(0xff999999),
+                      fontFamily: 'NotoSansKR',
+                      fontWeight: FontWeight.w500),
+                  filled: true,
+                  fillColor: Color(0xffF1F1F5)),
+            )),
+      ],
+    );
+  }
+}
+
+class PasswordInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final login = Provider.of<LoginModel>(context, listen: false);
+    return SizedBox(
+        width: 340,
+        child: TextField(
+          onChanged: (password) {
+            login.setPassword(password);
+          },
+          maxLines: 1,
+          decoration: const InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffffffff)),
+              ),
+              hintText: ('비밀번호를 입력해주세요'),
+              hintStyle: TextStyle(
+                fontSize: 15,
+                color: Color(0xff999999),
+                fontFamily: 'NotoSansKR',
+                fontWeight: FontWeight.w500,
+              ),
+              filled: true,
+              fillColor: Color(0xffF1F1F5)),
+        ));
+  }
+}
+
+class FindIdpw extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: RichText(
+        text: TextSpan(children: [
+          const TextSpan(
+              text: '계정을 잊으셨나요?', style: TextStyle(color: Colors.black)),
+          TextSpan(
+              text: ' ID찾기',
+              recognizer: TapGestureRecognizer()
+                ..onTapDown = (details) {
+                  //ID찾기로 넘어감
+                },
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold)),
+          const TextSpan(text: ' 또는', style: TextStyle(color: Colors.black)),
+          TextSpan(
+              text: ' 비밀번호 찾기',
+              recognizer: TapGestureRecognizer()
+                ..onTapDown = (details) {
+                  //PW찾기로 넘어감
+                },
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold)),
+        ]),
       ),
     );
   }
+}
 
-  void makeDialog(String text) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(content: Text(text));
-        });
+class AutoLogin extends StatelessWidget {
+  @override
+  bool isChecked = false;
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const SizedBox(
+            child: Text("자동 로그인",
+                style: TextStyle(
+                    fontFamily: 'NotoSansKR',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff191919),
+                    fontSize: 15))),
+        SizedBox(
+            child: Checkbox(
+          activeColor: const Color(0xff2079FF),
+          checkColor: Colors.white,
+          value: isChecked,
+          onChanged: (value) {
+            isChecked = value!;
+          },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          side: MaterialStateBorderSide.resolveWith(
+            (states) => const BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
+          ),
+        ))
+      ],
+    );
   }
+}
 
-  int idCheck(String? id) {
-    for (int i = 0; i < userList.length; i++) {
-      if (id == userList[i].id) {
-        print(i);
-        return i;
-      }
-    }
-    return -1;
+class LoginButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final authClient =
+        Provider.of<FirebaseAuthProvider>(context, listen: false);
+    final login = Provider.of<LoginModel>(context, listen: false);
+
+    return MaterialButton(
+        minWidth: 340,
+        height: 50,
+        onPressed: () async {
+          await authClient
+              .loginWithEmail(login.email, login.password)
+              .then((loginStatus) {
+            if (loginStatus == AuthStatus.loginSuccess) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text("환영합니다!"),
+                ));
+              Navigator.pushReplacementNamed(context, '/main');
+            } else {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(SnackBar(
+                  content: Text("로그인 실패"),
+                ));
+            }
+          });
+        },
+        color: Colors.blueAccent,
+        child: const Text("로그인",
+            style: TextStyle(
+                fontFamily: 'NotoSansKR',
+                fontWeight: FontWeight.w500,
+                color: Color(0xffFFFFFF),
+                fontSize: 17)));
+  }
+}
+
+class GotoSign extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: RichText(
+        text: TextSpan(children: [
+          const TextSpan(
+              text: '아직 회원이 아니신가요?',
+              style: TextStyle(
+                  fontFamily: 'NotoSansKR',
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff767676),
+                  fontSize: 13)),
+          TextSpan(
+              text: ' 회원가입 >',
+              recognizer: TapGestureRecognizer()
+                ..onTapDown = (details) {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SignPage()));
+                },
+              style: const TextStyle(
+                  fontFamily: 'NotoSansKR',
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff191919),
+                  fontSize: 13)),
+        ]),
+      ),
+    );
   }
 }

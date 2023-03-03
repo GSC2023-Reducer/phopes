@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "410525484488",
-    "project_id": "phopescjw-43128",
-    "storage_bucket": "phopescjw-43128.appspot.com"
+    "project_number": "943822923765",
+    "project_id": "phopesreducer",
+    "storage_bucket": "phopesreducer.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:410525484488:android:fc5b3b0797fede5ca0acfd",
+        "mobilesdk_app_id": "1:943822923765:android:2381427142ea9f1536a2bc",
         "android_client_info": {
           "package_name": "com.example.phopes_cjw"
         }
       },
       "oauth_client": [
         {
-          "client_id": "410525484488-tlbu85jr26meq16tp8jn1602bmj4d8ut.apps.googleusercontent.com",
+          "client_id": "943822923765-i7sd3cgu1pku06pk1911l180roh19qr2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDEpwyMdpV2kF0p2Krzi4VMkEoFbWSQSho"
+          "current_key": "AIzaSyBaRPB6akqU7QPL8APj08rEN-O-6ufgmSM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "410525484488-tlbu85jr26meq16tp8jn1602bmj4d8ut.apps.googleusercontent.com",
+              "client_id": "943822923765-i7sd3cgu1pku06pk1911l180roh19qr2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
