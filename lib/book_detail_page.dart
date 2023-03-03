@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:phopes/models/book_model.dart';
 import 'package:phopes/models/chapters_model.dart';
 import 'package:phopes/services/chapters_services.dart';
@@ -48,17 +50,14 @@ class _BookDetailPage extends State<BookDetailPage> {
     waitForData();
   }
 
-  /* void tapChangeIsRead(chapterId, tapIsRead) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        chaptersInfo.chapters
-            .where((x) => x.bookChapterId == chapterId)
-            .map((x) => {
-                  x.isRead = tapIsRead,
-                });
-      });
-    });
-  } */
+  void tapCheckButtonChangeIsRead(String chapterId, bool tapIsRead) {
+    chaptersInfo.chapters
+        .where((x) => x.bookChapterId == chapterId)
+        .map((x) => {
+              x.isRead = tapIsRead,
+            });
+    setState(() {});
+  }
 
   var tapChapterId = '';
 
@@ -173,11 +172,15 @@ class _BookDetailPage extends State<BookDetailPage> {
                             MaterialPageRoute(
                               builder: (context) => BookViewPage(
                                 tapChapterId: tapChapterId,
-                                // tapChangeIsRead: tapChangeIsRead,
+                                //  tapCheck: tapCheckButtonChangeIsRead,
                               ),
                               fullscreenDialog: true,
                             ),
-                          );
+                          ).then((String chapterId, bool tapIsRead) {
+                            setState(() {
+                              tapCheckButtonChangeIsRead(chapterId, tapIsRead);
+                            });
+                          } as FutureOr Function(dynamic value));
                         },
                         child: ListTile(
                           contentPadding: EdgeInsets.zero,

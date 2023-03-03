@@ -4,13 +4,12 @@ import 'models/chapter_model.dart';
 
 class BookViewPage extends StatefulWidget {
   final String tapChapterId;
-  // final Function(String, bool) tapChangeIsRead;
-  // final Function(String, bool) tapChangeIsRead;
+  // final Function(String, bool) tapCheck;
 
   const BookViewPage({
     super.key,
     required this.tapChapterId,
-    // required this.tapChangeIsRead,
+    // required this.tapCheck,
   });
 
   @override
@@ -99,7 +98,9 @@ class _BookViewPageState extends State<BookViewPage> {
                     backgroundColor: Colors.blue,
                     icon: const Icon(Icons.check),
                     onPressed: () {
-                      // widget.tapChangeIsRead(chapterInfo.id, true);
+                      Navigator.pop(context,
+                          {'chapterId': chapterInfo.id, 'tapIsRead': true});
+                      // widget.tapCheck(chapterInfo.id, true);
                     },
                     label: const Text('Read'),
                   ),
@@ -107,10 +108,9 @@ class _BookViewPageState extends State<BookViewPage> {
                     heroTag: 'next',
                     backgroundColor: Colors.blueGrey,
                     label: Row(
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: <Widget>[
-                        const Text("Next"),
-                        const Icon(Icons.navigate_next),
+                      children: const <Widget>[
+                        Text("Next"),
+                        Icon(Icons.navigate_next),
                       ],
                     ),
                     icon: Container(),

@@ -1,6 +1,6 @@
 class ChaptersModel {
   final String id, bookId;
-  final List<ChaptersModelChapter> chapters;
+  final List<ChapterModel> chapters;
   bool isRead = false;
 
   ChaptersModel({
@@ -13,8 +13,8 @@ class ChaptersModel {
   factory ChaptersModel.fromJson(Map<String, dynamic> jsonData) {
     var list = jsonData['chapters'] as List;
     print(list.runtimeType);
-    List<ChaptersModelChapter> chaptersList =
-        list.map((i) => ChaptersModelChapter.fromJson(i)).toList();
+    List<ChapterModel> chaptersList =
+        list.map((i) => ChapterModel.fromJson(i)).toList();
 
     return ChaptersModel(
       chapters: chaptersList,
@@ -25,21 +25,21 @@ class ChaptersModel {
   }
 }
 
-class ChaptersModelChapter {
+class ChapterModel {
   final String bookChapterId, name;
-  bool isRead;
+  bool isRead = false;
 
-  ChaptersModelChapter({
+  ChapterModel({
     required this.bookChapterId,
     required this.name,
     required this.isRead,
   });
 
-  factory ChaptersModelChapter.fromJson(Map<String, dynamic> chaptersJsonData) {
-    return ChaptersModelChapter(
-      bookChapterId: chaptersJsonData['bookChapterId'],
-      name: chaptersJsonData['name'],
-      isRead: chaptersJsonData['isRead'],
+  factory ChapterModel.fromJson(Map<String, dynamic> chaptersListJsonData) {
+    return ChapterModel(
+      bookChapterId: chaptersListJsonData['bookChapterId'],
+      name: chaptersListJsonData['name'],
+      isRead: chaptersListJsonData['isRead'],
     );
   }
 }
