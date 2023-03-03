@@ -7,7 +7,7 @@ class BookViewPage extends StatefulWidget {
   // final Function(String, bool) tapChangeIsRead;
   // final Function(String, bool) tapChangeIsRead;
 
-  BookViewPage({
+  const BookViewPage({
     super.key,
     required this.tapChapterId,
     // required this.tapChangeIsRead,
@@ -106,11 +106,11 @@ class _BookViewPageState extends State<BookViewPage> {
                   ),
                   FloatingActionButton.extended(
                     backgroundColor: Colors.blueGrey,
-                    label: Row(
+                    label: const Row(
                       // ignore: prefer_const_literals_to_create_immutables
                       children: <Widget>[
-                        const Text("Next"),
-                        const Icon(Icons.navigate_next),
+                        Text("Next"),
+                        Icon(Icons.navigate_next),
                       ],
                     ),
                     icon: Container(),
