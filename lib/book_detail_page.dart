@@ -50,17 +50,17 @@ class _BookDetailPage extends State<BookDetailPage> {
     waitForData();
   }
 
-  void tapCheckButtonChangeIsRead(String chapterId, bool tapIsRead) {
+  void changeIsReadData(String tapChapterId, bool tapIsRead) {
     chaptersInfo.chapters
-        .where((x) => x.bookChapterId == chapterId)
-        .map((x) => {
-              x.isRead = tapIsRead,
-            });
+        .where((x) => x.bookChapterId == tapChapterId)
+        .map((x) => x.isRead = tapIsRead)
+        .toList();
     setState(() {});
   }
 
+  // 리스트 맵을 통해서 해당 인덱스별 참 거짓 값을 받아서 then 이후부분에 setstate?
   var tapChapterId = '';
-
+  var a = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,15 +172,19 @@ class _BookDetailPage extends State<BookDetailPage> {
                             MaterialPageRoute(
                               builder: (context) => BookViewPage(
                                 tapChapterId: tapChapterId,
-                                //  tapCheck: tapCheckButtonChangeIsRead,
                               ),
                               fullscreenDialog: true,
                             ),
-                          ).then((String chapterId, bool tapIsRead) {
+                          ).then((value) {
                             setState(() {
-                              tapCheckButtonChangeIsRead(chapterId, tapIsRead);
+                              // chaptersInfo.chapters
+                              //     .where((x) => x.bookChapterId == chapterId)
+                              //     .map((x) => {
+                              //           x.isRead = tapIsRead,
+                              //         });
+                              changeIsReadData(value['id'], value['bool']);
                             });
-                          } as FutureOr Function(dynamic value));
+                          });
                         },
                         child: ListTile(
                           contentPadding: EdgeInsets.zero,

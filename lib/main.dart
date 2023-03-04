@@ -4,7 +4,6 @@ import '/study_plan_page.dart';
 import 'student_home_page.dart';
 import 'first_page.dart';
 import 'book_detail_page.dart';
-import 'book_view_page.dart';
 
 void main() {
   runApp(const MyApp());

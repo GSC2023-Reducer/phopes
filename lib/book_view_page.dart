@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'services/chapter_services.dart';
 import 'models/chapter_model.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class BookViewPage extends StatefulWidget {
   final String tapChapterId;
-  // final Function(String, bool) tapCheck;
 
   const BookViewPage({
     super.key,
     required this.tapChapterId,
-    // required this.tapCheck,
   });
 
   @override
@@ -33,10 +32,16 @@ class _BookViewPageState extends State<BookViewPage> {
   @override
   void initState() {
     super.initState();
+    scrollControl.addListener(() {
+      currentScrollProgress =
+          (scrollControl.offset / scrollControl.position.maxScrollExtent);
+      setState(() {});
+    });
     waitForData();
   }
 
-  // 버튼을 누르면 다음 또는 이전 페이지로 이동하는 것을 tapChpaterID = prev or next로 해서 waitForData 상태를 새로 변경하기
+  final ScrollController scrollControl = ScrollController();
+  double currentScrollProgress = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +71,10 @@ class _BookViewPageState extends State<BookViewPage> {
             children: <Widget>[
               const SizedBox(height: 24 / 2),
               SizedBox(
-                height: 630,
+                height: 600,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
+                  controller: scrollControl,
                   child: Text(chapterInfo.content,
                       style: const TextStyle(
                         color: Colors.black,
@@ -78,6 +84,23 @@ class _BookViewPageState extends State<BookViewPage> {
                         fontFamily: 'Noto Sans CJK KR, Medium',
                       )),
                 ),
+              ),
+              const SizedBox(height: 24 / 2),
+              LinearPercentIndicator(
+                lineHeight: 36 / 2,
+                percent: currentScrollProgress,
+                center: Text(
+                  "${(currentScrollProgress * 100).toStringAsFixed(2)}%",
+                  style: const TextStyle(
+                      fontSize: 35 / 2,
+                      color: Colors.black,
+                      letterSpacing: 0,
+                      fontFamily: 'Noto Sans CJK KR, Medium',
+                      fontWeight: FontWeight.w100),
+                ),
+                barRadius: const Radius.circular(16),
+                progressColor: const Color(0xff2079FF),
+                backgroundColor: const Color(0xffF1F1F5),
               ),
               const SizedBox(height: 24 / 2),
               Row(
@@ -95,12 +118,33 @@ class _BookViewPageState extends State<BookViewPage> {
                   ),
                   FloatingActionButton.extended(
                     heroTag: 'check',
-                    backgroundColor: Colors.blue,
                     icon: const Icon(Icons.check),
+                    backgroundColor: (currentScrollProgress > 0.8)
+                        ? const Color.fromARGB(255, 10, 134, 250)
+                        : const Color.fromARGB(255, 143, 143, 143),
                     onPressed: () {
-                      Navigator.pop(context,
-                          {'chapterId': chapterInfo.id, 'tapIsRead': true});
-                      // widget.tapCheck(chapterInfo.id, true);
+                      if (currentScrollProgress >= 0.8) {
+                        Navigator.pop(
+                            context, {'id': chapterInfo.id, 'bool': true});
+                      } else {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: true, // 바깥 영역 터치시 닫을지 여부
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: const Text('80% 이상 읽었을 때 체크할 수 있습니다.'),
+                              actions: [
+                                TextButton(
+                                  child: const Text('확인'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
                     label: const Text('Read'),
                   ),
@@ -108,9 +152,10 @@ class _BookViewPageState extends State<BookViewPage> {
                     heroTag: 'next',
                     backgroundColor: Colors.blueGrey,
                     label: Row(
-                      children: const <Widget>[
-                        Text("Next"),
-                        Icon(Icons.navigate_next),
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: <Widget>[
+                        const Text("Next"),
+                        const Icon(Icons.navigate_next),
                       ],
                     ),
                     icon: Container(),

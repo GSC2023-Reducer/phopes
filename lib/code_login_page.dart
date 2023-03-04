@@ -1,6 +1,3 @@
-//import 'package:crypto/crypto.dart';
-import 'package:firebase_database/firebase_database.dart';
-/*import 'package:phopes_firstpage/data/user_register.dart';*/
 import 'package:flutter/material.dart';
 import 'id_login_page.dart';
 import 'student_home_page.dart';
@@ -25,27 +22,25 @@ class _CodeLoginPage extends State<CodeLoginPage>
 
   @override
   Widget build(BuildContext context) {
-    bool? isChecked = false;
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: const Text("로그인",
-              style: TextStyle(
-                fontFamily: 'NotoSansKR',
-                fontWeight: FontWeight.w500,
-                color: Color(0xff191919),
-              )),
-          backgroundColor: const Color(0xffffffff),
-          leading: IconButton(
-              icon: const Icon(Icons.arrow_back_outlined),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              color: const Color(0xff191919)),
-        ),
-        body: Container(
-            child: Center(
-                child: Column(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: const Text("로그인",
+            style: TextStyle(
+              fontFamily: 'NotoSansKR',
+              fontWeight: FontWeight.w500,
+              color: Color(0xff191919),
+            )),
+        backgroundColor: const Color(0xffffffff),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_outlined),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            color: const Color(0xff191919)),
+      ),
+      body: Center(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const SizedBox(height: 60),
@@ -127,13 +122,15 @@ class _CodeLoginPage extends State<CodeLoginPage>
                   IconButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => IdLoginPage()));
+                            builder: (context) => const IdLoginPage()));
                       },
                       icon: const Icon(Icons.arrow_forward_ios))
                 ],
               ),
             ),
           ],
-        ))));
+        ),
+      ),
+    );
   }
 }

@@ -6,17 +6,13 @@ class FirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenHeight = MediaQuery.of(context).size.height;
-    var screenWidth = MediaQuery.of(context).size.width;
-
     return WillPopScope(
-        onWillPop: () async => false,
-        child: MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: Scaffold(
+      onWillPop: () async => false,
+      child: MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: Scaffold(
             backgroundColor: const Color(0xffE6E5E5),
-            body: Container(
-                child: Stack(
+            body: Stack(
               children: <Widget>[
                 const Positioned(
                   top: 430,
@@ -59,7 +55,7 @@ class FirstPage extends StatelessWidget {
                 ),
               ],
             )),
-          ),
-        ));
+      ),
+    );
   }
 }
