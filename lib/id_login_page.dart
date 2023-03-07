@@ -28,15 +28,22 @@ class IdLoginPage extends StatelessWidget {
                   },
                   color: const Color(0xff191919)),
             ),
-            body: Column(children: [
+            body:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               EmailInput(),
               PasswordInput(),
-              AutoLogin(),
               LoginButton(),
               const SizedBox(height: 10),
               FindIdpw(),
+              const SizedBox(height: 10),
+              AutoLogin(),
               const SizedBox(height: 140),
-              GotoSign()
+              GotoSign(),
+              Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Divider(
+                    thickness: 1,
+                  ))
             ])));
   }
 }
@@ -146,7 +153,9 @@ class AutoLogin extends StatelessWidget {
   @override
   bool isChecked = false;
   Widget build(BuildContext context) {
-    return Row(
+    return SizedBox(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const SizedBox(
             child: Text("자동 로그인",
@@ -157,20 +166,20 @@ class AutoLogin extends StatelessWidget {
                     fontSize: 15))),
         SizedBox(
             child: Checkbox(
-          activeColor: const Color(0xff2079FF),
-          checkColor: Colors.white,
-          value: isChecked,
-          onChanged: (value) {
-            isChecked = value!;
-          },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          side: MaterialStateBorderSide.resolveWith(
-            (states) => const BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
-          ),
-        ))
+                activeColor: const Color(0xff2079FF),
+                checkColor: Colors.white,
+                value: isChecked,
+                onChanged: (value) {
+                  isChecked = value!;
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                side: MaterialStateBorderSide.resolveWith(
+                  (states) =>
+                      const BorderSide(width: 1.0, color: Color(0xffDBDBDB)),
+                )))
       ],
-    );
+    ));
   }
 }
 

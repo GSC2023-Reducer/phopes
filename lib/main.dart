@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'models/auth_model.dart';
+import "update_page.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           '/code': (context) => const CodeLoginPage(),
           '/study_plan': (context) => const StudyPlanPage(),
           '/book_detail_page': (context) => const BookDetailPage(),
+          '/update': (context) => const UpdatePage()
         },
       ),
     );

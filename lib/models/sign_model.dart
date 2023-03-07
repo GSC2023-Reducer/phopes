@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RegisterModel extends ChangeNotifier {
+class SignModel extends ChangeNotifier {
   String email = "";
   String password = "";
   String passwordConfirm = "";
@@ -19,4 +19,5 @@ class RegisterModel extends ChangeNotifier {
     this.passwordConfirm = passwordConfirm;
     notifyListeners();
   }
+  // void setCode(String)
 }

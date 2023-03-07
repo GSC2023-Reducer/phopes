@@ -7,7 +7,7 @@ class SignPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => RegisterModel(),
+        create: (_) => SignModel(),
         child: Scaffold(
             appBar: AppBar(
               title: const Text("회원가입",
@@ -41,7 +41,7 @@ class SignPage extends StatelessWidget {
 class EmailInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final register = Provider.of<RegisterModel>(context, listen: false);
+    final register = Provider.of<SignModel>(context, listen: false);
     return Column(children: <Widget>[
       const SizedBox(
         width: 330,
@@ -82,7 +82,7 @@ class EmailInput extends StatelessWidget {
 class PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final register = Provider.of<RegisterModel>(context);
+    final register = Provider.of<SignModel>(context);
     return Column(
       children: [
         const SizedBox(
@@ -128,7 +128,7 @@ class PasswordInput extends StatelessWidget {
 class PasswordConfirmInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final register = Provider.of<RegisterModel>(context, listen: false);
+    final register = Provider.of<SignModel>(context, listen: false);
     return Column(children: [
       const SizedBox(
         width: 330,
@@ -171,7 +171,7 @@ class RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final authClient =
         Provider.of<FirebaseAuthProvider>(context, listen: false);
-    final register = Provider.of<RegisterModel>(context);
+    final register = Provider.of<SignModel>(context);
     return MaterialButton(
         onPressed: (register.password != register.passwordConfirm)
             ? null

@@ -82,6 +82,19 @@ class StudentHomeDrawer extends StatelessWidget {
                   } /*학습플랜 창으로 넘어가기*/
                   )),
           Container(
+              margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              child: ListTile(
+                  title: const Text('업데이트',
+                      style: TextStyle(
+                          fontFamily: 'NotoSansKR',
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff767676),
+                          fontSize: 20)),
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed('/update');
+                  } /*학습플랜 창으로 넘어가기*/
+                  )),
+          Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
                 title: const Text('로그아웃',
