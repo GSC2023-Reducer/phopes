@@ -1,70 +1,47 @@
 import 'dart:async';
 
-import 'package:phopes/models/book_model.dart';
-import 'package:phopes/models/chapters_model.dart';
-import 'package:phopes/services/chapters_services.dart';
-import 'services/book_services.dart';
 import 'package:flutter/material.dart';
 import 'book_view_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class BookDetailPage extends StatefulWidget {
-  // final String bookId = '3bqdJxSYWZ25UNiN6pT0';
-  // 어떤 책을 가져올 것인지 구분하는 것을 생각해야한다.
+  String bookId;
 
-  const BookDetailPage({
+  BookDetailPage({
     super.key,
-    // required this.bookId,
+    required this.bookId,
   });
 
   @override
   State<BookDetailPage> createState() => _BookDetailPage();
 }
 
+// 클릭 할때 해당 book id를 이전 페이지에서 받아야함
+// book id를 바탕으로 해당 책의
+// 1. 제목, 2. 썸네일 3. 책 읽음 여부 4. 챕터 총 개수 5. 작가 를 가져와야함
+
 class _BookDetailPage extends State<BookDetailPage> {
-  BookModel bookInfo = BookModel(
-    title: '',
-    thumbnail: '',
-    isRead: false,
-    numChapters: 0,
-    id: '',
-    author: '',
-  );
 
-  ChaptersModel chaptersInfo = ChaptersModel(
-    chapters: [],
-    isRead: false,
-    id: '',
-    bookId: '',
-  );
+  var book = await BookCollection().where().idEqualTo('$bookId').findFirst();
+  var bookRecord = await BookRecordCollection().where().idEqualTo('$bookId').findFirst();
+  var bookChapters = await BookChaptersCollection().where().idEqualTo('$bookId').findFirst();
 
-  void waitForData() async {
-    bookInfo = await BookInfo.getData();
-    chaptersInfo = await ChaptersInfo.getData();
-    setState(() {});
-  }
+
 
   @override
   void initState() {
     super.initState();
-    waitForData();
   }
 
-  void changeIsReadData(String tapChapterId, bool tapIsRead) {
-    chaptersInfo.chapters
-        .where((x) => x.bookChapterId == tapChapterId)
-        .map((x) => x.isRead = tapIsRead)
-        .toList();
-    setState(() {});
-  }
+  // ignore: prefer_typing_uninitialized_variables
+  var tapChapterId;
 
-  // 리스트 맵을 통해서 해당 인덱스별 참 거짓 값을 받아서 then 이후부분에 setstate?
-  var tapChapterId = '';
-  var a = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 108 / 2,
         backgroundColor: Colors.white,
         leading: IconButton(
             icon: const Icon(Icons.arrow_back_outlined),
@@ -72,149 +49,221 @@ class _BookDetailPage extends State<BookDetailPage> {
               Navigator.pop(context);
             },
             color: const Color(0xff191919)),
-        title: Text(
-          '${bookInfo.title} 상세 페이지',
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 40 / 2,
-            letterSpacing: -1.0,
-            fontWeight: FontWeight.w200,
-            fontFamily: 'Noto Sans CJK KR, Medium',
-          ),
-        ),
         centerTitle: true,
         elevation: 0.0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(48 / 2, 25 / 2, 48 / 2, 10),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                  width: 654 / 2,
-                  height: 648 / 2,
-                  child: Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image(
-                                image: AssetImage(bookInfo.thumbnail),
-                                width: 654 / 2,
-                                height: 400 / 2,
-                                fit: BoxFit.fill),
-                          ),
-                          const SizedBox(height: 24 / 2),
-                          ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            title: Text(
-                              bookInfo.title,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  letterSpacing: -0.6,
-                                  fontSize: 48 / 2,
-                                  fontFamily: 'Noto Sans CJK KR, Medium',
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            subtitle: Text(
-                              bookInfo.author,
-                              style: const TextStyle(
-                                  color: Color(0xff767676),
-                                  fontSize: 24 / 2,
-                                  letterSpacing: -0.6,
-                                  fontFamily: 'Noto Sans CJK KR, Medium',
-                                  fontWeight: FontWeight.w200),
-                            ),
-                          ),
-                          const SizedBox(height: 24 / 2),
-                          LinearPercentIndicator(
-                            width: 654 / 2,
-                            animation: true,
-                            animationDuration: 1000,
-                            lineHeight: 36 / 2,
-                            percent: chaptersInfo.chapters
-                                    .where((x) => x.isRead == true)
-                                    .length /
-                                bookInfo.numChapters,
-                            center: Text(
-                              "${((chaptersInfo.chapters.where((x) => x.isRead == true).length / bookInfo.numChapters) * 100).toStringAsFixed(2)}%",
-                              style: const TextStyle(
-                                  fontSize: 35 / 2,
-                                  color: Colors.black,
-                                  letterSpacing: 0,
-                                  fontFamily: 'Noto Sans CJK KR, Medium',
-                                  fontWeight: FontWeight.w100),
-                            ),
-                            barRadius: const Radius.circular(16),
-                            progressColor: const Color(0xff2079FF),
-                            backgroundColor: const Color(0xffF1F1F5),
-                          )
-                        ]),
-                  )),
-              const SizedBox(height: 40 / 2),
-              SizedBox(
-                width: 654 / 2,
-                height: 720 / 2,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: chaptersInfo.chapters.map(
-                    (x) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            tapChapterId = x.bookChapterId;
-                          });
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BookViewPage(
-                                tapChapterId: tapChapterId,
+        padding: const EdgeInsets.fromLTRB(48 / 2, 0, 48 / 2, 10),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 654 / 2,
+                      height: 1426 / 2,
+                      child: Center(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromARGB(127, 158, 158, 158),
+                                    blurRadius: 6.0,
+                                    spreadRadius: 0.5,
+                                    offset: Offset(10 / 2, 10 / 2),
+                                  ),
+                                ],
                               ),
-                              fullscreenDialog: true,
+                              child: Image(
+                                  image: AssetImage(book.thumbnail),
+                                  //  "book" ->  "thumbnail" 여기서 가져온 썸네일로 바꿔주기
+                                  width: 328 / 2,
+                                  height: 490 / 2,
+                                  fit: BoxFit.fill),
                             ),
-                          ).then((value) {
-                            setState(() {
-                              // chaptersInfo.chapters
-                              //     .where((x) => x.bookChapterId == chapterId)
-                              //     .map((x) => {
-                              //           x.isRead = tapIsRead,
-                              //         });
-                              changeIsReadData(value['id'], value['bool']);
-                            });
-                          });
-                        },
-                        child: ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(
-                            '${x.name}',
-                            style: const TextStyle(
-                              color: Color(0xff767676),
-                              fontSize: 16,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
+                            const SizedBox(height: 44 / 2),
+                            SizedBox(
+                              height: 70 / 2,
+                              child: Text(
+                                book.title,
+                                // "book" -> "title" 가져온 책 제목으로 바꿔주기
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    letterSpacing: -1.2 / 2,
+                                    fontSize: 48 / 2,
+                                    fontFamily: 'Noto Sans CJK KR, Medium',
+                                    fontWeight: FontWeight.w600),
+                              ),
                             ),
+                            const SizedBox(height: 28 / 2),
+                            SizedBox(
+                              height: 40 / 2,
+                              child: Text(
+                                book.author,
+                                //  "book" ->  "author" 가져온 책 작가로 바꿔주기
+                                style: const TextStyle(
+                                    color: Color(0xff767676),
+                                    fontSize: 28 / 2,
+                                    letterSpacing: 0,
+                                    fontFamily: 'Noto Sans CJK KR, Medium',
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
+                            const SizedBox(height: 32 / 2),
+                            LinearPercentIndicator(
+                              width: 654 / 2,
+                              animation: true,
+                              animationDuration: 1000,
+                              lineHeight: 14 / 2,
+                              percent: bookRecord.readChapters.length /
+                                  book.numChapters,
+                              // "book" ->  "numChapters"를 가져오고 가져온 전체 챕터 수 //  "bookRecord" -> "readChapters"의 [] 전체 수의 나누기를 통해 percent를 기록한다.
+                              progressColor: const Color(0xff2079FF),
+                              backgroundColor: const Color(0xffF1F1F5),
+                            ),
+                            const SizedBox(height: 44 / 2),
+                            Container(
+                              height: 2 / 2,
+                              color: const Color(0xffDBDBDB),
+                            ),
+                            SizedBox(
+                              width: 654 / 2,
+                              height: 662 / 2,
+                              child: ListView(
+                                scrollDirection: Axis.vertical,
+                                //"bookChapters" ->   "chapters"를 가져온 다음 이것을 mapping 해서 하나씩 꺼내기
+                                children: bookChapters.chapters.map(
+                                  (x) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(
+                                          () {
+                                            tapChapterId = x.bookChapterId;
+                                            // 이 부분에서 우변은 메핑한 x에서 "chapters" -> "bookChapterId"를 넣을 예정
+                                          },
+                                        );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => BookViewPage(
+                                              tapChapterId: tapChapterId,
+                                              chapterIsread: bookRecord.readChapters.map((chapter) => chapter.bookChapterId).contains(tapChapterId),
+                                              // 텝 했을때 팝업으로 올릴 tapchapter id 정도는 넘겨줘야 함 / 변수이름은 그대로 사용해도 됨
+                                            ),
+                                            fullscreenDialog: true,
+                                          ),
+                                        )
+                                      },
+                                      child: Column(
+                                        children: [
+                                          ListTile(
+                                            contentPadding: EdgeInsets.zero,
+                                            title: Text(
+                                              x.name,
+                                              // 메핑한 대상에 "name" 그대로 가져오면 된다.
+                                              style: const TextStyle(
+                                                color: Color(0xff767676),
+                                                fontSize: 16,
+                                                letterSpacing: 0,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily:
+                                                    'Noto Sans CJK KR, Medium',
+                                              ),
+                                            ),
+                                            leading: const Icon(Icons.book),
+                                            trailing:
+                                                const Icon(Icons.check_circle),
+                                            iconColor: (bookRecord.readChapters.map((chapter) => chapter.bookChapterId).contains(x.bookChapterId) ==
+                                                    true) // 메핑할때 가져온  "bookChapterId"가 "bookRecord" ->  "readChapters"에 존재하는 아이디 라면 이 이제 해당 조건
+                                                ? const Color(0xff2079FF)
+                                                : null,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 2 / 2,
+                                            color: const Color(0xffDBDBDB),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: 658 / 2,
+              right: 47 / 2,
+              child: SizedBox(
+                width: 60 / 2,
+                height: 35 / 2,
+                child: Text(
+                  "${((bookRecord.readChapters.length /
+                                  book.numChapters) * 100).ceil()}%",
+                  // "bookRecord" -> "readChapters"의 [] 안에 있는 수 / "book" ->  "numChapters" 수
+                  style: const TextStyle(
+                      fontSize: 24 / 2,
+                      color: Color(0xff767676),
+                      letterSpacing: -0.6 / 2,
+                      fontFamily: 'Noto Sans CJK KR, Medium',
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 1211 / 2,
+              right: 65 / 2,
+              child: SizedBox(
+                width: 619 / 2,
+                height: 98 / 2,
+                child: FloatingActionButton.extended(
+                  extendedPadding:
+                      const EdgeInsets.fromLTRB(23 / 2, 27 / 2, 22 / 2, 27 / 2),
+                  elevation: 3,
+                  backgroundColor: const Color(0xff2079FF),
+                  label: (bookRecord.readChapters.length != book.numChapters)
+                      // "bookRecord" -> "readChapters"의 [] 안에 있는 수 != "book" ->  "numChapters" 수
+                      ? const Text(
+                          "이어 읽기",
+                          style: TextStyle(
+                            fontSize: 32 / 2,
+                            letterSpacing: -0.8 / 2,
+                            fontFamily: 'Noto Sans CJK KR, Bold',
+                            color: Color(0xffFFFFFF),
                           ),
-                          leading: const Icon(Icons.book),
-                          trailing: const Icon(Icons.check_circle),
-                          iconColor: (x.isRead == true)
-                              ? const Color.fromARGB(255, 50, 47, 255)
-                              : null,
-                          // 논리 수정 필요
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                        )
+                      : const Text(
+                          "독서 완료",
+                          style: TextStyle(
+                            fontSize: 32 / 2,
+                            letterSpacing: -0.8 / 2,
+                            fontFamily: 'Noto Sans CJK KR, Bold',
+                            color: Color(0xffFFFFFF),
                           ),
                         ),
-                      );
-                    },
-                  ).toList(),
+                  onPressed: () async {},
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(22 / 2)),
+                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
