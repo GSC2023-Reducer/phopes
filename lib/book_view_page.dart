@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'services/chapter_services.dart';
-import 'models/chapter_model.dart';
+import 'models/book.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:isar/isar.dart';
 
 class BookViewPage extends StatefulWidget {
-  final String tapChapterId; // book_detail_page에서 id를 가져올 예정
-  final bool chapterIsread;
-  // chapterIsread는 없어질 예정
+  final String tapChapterId;
+  // book_detail_page에서 id를 가져올 예정
 
   const BookViewPage({
     super.key,
     required this.tapChapterId,
-    required this.chapterIsread,
-    // chapterIsread는 없어질 예정
   });
 
   @override
@@ -22,21 +19,9 @@ class BookViewPage extends StatefulWidget {
 // "bookChapter"에서 tapchapterid와 일치하는 "id"의 "bookChapter"를 불러온 다음에
 // 1. "id" 2. "name" 3. "prev" 4. "next" 5. "content" 를 가져온다.
 class _BookViewPageState extends State<BookViewPage> {
-  ChapterModel chapterInfo = ChapterModel(
-    id: '',
-    name: '',
-    prev: '',
-    next: '',
-    content: '',
-  );
-
-  void waitForData() async {
-    chapterInfo = await ChapterInfo.getData(widget.tapChapterId);
-    setState(() {
-      widget.chapterIsread;
-      // 이 부분은 사라질 예정, 굳이 상태를 불러올 이유가 없다.
-    });
-  }
+  late Isar isar;
+  late BookRecord bookRecord;
+  late BookChapter bookChapter;
 
   final ScrollController scrollControl = ScrollController();
   double recordProgress = 0;
@@ -44,7 +29,8 @@ class _BookViewPageState extends State<BookViewPage> {
   @override
   void initState() {
     super.initState();
-    waitForData();
+    openIsar();
+    loadData();
 
     scrollControl.addListener(() {
       setState(() {
@@ -57,8 +43,36 @@ class _BookViewPageState extends State<BookViewPage> {
     });
   }
 
-  // trackCurrentId를 사용하지 않고 onpress 시 바로 바로 반영할 예정이므로 삭제
-  var trackCurrentId = '';
+  @override
+  void dispose() {
+    closeIsar();
+    super.dispose();
+  }
+
+  Future openIsar() async {
+    isar = await openIsar();
+  }
+
+  void closeIsar() {
+    isar.close();
+  }
+
+  Future<void> loadData() async {
+    var bookRecord = isar.BookRecords()
+        .where()
+        .bookIdEqualTo(widget.tapChapterId)
+        .findFirstSync();
+
+    var bookChapter = isar.BookChapter()
+        .where()
+        .bookIdEqualTo(widget.tapChapterId)
+        .findFirstSync();
+
+    setState(() {
+      bookRecord = bookRecord;
+      bookChapter = bookChapter;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +81,7 @@ class _BookViewPageState extends State<BookViewPage> {
       appBar: AppBar(
         toolbarHeight: 108 / 2,
         backgroundColor: Colors.white,
-        title: Text(chapterInfo.name, // 불러온 "bookChapter"에 "name"을 넣는다
+        title: Text(bookChapter.name, // 불러온 "bookChapter"에 "name"을 넣는다
             style: const TextStyle(
               color: Colors.black,
               fontSize: 36 / 2,
@@ -100,7 +114,7 @@ class _BookViewPageState extends State<BookViewPage> {
                   scrollDirection: Axis.vertical,
                   controller: scrollControl,
                   child: Text(
-                    chapterInfo.content,
+                    bookChapter.content,
                     // 불러온 "bookChapter"에 "content"를 넣는다
                     style: const TextStyle(
                       color: Color(0xff191919),
@@ -151,19 +165,20 @@ class _BookViewPageState extends State<BookViewPage> {
                         Icons.navigate_before,
                         color: Colors.black38,
                       ),
-                      onPressed: () async {
-                        chapterInfo =
-                            await ChapterInfo.getData(chapterInfo.prev);
-                        // "bookChapter"의 "prev" 값을 사용해 그 값과 일치하는 bookChapter"의 id"를 tapchapterid로 정해서 초기에 있는 불러오는 과정을 다시 반복해서 적어둘 예정
-
+                      onPressed: () {
+                        bookChapter = isar.BookChapter()
+                            .where()
+                            .bookIdEqualTo(bookChapter.prev)
+                            .findFirstSync();
                         scrollControl.jumpTo(0);
-                        setState(
-                          () {
-                            recordProgress = 0;
-                            trackCurrentId = chapterInfo.prev;
-                            // 이 부분은 "bookRecord"의 "currentChapter" = "bookChapter"의 "prev"
-                          },
-                        );
+//next는 id로 또 찾고 순환구조로 하면 된다.
+                        // "bookChapter"의 "prev" 값을 사용해 그 값과 일치하는 bookChapter"의 id"를 tapchapterid로 정해서 초기에 있는 불러오는 과정을 다시 반복해서 적어둘 예정
+                        setState(() {
+                          bookChapter = bookChapter;
+                          recordProgress = 0;
+                          bookRecord.currentChapter = bookChapter.prev;
+                          // 이 부분은 "bookRecord"의 "currentChapter" = "bookChapter"의 "prev"
+                        });
                       },
                       label: const Text(
                         'Prev',
@@ -199,11 +214,26 @@ class _BookViewPageState extends State<BookViewPage> {
                           : const Color(0xffF1F1F5),
                       onPressed: () {
                         if (recordProgress >= 0.8) {
-                          trackCurrentId = chapterInfo.id;
-                          // 이 부분은 "bookRecord"의 "currentChapter" = "bookChapter"의 "id"로 변경
-                          Navigator.pop(
-                              context, {'id': chapterInfo.id, 'bool': true});
-                          // 이부분은 누르면 해당 챕터의 "id"를 "bookrecord"의 "readChapterId"에 등록
+                          () async {
+                            bookRecord = isar.BookChapter()
+                                .where()
+                                .bookIdEqualTo(bookChapter.id)
+                                .findFirstSync();
+
+                            bookRecord.readChapters.add(bookChapter);
+                            bookRecord.currentChapter = bookChapter.id;
+
+                            isar.writeTxn((isar) {
+                              isar.bookRecords.put(bookRecord);
+                            } as Future Function());
+
+                            /*read 버튼을 누르면 넘겨줌
+-> 있으면 daily reocord chaptersisRead에 추가해야한다
+->  daily reocord에서 오늘 날짜 기준으로  record가 있는 지 찾고 없다면 객체를 하나 생성해야한다. (읽은 id를 추가해야한다) */
+                            // 이 부분은 "bookRecord"의 "currentChapter" = "bookChapter"의 "id"로 변경 tapchapter일 필요 없음
+
+                            // 이부분은 누르면 해당 챕터의 "id"를 "bookrecord"의 "readChapterId"에 등록
+                          };
                         } else {
                           showDialog(
                             context: context,
@@ -266,16 +296,18 @@ class _BookViewPageState extends State<BookViewPage> {
                       ),
                       icon: Container(),
                       onPressed: () async {
-                        chapterInfo =
-                            await ChapterInfo.getData(chapterInfo.next);
-                        // "bookChapter"의 "next" 값을 사용해 그 값과 일치하는 bookChapter"의 id"를 tapchapterid로 정해서 초기에 있는 불러오는 과정을 다시 반복해서 적어둘 예정
+//next는 id로 또 찾고 순환구조로 하면 된다.
+                        bookChapter = isar.BookChapter()
+                            .where()
+                            .bookIdEqualTo(bookChapter.next)
+                            .findFirstSync();
                         scrollControl.jumpTo(0);
 
                         setState(
                           () {
                             recordProgress = 0;
-                            trackCurrentId = chapterInfo.next;
-                            // 이 부분은 "bookRecord"의 "currentChapter" = "bookChapter"의 "next" 로 변경
+                            bookRecord.currentChapter = bookChapter.next;
+                            bookChapter = bookChapter;
                           },
                         );
                       },

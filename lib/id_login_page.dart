@@ -39,7 +39,7 @@ class IdLoginPage extends StatelessWidget {
               AutoLogin(),
               const SizedBox(height: 140),
               GotoSign(),
-              Padding(
+              const Padding(
                   padding: EdgeInsets.all(10),
                   child: Divider(
                     thickness: 1,

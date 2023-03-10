@@ -6,6 +6,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 class BookDetailPage extends StatefulWidget {
   String bookId;
+  //book 이건 받아옴 진우님 페이지
 
   BookDetailPage({
     super.key,
@@ -21,13 +22,6 @@ class BookDetailPage extends StatefulWidget {
 // 1. 제목, 2. 썸네일 3. 책 읽음 여부 4. 챕터 총 개수 5. 작가 를 가져와야함
 
 class _BookDetailPage extends State<BookDetailPage> {
-
-  var book = await BookCollection().where().idEqualTo('$bookId').findFirst();
-  var bookRecord = await BookRecordCollection().where().idEqualTo('$bookId').findFirst();
-  var bookChapters = await BookChaptersCollection().where().idEqualTo('$bookId').findFirst();
-
-
-
   @override
   void initState() {
     super.initState();
@@ -148,16 +142,21 @@ class _BookDetailPage extends State<BookDetailPage> {
                                           },
                                         );
                                         Navigator.push(
+                                          //북 챕터를 누르면 해당 챕터 아이디를 넘겨줌
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => BookViewPage(
                                               tapChapterId: tapChapterId,
-                                              chapterIsread: bookRecord.readChapters.map((chapter) => chapter.bookChapterId).contains(tapChapterId),
+                                              chapterIsread: bookRecord
+                                                  .readChapters
+                                                  .map((chapter) =>
+                                                      chapter.bookChapterId)
+                                                  .contains(tapChapterId),
                                               // 텝 했을때 팝업으로 올릴 tapchapter id 정도는 넘겨줘야 함 / 변수이름은 그대로 사용해도 됨
                                             ),
                                             fullscreenDialog: true,
                                           ),
-                                        )
+                                        );
                                       },
                                       child: Column(
                                         children: [
@@ -178,7 +177,12 @@ class _BookDetailPage extends State<BookDetailPage> {
                                             leading: const Icon(Icons.book),
                                             trailing:
                                                 const Icon(Icons.check_circle),
-                                            iconColor: (bookRecord.readChapters.map((chapter) => chapter.bookChapterId).contains(x.bookChapterId) ==
+                                            iconColor: (bookRecord.readChapters
+                                                        .map((chapter) =>
+                                                            chapter
+                                                                .bookChapterId)
+                                                        .contains(
+                                                            x.bookChapterId) ==
                                                     true) // 메핑할때 가져온  "bookChapterId"가 "bookRecord" ->  "readChapters"에 존재하는 아이디 라면 이 이제 해당 조건
                                                 ? const Color(0xff2079FF)
                                                 : null,
@@ -213,8 +217,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                 width: 60 / 2,
                 height: 35 / 2,
                 child: Text(
-                  "${((bookRecord.readChapters.length /
-                                  book.numChapters) * 100).ceil()}%",
+                  "${((bookRecord.readChapters.length / book.numChapters) * 100).ceil()}%",
                   // "bookRecord" -> "readChapters"의 [] 안에 있는 수 / "book" ->  "numChapters" 수
                   style: const TextStyle(
                       fontSize: 24 / 2,
@@ -256,7 +259,12 @@ class _BookDetailPage extends State<BookDetailPage> {
                             color: Color(0xffFFFFFF),
                           ),
                         ),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    /*80퍼센트 달성시 (변화 없고)
+버튼 활성화 해서
+누르면 isfinishied를 바꾼다
+ */
+                  },
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(22 / 2)),
                   ),
