@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'models/auth_model.dart';
-import 'models/sign_model.dart';
+// import 'models/auth_model.dart';
+// import 'models/sign_model.dart';
 
 class SignPage extends StatelessWidget {
   @override

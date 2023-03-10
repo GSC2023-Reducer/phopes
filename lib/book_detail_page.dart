@@ -1,16 +1,19 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:phopes/models/book.dart';
+import 'package:phopes/models/book_chapters.dart';
+import 'package:phopes/models/book_record.dart';
+import 'package:phopes/models/book.dart';
 import 'book_view_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:isar/isar.dart';
 
 class BookDetailPage extends StatefulWidget {
-  String bookId;
+  int bookId = 4089735379470416465;
   //book 이건 받아옴 진우님 페이지
 
   BookDetailPage({
     super.key,
-    required this.bookId,
+    // required this.bookId,
   });
 
   @override
@@ -22,9 +25,37 @@ class BookDetailPage extends StatefulWidget {
 // 1. 제목, 2. 썸네일 3. 책 읽음 여부 4. 챕터 총 개수 5. 작가 를 가져와야함
 
 class _BookDetailPage extends State<BookDetailPage> {
+  late Isar isar;
+  late BookRecord bookRecord;
+  late Book book;
+  late BookChapters bookchapters;
+
   @override
   void initState() {
     super.initState();
+    openIsar();
+  }
+
+  @override
+  void dispose() {
+    closeIsar();
+    super.dispose();
+  }
+
+  Future<void> openIsar() async {
+    var isar = await Isar.open([BookRecordSchema]);
+    final bookRecord = isar.collection<BookRecord>().get(1016922496390167466);
+
+    isar = await Isar.open([BookChaptersSchema]);
+    final bookChapters =
+        isar.collection<BookChapters>().get(6322331398973074595);
+
+    isar = await Isar.open([BookSchema]);
+    final book = isar.collection<Book>().get(widget.bookId);
+  }
+
+  void closeIsar() {
+    isar.close();
   }
 
   // ignore: prefer_typing_uninitialized_variables
@@ -74,7 +105,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                 ],
                               ),
                               child: Image(
-                                  image: AssetImage(book.thumbnail),
+                                  image: AssetImage(book.thumbnail!),
                                   //  "book" ->  "thumbnail" 여기서 가져온 썸네일로 바꿔주기
                                   width: 328 / 2,
                                   height: 490 / 2,
@@ -84,7 +115,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                             SizedBox(
                               height: 70 / 2,
                               child: Text(
-                                book.title,
+                                book.title!,
                                 // "book" -> "title" 가져온 책 제목으로 바꿔주기
                                 style: const TextStyle(
                                     color: Colors.black,
@@ -98,7 +129,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                             SizedBox(
                               height: 40 / 2,
                               child: Text(
-                                book.author,
+                                book.author!,
                                 //  "book" ->  "author" 가져온 책 작가로 바꿔주기
                                 style: const TextStyle(
                                     color: Color(0xff767676),
@@ -115,7 +146,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                               animationDuration: 1000,
                               lineHeight: 14 / 2,
                               percent: bookRecord.readChapters.length /
-                                  book.numChapters,
+                                  book.numChapters!,
                               // "book" ->  "numChapters"를 가져오고 가져온 전체 챕터 수 //  "bookRecord" -> "readChapters"의 [] 전체 수의 나누기를 통해 percent를 기록한다.
                               progressColor: const Color(0xff2079FF),
                               backgroundColor: const Color(0xffF1F1F5),
@@ -131,13 +162,13 @@ class _BookDetailPage extends State<BookDetailPage> {
                               child: ListView(
                                 scrollDirection: Axis.vertical,
                                 //"bookChapters" ->   "chapters"를 가져온 다음 이것을 mapping 해서 하나씩 꺼내기
-                                children: bookChapters.chapters.map(
+                                children: bookchapters.chapters.map(
                                   (x) {
                                     return GestureDetector(
                                       onTap: () {
                                         setState(
                                           () {
-                                            tapChapterId = x.bookChapterId;
+                                            tapChapterId = x.id;
                                             // 이 부분에서 우변은 메핑한 x에서 "chapters" -> "bookChapterId"를 넣을 예정
                                           },
                                         );
@@ -147,12 +178,6 @@ class _BookDetailPage extends State<BookDetailPage> {
                                           MaterialPageRoute(
                                             builder: (context) => BookViewPage(
                                               tapChapterId: tapChapterId,
-                                              chapterIsread: bookRecord
-                                                  .readChapters
-                                                  .map((chapter) =>
-                                                      chapter.bookChapterId)
-                                                  .contains(tapChapterId),
-                                              // 텝 했을때 팝업으로 올릴 tapchapter id 정도는 넘겨줘야 함 / 변수이름은 그대로 사용해도 됨
                                             ),
                                             fullscreenDialog: true,
                                           ),
@@ -163,7 +188,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                           ListTile(
                                             contentPadding: EdgeInsets.zero,
                                             title: Text(
-                                              x.name,
+                                              x.name!,
                                               // 메핑한 대상에 "name" 그대로 가져오면 된다.
                                               style: const TextStyle(
                                                 color: Color(0xff767676),
@@ -179,10 +204,8 @@ class _BookDetailPage extends State<BookDetailPage> {
                                                 const Icon(Icons.check_circle),
                                             iconColor: (bookRecord.readChapters
                                                         .map((chapter) =>
-                                                            chapter
-                                                                .bookChapterId)
-                                                        .contains(
-                                                            x.bookChapterId) ==
+                                                            chapter.id)
+                                                        .contains(x.id) ==
                                                     true) // 메핑할때 가져온  "bookChapterId"가 "bookRecord" ->  "readChapters"에 존재하는 아이디 라면 이 이제 해당 조건
                                                 ? const Color(0xff2079FF)
                                                 : null,
@@ -217,7 +240,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                 width: 60 / 2,
                 height: 35 / 2,
                 child: Text(
-                  "${((bookRecord.readChapters.length / book.numChapters) * 100).ceil()}%",
+                  "${((bookRecord.readChapters.length / book.numChapters!) * 100).ceil()}%",
                   // "bookRecord" -> "readChapters"의 [] 안에 있는 수 / "book" ->  "numChapters" 수
                   style: const TextStyle(
                       fontSize: 24 / 2,

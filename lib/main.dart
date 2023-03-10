@@ -7,6 +7,7 @@ import 'first_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import "update_page.dart";
+import 'book_detail_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,13 +24,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "login",
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/study_plan',
+      initialRoute: '/book_detail_page',
       routes: {
         '/first': (context) => const FirstPage(),
         '/main': (context) => const StudentHomePage(),
-        '/code': (context) => const CodeLoginPage(),
+        // '/code': (context) => const CodeLoginPage(),
         '/study_plan': (context) => const StudyPlanPage(),
-        // '/book_detail_page': (context) => BookDetailPage(),
+        '/book_detail_page': (context) => BookDetailPage(),
         '/update': (context) => const UpdatePage()
       },
     );

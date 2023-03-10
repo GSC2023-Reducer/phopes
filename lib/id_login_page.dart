@@ -1,9 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "sign_page.dart";
-import 'data/user.dart';
-import 'models/auth_model.dart';
-import 'models/login_model.dart';
 import 'package:provider/provider.dart';
 
 class IdLoginPage extends StatelessWidget {

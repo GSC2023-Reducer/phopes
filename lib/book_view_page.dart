@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/models/book_chapter.dart';
+import 'package:phopes/models/book_record.dart';
+import 'package:phopes/models/daily_record.dart';
 import 'models/book.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:isar/isar.dart';
 
 class BookViewPage extends StatefulWidget {
-  final String tapChapterId;
+  final int tapChapterId;
   // book_detail_page에서 id를 가져올 예정
 
   const BookViewPage({
@@ -20,9 +23,9 @@ class BookViewPage extends StatefulWidget {
 // 1. "id" 2. "name" 3. "prev" 4. "next" 5. "content" 를 가져온다.
 class _BookViewPageState extends State<BookViewPage> {
   late Isar isar;
+  late BookChapterItem bookChapterItem;
   late BookRecord bookRecord;
-  late BookChapter bookChapter;
-
+  late DailyRecord dailyRecord;
   final ScrollController scrollControl = ScrollController();
   double recordProgress = 0;
 
@@ -30,7 +33,6 @@ class _BookViewPageState extends State<BookViewPage> {
   void initState() {
     super.initState();
     openIsar();
-    loadData();
 
     scrollControl.addListener(() {
       setState(() {
@@ -49,29 +51,20 @@ class _BookViewPageState extends State<BookViewPage> {
     super.dispose();
   }
 
-  Future openIsar() async {
-    isar = await openIsar();
+  Future<void> openIsar() async {
+    var isar = await Isar.open([BookChapterItemSchema]);
+    var bookChapterItem =
+        isar.collection<BookChapterItem>().getSync(widget.tapChapterId);
+    isar = await Isar.open([BookRecordSchema]);
+    final bookRecord =
+        isar.collection<BookRecord>().getSync(1732420921406462071);
+    isar = await Isar.open([DailyRecordSchema]);
+    final dailyRecord =
+        isar.collection<DailyRecord>().getSync(1016922496390167466);
   }
 
   void closeIsar() {
     isar.close();
-  }
-
-  Future<void> loadData() async {
-    var bookRecord = isar.BookRecords()
-        .where()
-        .bookIdEqualTo(widget.tapChapterId)
-        .findFirstSync();
-
-    var bookChapter = isar.BookChapter()
-        .where()
-        .bookIdEqualTo(widget.tapChapterId)
-        .findFirstSync();
-
-    setState(() {
-      bookRecord = bookRecord;
-      bookChapter = bookChapter;
-    });
   }
 
   @override
@@ -81,7 +74,7 @@ class _BookViewPageState extends State<BookViewPage> {
       appBar: AppBar(
         toolbarHeight: 108 / 2,
         backgroundColor: Colors.white,
-        title: Text(bookChapter.name, // 불러온 "bookChapter"에 "name"을 넣는다
+        title: Text(bookChapterItem.name!, // 불러온 "bookChapter"에 "name"을 넣는다
             style: const TextStyle(
               color: Colors.black,
               fontSize: 36 / 2,
@@ -114,7 +107,7 @@ class _BookViewPageState extends State<BookViewPage> {
                   scrollDirection: Axis.vertical,
                   controller: scrollControl,
                   child: Text(
-                    bookChapter.content,
+                    bookChapterItem.content!,
                     // 불러온 "bookChapter"에 "content"를 넣는다
                     style: const TextStyle(
                       color: Color(0xff191919),
@@ -166,17 +159,13 @@ class _BookViewPageState extends State<BookViewPage> {
                         color: Colors.black38,
                       ),
                       onPressed: () {
-                        bookChapter = isar.BookChapter()
-                            .where()
-                            .bookIdEqualTo(bookChapter.prev)
-                            .findFirstSync();
                         scrollControl.jumpTo(0);
-//next는 id로 또 찾고 순환구조로 하면 된다.
+                        //next는 id로 또 찾고 순환구조로 하면 된다.
                         // "bookChapter"의 "prev" 값을 사용해 그 값과 일치하는 bookChapter"의 id"를 tapchapterid로 정해서 초기에 있는 불러오는 과정을 다시 반복해서 적어둘 예정
                         setState(() {
-                          bookChapter = bookChapter;
+                          // var bookChapterItem = isar.collection<BookChapterItem>().getSync();
                           recordProgress = 0;
-                          bookRecord.currentChapter = bookChapter.prev;
+                          // bookRecord.currentChapter = bookChapter.prev;
                           // 이 부분은 "bookRecord"의 "currentChapter" = "bookChapter"의 "prev"
                         });
                       },
@@ -215,13 +204,13 @@ class _BookViewPageState extends State<BookViewPage> {
                       onPressed: () {
                         if (recordProgress >= 0.8) {
                           () async {
-                            bookRecord = isar.BookChapter()
-                                .where()
-                                .bookIdEqualTo(bookChapter.id)
-                                .findFirstSync();
+                            // bookRecord = isar.BookChapter()
+                            //     .where()
+                            //     .bookIdEqualTo(bookChapter.id)
+                            //     .findFirstSync();
 
-                            bookRecord.readChapters.add(bookChapter);
-                            bookRecord.currentChapter = bookChapter.id;
+                            // bookRecord.readChapters.add(bookChapter);
+                            // bookRecord.currentChapter = bookChapter.id;
 
                             isar.writeTxn((isar) {
                               isar.bookRecords.put(bookRecord);
@@ -297,17 +286,17 @@ class _BookViewPageState extends State<BookViewPage> {
                       icon: Container(),
                       onPressed: () async {
 //next는 id로 또 찾고 순환구조로 하면 된다.
-                        bookChapter = isar.BookChapter()
-                            .where()
-                            .bookIdEqualTo(bookChapter.next)
-                            .findFirstSync();
+                        // bookChapter = isar.BookChapter()
+                        //     .where()
+                        //     .bookIdEqualTo(bookChapter.next)
+                        //     .findFirstSync();
                         scrollControl.jumpTo(0);
 
                         setState(
                           () {
                             recordProgress = 0;
-                            bookRecord.currentChapter = bookChapter.next;
-                            bookChapter = bookChapter;
+                            // bookRecord.currentChapter = bookChapter.next;
+                            // bookChapter = bookChapter;
                           },
                         );
                       },
