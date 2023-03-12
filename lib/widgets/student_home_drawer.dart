@@ -13,24 +13,24 @@ class StudentHomeDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          UserAccountsDrawerHeader(
-            decoration: const BoxDecoration(
+          const UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
               color: Color(0xffFFFFFF),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40.0),
               ),
             ),
-            accountEmail: const Text(''),
+            accountEmail: Text(''),
             accountName: Row(
               children: <Widget>[
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 26,
                   backgroundColor: Color(0xffF1F1F5),
                 ),
-                const SizedBox(width: 20),
+                SizedBox(width: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget>[
+                  children: <Widget>[
                     SizedBox(
                       width: 110,
                       child: Text(
@@ -45,7 +45,7 @@ class StudentHomeDrawer extends StatelessWidget {
                     ),
                     SizedBox(
                         width: 110,
-                        child: Text('컴퓨터프로그래밍',
+                        child: Text('2023년 1월 15일부터 함께했어요', //user정보로부터 받아야함
                             style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -91,7 +91,7 @@ class StudentHomeDrawer extends StatelessWidget {
                           color: Color(0xff767676),
                           fontSize: 20)),
                   onTap: () {
-                    Navigator.of(context).pushReplacementNamed('/update');
+                    Navigator.of(context).pushNamed('/update');
                   } /*학습플랜 창으로 넘어가기*/
                   )),
           Container(
