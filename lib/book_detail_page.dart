@@ -5,7 +5,7 @@ import 'book_view_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class BookDetailPage extends StatefulWidget {
-  String bookId;
+  int? bookId;
 
   BookDetailPage({
     super.key,
