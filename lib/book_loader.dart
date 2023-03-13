@@ -227,4 +227,5 @@ Future<void> loadBooks() async {
     ]);
     isar.bookChapters.putSync(bookChapters);
   });
+  isar.close();
 }

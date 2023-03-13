@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'code_login_page.dart';
+import 'package:phopes/login.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
@@ -46,8 +46,8 @@ class FirstPage extends StatelessWidget {
                   right: 25,
                   child: FloatingActionButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CodeLoginPage()));
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                     backgroundColor: const Color(0xff2079FF),
                     child: const Icon(Icons.arrow_forward_rounded),

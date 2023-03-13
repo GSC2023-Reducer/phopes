@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/first': (context) => const FirstPage(),
         '/main': (context) => const StudentHomePage(),
-        // '/code': (context) => const CodeLoginPage(),
+        '/code': (context) => const CodeLoginPage(),
         '/study_plan': (context) => const StudyPlanPage(),
         '/book_detail_page': (context) => BookDetailPage(),
         '/update': (context) => const UpdatePage()
