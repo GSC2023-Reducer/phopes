@@ -8,6 +8,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import "update_page.dart";
 import 'book_detail_page.dart';
+import 'check_before_donation.dart';
+import 'input_phone_info.dart';
+import 'check_phone_info.dart';
+import 'finish_phone_donation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,14 +28,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "login",
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/book_detail_page',
+      initialRoute: '/check_before_donation',
       routes: {
         '/first': (context) => const FirstPage(),
         '/main': (context) => const StudentHomePage(),
         '/code': (context) => const CodeLoginPage(),
         '/study_plan': (context) => const StudyPlanPage(),
         '/book_detail_page': (context) => BookDetailPage(),
-        '/update': (context) => const UpdatePage()
+        '/update': (context) => const UpdatePage(),
+        '/check_before_donation': (context) => const CheckBeforeDonation(),
+        '/input_phone_info': (context) => const InputPhoneInfo(),
+        '/check_phone_info': (context) => CheckPhoneInfo(
+              cellPhoneMem: '',
+              cellPhoneType: '',
+              serialNumber: '',
+            ),
+        '/finish_phone_donation': (context) => const FinishPhoneDontaion(),
       },
     );
   }
