@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'code_login_page.dart';
+import 'package:phopes/login.dart';
+import 'isar_services.dart';
 
 class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -46,8 +45,8 @@ class FirstPage extends StatelessWidget {
                   right: 25,
                   child: FloatingActionButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CodeLoginPage()));
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                     },
                     backgroundColor: const Color(0xff2079FF),
                     child: const Icon(Icons.arrow_forward_rounded),
