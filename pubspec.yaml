@@ -54,6 +54,7 @@ dependencies:
   firebase_auth: ^4.2.9
   isar: ^3.0.5
   cloud_firestore: ^4.4.4
+  isar_flutter_libs: ^3.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,6 +66,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  isar_generator: ^3.0.5
+  build_runner: ^2.4.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -77,22 +80,6 @@ flutter:
   uses-material-design: true
   assets:
     - repo/images/dog.png
-    - assets/images/books.jpg
-    - assets/images/b.jpg
-    - assets/q656.pdf
-    - assets/littleprince/book.json
-    - assets/littleprince/bookChapters.json
-    - assets/littleprince/bookChapter/1.json
-    - assets/littleprince/bookChapter/2.json
-    - assets/littleprince/bookChapter/3.json
-    - assets/littleprince/bookChapter/4.json
-    - assets/littleprince/bookChapter/5.json
-    - assets/littleprince/bookChapter/6.json
-    - assets/littleprince/bookChapter/7.json
-    - assets/littleprince/bookChapter/8.json
-    - assets/littleprince/bookChapter/9.json
-    - assets/littleprince/bookChapter/10.json
-    - assets/images/littlePrince.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
