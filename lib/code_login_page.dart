@@ -22,24 +22,8 @@ class _CodeLoginPage extends State<CodeLoginPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text("로그인",
-            style: TextStyle(
-              fontFamily: 'NotoSansKR',
-              fontWeight: FontWeight.w500,
-              color: Color(0xff191919),
-            )),
-        backgroundColor: const Color(0xffffffff),
-        leading: IconButton(
-            icon: const Icon(Icons.arrow_back_outlined),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            color: const Color(0xff191919)),
-      ),
-      body: Center(
+    return SizedBox(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -80,7 +64,7 @@ class _CodeLoginPage extends State<CodeLoginPage>
                 height: 50,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const StudentHomePage()));
+                      builder: (context) => StudentHomePage()));
                 },
                 color: Colors.blueAccent,
                 child: const Text(
@@ -91,43 +75,6 @@ class _CodeLoginPage extends State<CodeLoginPage>
                     fontWeight: FontWeight.w700,
                   ),
                 )),
-            const SizedBox(
-              height: 60,
-            ),
-            const SizedBox(
-                child: Center(
-                    child: Text("또는",
-                        style: TextStyle(
-                          fontFamily: 'NotoSansKR',
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff767676),
-                          fontSize: 13,
-                        )))),
-            const SizedBox(
-              height: 50,
-            ),
-            Container(
-              margin: const EdgeInsets.all(30),
-              child: Row(
-                children: <Widget>[
-                  const SizedBox(
-                      width: 220,
-                      child: Text("일반회원 로그인 바로가기",
-                          style: TextStyle(
-                              height: 1.2,
-                              fontFamily: 'NotoSansKR',
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xff191919),
-                              fontSize: 30))),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => IdLoginPage()));
-                      },
-                      icon: const Icon(Icons.arrow_forward_ios))
-                ],
-              ),
-            ),
           ],
         ),
       ),
