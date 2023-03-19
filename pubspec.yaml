@@ -80,22 +80,6 @@ flutter:
   uses-material-design: true
   assets:
     - repo/images/dog.png
-    - assets/images/books.jpg
-    - assets/images/b.jpg
-    - assets/q656.pdf
-    - assets/littleprince/book.json
-    - assets/littleprince/bookChapters.json
-    - assets/littleprince/bookChapter/1.json
-    - assets/littleprince/bookChapter/2.json
-    - assets/littleprince/bookChapter/3.json
-    - assets/littleprince/bookChapter/4.json
-    - assets/littleprince/bookChapter/5.json
-    - assets/littleprince/bookChapter/6.json
-    - assets/littleprince/bookChapter/7.json
-    - assets/littleprince/bookChapter/8.json
-    - assets/littleprince/bookChapter/9.json
-    - assets/littleprince/bookChapter/10.json
-    - assets/images/littlePrince.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
