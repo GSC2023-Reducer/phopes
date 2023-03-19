@@ -7,5 +7,5 @@ part 'daily_record.g.dart';
 class DailyRecord {
   Id id = Isar.autoIncrement;
   DateTime? createdAt;
-  final chaptersRead = IsarLinks<BookChapterItem>();
+  var chaptersRead = IsarLinks<BookChapterItem>();
 }

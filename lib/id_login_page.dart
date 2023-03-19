@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'student_home_page.dart';
 
 class IdLoginPage extends StatelessWidget {
+  const IdLoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,8 +24,8 @@ class IdLoginPage extends StatelessWidget {
             minWidth: 340,
             height: 50,
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => StudentHomePage()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const StudentHomePage()));
             },
             color: Colors.blueAccent,
             child: const Text(
