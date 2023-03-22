@@ -12,6 +12,8 @@ import 'check_before_donation.dart';
 import 'input_phone_info.dart';
 import 'check_phone_info.dart';
 import 'finish_phone_donation.dart';
+import 'checklist_before_start.dart';
+import 'thanks_for_donation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "login",
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/check_before_donation',
+      initialRoute: '/checklist_before_start',
       routes: {
         '/first': (context) => const FirstPage(),
         '/main': (context) => const StudentHomePage(),
@@ -44,6 +46,8 @@ class MyApp extends StatelessWidget {
               serialNumber: '',
             ),
         '/finish_phone_donation': (context) => const FinishPhoneDontaion(),
+        '/checklist_before_start': (context) => const CheckListBeforeStart(),
+        '/thanks_for_donation': (context) => const ThanksForDonation(),
       },
     );
   }

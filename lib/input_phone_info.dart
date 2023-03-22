@@ -19,6 +19,9 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
   final TextEditingController textEditingController = TextEditingController();
   bool isTextFieldVisible = false;
 
+  TextEditingController _textEditingController = TextEditingController();
+  List<String> _memoNotes = [];
+
   @override
   void initState() {
     super.initState();
@@ -131,9 +134,17 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                         child: TextField(
                                           textAlignVertical:
                                               TextAlignVertical.bottom,
-                                          decoration: const InputDecoration(
-                                            hintText: 'Eg) iphone 11...',
-                                            border: OutlineInputBorder(
+                                          decoration: InputDecoration(
+                                            hintText: 'ex ) iphone 11 …',
+                                            hintStyle: TextStyle(
+                                              color: const Color(0xff999999)
+                                                  .withOpacity(0.5),
+                                              letterSpacing: -0.7 / 2,
+                                              fontSize: 28 / 2,
+                                              fontFamily:
+                                                  'Noto Sans CJK KR, Medium',
+                                            ),
+                                            border: const OutlineInputBorder(
                                               borderRadius: BorderRadius.zero,
                                             ),
                                           ),
@@ -169,9 +180,17 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                         child: TextField(
                                           textAlignVertical:
                                               TextAlignVertical.bottom,
-                                          decoration: const InputDecoration(
-                                            hintText: 'Eg) 64, 128...',
-                                            border: OutlineInputBorder(
+                                          decoration: InputDecoration(
+                                            hintText: 'ex ) 64GB …',
+                                            hintStyle: TextStyle(
+                                              color: const Color(0xff999999)
+                                                  .withOpacity(0.5),
+                                              letterSpacing: -0.7 / 2,
+                                              fontSize: 28 / 2,
+                                              fontFamily:
+                                                  'Noto Sans CJK KR, Medium',
+                                            ),
+                                            border: const OutlineInputBorder(
                                               borderRadius: BorderRadius.zero,
                                             ),
                                           ),
@@ -207,9 +226,17 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                         child: TextField(
                                           textAlignVertical:
                                               TextAlignVertical.bottom,
-                                          decoration: const InputDecoration(
-                                            hintText: 'Eg 00000',
-                                            border: OutlineInputBorder(
+                                          decoration: InputDecoration(
+                                            hintText: 'ex ) 00000 …',
+                                            hintStyle: TextStyle(
+                                              color: const Color(0xff999999)
+                                                  .withOpacity(0.5),
+                                              letterSpacing: -0.7 / 2,
+                                              fontSize: 28 / 2,
+                                              fontFamily:
+                                                  'Noto Sans CJK KR, Medium',
+                                            ),
+                                            border: const OutlineInputBorder(
                                               borderRadius: BorderRadius.zero,
                                             ),
                                           ),
@@ -237,7 +264,7 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   letterSpacing: -0.7 / 2,
                                   fontSize: 28 / 2,
                                   fontFamily: 'Noto Sans CJK KR, Medium',
-                                  fontWeight: FontWeight.w500),
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                           SizedBox(
@@ -271,10 +298,9 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   height: 40 / 2,
                                   width: 40 / 2,
                                   child: Checkbox(
-                                    shape: const ContinuousRectangleBorder(
-                                      side: BorderSide(
-                                        color: Color(0xff707070),
-                                      ),
+                                    side: const BorderSide(
+                                      width: 1 / 2,
+                                      color: Color(0xff707070),
                                     ),
                                     value: inputDadaCheck,
                                     onChanged: (value) {
