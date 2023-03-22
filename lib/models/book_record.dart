@@ -8,9 +8,9 @@ part 'book_record.g.dart';
 class BookRecord {
   Id id = Isar.autoIncrement;
   final book = IsarLink<Book>();
-  final currentChapter = IsarLink<BookChapterItem>();
+  var currentChapter = IsarLink<BookChapterItem>();
   bool? isFinished;
   DateTime? startedAt;
   DateTime? lastReadAt;
-  final readChapters = IsarLinks<BookChapterItem>();
+  var readChapters = IsarLinks<BookChapterItem>();
 }

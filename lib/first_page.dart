@@ -3,6 +3,8 @@ import 'package:phopes/login.dart';
 import 'isar_services.dart';
 
 class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

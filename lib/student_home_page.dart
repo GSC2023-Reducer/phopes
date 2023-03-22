@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/isar_services.dart';
+import 'package:phopes/models/book.dart';
 import 'package:phopes/widgets/book_preview_card.dart';
 import 'package:phopes/widgets/student_home_drawer.dart';
-import 'package:phopes/isar_services.dart';
 import 'models/book_record.dart';
 
 class StudentHomePage extends StatefulWidget {
@@ -13,26 +14,27 @@ class StudentHomePage extends StatefulWidget {
 
 class _StudentHomePage extends State<StudentHomePage> {
   final IsarService service = IsarService();
-  late Future<List<BookRecord>> sortedBookList; //전체 book이자 정렬된 book
+  late Future<List<Book>> bookList; //전체 book이자 정렬된 book
   late Future<List<BookRecord>> finishedBookList; //끝난 book
   int finishedBookCount = 0;
   int totalBookCount = 0;
+
   @override
   void initState() {
     super.initState();
-    sortedBookList = service.sortBookRecords();
+
+    bookList = service.getSortedBooks();
     finishedBookList = service.finishedBooks();
     finishedBookList.then((list) {
       finishedBookCount = list.length;
     });
-    sortedBookList.then((list) {
+    bookList.then((list) {
       totalBookCount = list.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    service.loadBooks();
     return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Scaffold(
@@ -49,10 +51,10 @@ class _StudentHomePage extends State<StudentHomePage> {
                 leading: Container()),
             endDrawer: const StudentHomeDrawer(),
             body: Center(
-              child: FutureBuilder<List<BookRecord>>(
-                  future: sortedBookList,
+              child: FutureBuilder<List<Book>>(
+                  future: bookList,
                   builder: (BuildContext context,
-                      AsyncSnapshot<List<BookRecord>> snapshot) {
+                      AsyncSnapshot<List<Book>> snapshot) {
                     if (snapshot.hasData) {
                       return Column(children: [
                         Container(
@@ -62,7 +64,8 @@ class _StudentHomePage extends State<StudentHomePage> {
                               color: Color(0xff2079FF),
                             ),
                             child: Container(
-                                margin: EdgeInsets.fromLTRB(20, 120, 0, 0),
+                                margin:
+                                    const EdgeInsets.fromLTRB(20, 120, 0, 0),
                                 child: Text(
                                     "Name 님\n현재까지 $finishedBookCount권 읽었어요!",
                                     textAlign: TextAlign.left,
@@ -72,7 +75,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                                         color: Color(0xffFFFFFF),
                                         fontSize: 30)))),
                         Container(
-                          margin: EdgeInsets.fromLTRB(20, 20, 0, 5),
+                          margin: const EdgeInsets.fromLTRB(20, 20, 0, 5),
                           width: 500,
                           child: const Text("최근 읽은 책",
                               textAlign: TextAlign.left,
@@ -86,20 +89,15 @@ class _StudentHomePage extends State<StudentHomePage> {
                           child: ListView.builder(
                               padding: const EdgeInsets.all(20),
                               scrollDirection: Axis.horizontal,
-                              itemCount: 10,
+                              itemCount: totalBookCount,
                               itemBuilder: (context, position) {
-                                final bookRecord = snapshot.data![position];
-                                if (bookRecord.book.value != null) {
-                                  return BookPreviewCard(bookRecord);
-                                } else {
-                                  return const Text("Nothing available");
-                                }
+                                final book = snapshot.data![position];
+                                return BookPreviewCard(book);
                               }),
                         )
                       ]);
-                    } else {
-                      return const CircularProgressIndicator();
                     }
+                    return const CircularProgressIndicator();
                   }),
             )));
   }

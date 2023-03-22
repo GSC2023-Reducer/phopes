@@ -9,4 +9,6 @@ class BookChapters {
   Id id = Isar.autoIncrement;
   final book = IsarLink<Book>();
   final chapters = IsarLinks<BookChapterItem>();
+  final firstChapter = IsarLink<BookChapterItem>();
+  final lastChapter = IsarLink<BookChapterItem>();
 }
