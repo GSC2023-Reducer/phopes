@@ -9,7 +9,7 @@ import 'models/book.dart';
 import 'package:phopes/models/daily_record.dart';
 
 class BookDetailPage extends StatefulWidget {
-  int? bookId;
+  int bookId = 1;
 
   BookDetailPage({
     super.key,

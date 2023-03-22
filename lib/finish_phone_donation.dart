@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'user_home_page.dart';
 
 class FinishPhoneDontaion extends StatefulWidget {
   const FinishPhoneDontaion({
@@ -166,8 +167,8 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                           ),
                         ),
                         onPressed: () {
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(builder: (context) => const ));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const UserHomePage()));
                         },
                         shape: const RoundedRectangleBorder(
                           borderRadius:

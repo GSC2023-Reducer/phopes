@@ -211,12 +211,6 @@ class IsarService {
       ch03,
       ch02,
       ch01,
-<<<<<<< HEAD:lib/book_loader.dart
-    ]);
-    isar.bookChapters.putSync(bookChapters);
-  });
-  isar.close();
-=======
     });
     isar.writeTxnSync(() async {
       isar.bookRecords.putSync(bookRecord);
@@ -270,5 +264,4 @@ class IsarService {
   }
 
   //기타 필요한 함수들 넣을 예정
->>>>>>> cjw0322:lib/isar_services.dart
 }

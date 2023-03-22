@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phopes/select_region_page.dart';
 import 'package:phopes/select_date_page.dart';
+import 'package:phopes/check_before_donation.dart';
 
 class TripRegisterCard extends StatelessWidget {
   const TripRegisterCard({super.key});
@@ -71,7 +72,10 @@ class TripRegisterCard extends StatelessWidget {
             child: MaterialButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const CheckBeforeDonation()));
+                },
                 color: Colors.blueAccent,
                 child: const Text(
                   "기부 일정 등록하기",

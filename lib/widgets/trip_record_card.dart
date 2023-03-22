@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/thanks_for_donation.dart';
+import 'package:phopes/checklist_before_start.dart';
 
 class TripRecordCard extends StatelessWidget {
   String city;
@@ -8,7 +10,13 @@ class TripRecordCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          (city == '남수마트라, 인도네시아')
+              ? Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ThanksForDonation()))
+              : Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const CheckListBeforeStart()));
+        },
         child: Container(
             height: 200,
             margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
