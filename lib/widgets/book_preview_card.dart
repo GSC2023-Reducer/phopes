@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/book_detail_page.dart';
+import 'package:phopes/models/book.dart';
 // import 'package:phopes/book_detail_page.dart';
-import 'package:phopes/models/book_record.dart';
 
 class BookPreviewCard extends StatelessWidget {
-  final BookRecord singleBookRecord;
+  final Book singleBook;
 
-  const BookPreviewCard(this.singleBookRecord, {super.key});
+  const BookPreviewCard(this.singleBook, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    String? bookThumbnail = singleBookRecord.book.value?.thumbnail;
-    String? bookTitle = singleBookRecord.book.value?.title;
-    String? bookAuthor = singleBookRecord.book.value?.author;
-    int? id = singleBookRecord.book.value?.id;
+    String? bookThumbnail = singleBook.thumbnail;
+    String? bookTitle = singleBook.title;
+    String? bookAuthor = singleBook.author;
     return GestureDetector(
         onTap: () {
-          // Navigator.of(context).push(MaterialPageRoute(
-          //     builder: (context) => BookDetailPage(bookId: id)));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => BookDetailPage(singleBook.id)));
         },
         child: Container(
           height: 500,

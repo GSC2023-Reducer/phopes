@@ -44,7 +44,14 @@ const BookSchema = CollectionSchema(
   deserializeProp: _bookDeserializeProp,
   idName: r'id',
   indexes: {},
-  links: {},
+  links: {
+    r'bookRecord': LinkSchema(
+      id: -2081669188083521988,
+      name: r'bookRecord',
+      target: r'BookRecord',
+      single: true,
+    )
+  },
   embeddedSchemas: {},
   getId: _bookGetId,
   getLinks: _bookGetLinks,
@@ -131,11 +138,13 @@ Id _bookGetId(Book object) {
 }
 
 List<IsarLinkBase<dynamic>> _bookGetLinks(Book object) {
-  return [];
+  return [object.bookRecord];
 }
 
 void _bookAttach(IsarCollection<dynamic> col, Id id, Book object) {
   object.id = id;
+  object.bookRecord
+      .attach(col, col.isar.collection<BookRecord>(), r'bookRecord', id);
 }
 
 extension BookQueryWhereSort on QueryBuilder<Book, Book, QWhere> {
@@ -772,7 +781,20 @@ extension BookQueryFilter on QueryBuilder<Book, Book, QFilterCondition> {
 
 extension BookQueryObject on QueryBuilder<Book, Book, QFilterCondition> {}
 
-extension BookQueryLinks on QueryBuilder<Book, Book, QFilterCondition> {}
+extension BookQueryLinks on QueryBuilder<Book, Book, QFilterCondition> {
+  QueryBuilder<Book, Book, QAfterFilterCondition> bookRecord(
+      FilterQuery<BookRecord> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'bookRecord');
+    });
+  }
+
+  QueryBuilder<Book, Book, QAfterFilterCondition> bookRecordIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'bookRecord', 0, true, 0, true);
+    });
+  }
+}
 
 extension BookQuerySortBy on QueryBuilder<Book, Book, QSortBy> {
   QueryBuilder<Book, Book, QAfterSortBy> sortByAuthor() {

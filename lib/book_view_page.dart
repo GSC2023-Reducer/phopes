@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/isar_services.dart';
 import 'package:phopes/models/book_chapter.dart';
-import 'package:phopes/models/book_chapters.dart';
 import 'package:phopes/models/book_record.dart';
 import 'package:phopes/models/daily_record.dart';
 import 'models/book.dart';
@@ -22,28 +22,20 @@ class BookViewPage extends StatefulWidget {
 }
 
 class _BookViewPageState extends State<BookViewPage> {
+  Isar isar = IsarService().db!;
   Book? book;
   BookRecord? bookRecord;
   bool isLoading = true;
   List<BookChapterItem> bookChaptersList = [];
   DailyRecord? dailyRecord;
   BookChapterItem? bookChapterItem;
-  int prev = 0;
-  int next = 0;
+  int? prev;
+  int? next;
 
   final ScrollController scrollControl = ScrollController();
   double recordProgress = 0;
 
   void getData(b, t) async {
-    Isar isar = await Isar.open(
-      [
-        BookSchema,
-        BookChapterItemSchema,
-        BookChaptersSchema,
-        BookRecordSchema,
-        DailyRecordSchema,
-      ],
-    );
     book = await isar.books.filter().idEqualTo(b).findFirst();
 
     bookChapterItem =
@@ -56,10 +48,8 @@ class _BookViewPageState extends State<BookViewPage> {
         isLoading = false;
       });
     }
-    prev = bookChapterItem?.prev.value?.id ?? 1;
-    next = bookChapterItem?.next.value?.id ?? book!.numChapters!;
-
-    await isar.close();
+    prev = bookChapterItem?.prev.value?.id;
+    next = bookChapterItem?.next.value?.id;
   }
 
   @override
@@ -68,10 +58,20 @@ class _BookViewPageState extends State<BookViewPage> {
     getData(widget.bookId, widget.tapChapterId);
 
     scrollControl.addListener(() {
+      /* 
+      TODO: 준형
+      텍스트가 너무 짧으면 스크롤이 활성화가 안 되어서 read를 누를 수가 없습니다.
+
+      https://stackoverflow.com/questions/49307677/how-can-i-get-the-height-of-a-widget
+      SingleChildScrollView와 Text의 길이 비율을 build할 때 계산해서 텍스트가 더 짧은 경우 
+      read를 활성화하는 방향으로 코드를 짜는 건 어떨까하는 아이디어는 있습니다. 
+      해당 아이디어 참고하거나 다른 방법으로 수정 부탁드립니다.
+      */
       setState(() {
         double currentScrollProgress =
             (scrollControl.offset / scrollControl.position.maxScrollExtent);
-        if (currentScrollProgress > recordProgress) {
+        if (currentScrollProgress <= 1 &&
+            currentScrollProgress > recordProgress) {
           recordProgress = currentScrollProgress;
         }
       });
@@ -146,7 +146,7 @@ class _BookViewPageState extends State<BookViewPage> {
                     const SizedBox(height: 34 / 2),
                     SizedBox(
                       height: 36 / 2,
-                      width: 60 / 2,
+                      width: 65 / 2,
                       child: Text(
                         "${(recordProgress * 100).toStringAsFixed(0)}%",
                         style: const TextStyle(
@@ -182,13 +182,15 @@ class _BookViewPageState extends State<BookViewPage> {
                               color: Colors.black38,
                             ),
                             onPressed: () {
-                              scrollControl.jumpTo(0);
+                              if (prev != null) {
+                                scrollControl.jumpTo(0);
 
-                              getData(widget.bookId, prev);
-                              setState(() {
-                                recordProgress = 0;
-                                widget.tapChapterId = prev;
-                              });
+                                getData(widget.bookId, prev);
+                                setState(() {
+                                  recordProgress = 0;
+                                  widget.tapChapterId = prev!;
+                                });
+                              }
                             },
                             label: const Text(
                               'Prev',
@@ -225,19 +227,6 @@ class _BookViewPageState extends State<BookViewPage> {
                                 : const Color(0xffF1F1F5),
                             onPressed: () async {
                               if (recordProgress >= 0.8) {
-                                // daily record와 book record를 조건에 맞게 생성해주고
-                                // 각 record에 bookchapteritem을 넣어주는 코드입니다.
-                                // 코드를 돌려보니 read 버튼을 누른 챕터를 가져오고, 각각의 record를 코드 내에서 생성하는 것은 되지만
-                                // record 안에 챕터를 넣는 과정과 코드 내에서 생성한 record를 isar에 넣는 과정이 안되고 있습니다.
-                                Isar isar = await Isar.open(
-                                  [
-                                    BookSchema,
-                                    BookChapterItemSchema,
-                                    BookChaptersSchema,
-                                    BookRecordSchema,
-                                    DailyRecordSchema,
-                                  ],
-                                );
                                 DateTime now = DateTime.now();
                                 now = DateTime(now.year, now.month, now.day);
                                 if (isar.dailyRecords
@@ -276,56 +265,42 @@ class _BookViewPageState extends State<BookViewPage> {
                                     await addDailyRecord.chaptersRead.save();
                                   });
                                 }
-                                if (isar.bookRecords
+                                var bookRecord = isar.bookRecords
                                     .filter()
-                                    .idEqualTo(widget.bookId)
-                                    .readChapters(
-                                        (q) => q.idEqualTo(widget.tapChapterId))
-                                    .isEmptySync()) {
-                                  var bookRecord = BookRecord()
-                                    ..book.value = isar.books
-                                        .filter()
-                                        .idEqualTo(widget.bookId)
-                                        .findFirstSync()
-                                    ..currentChapter.value = isar
-                                        .bookChapterItems
-                                        .filter()
-                                        .idEqualTo(widget.tapChapterId)
-                                        .findFirstSync()
-                                    ..isFinished = false
-                                    ..startedAt = now
-                                    ..lastReadAt = null
-                                    ..readChapters.add(bookChapterItem!);
-                                  // 여기서 bookchapteritem이 안들어갑니다.
+                                    .book((q) => q.idEqualTo(widget.bookId))
+                                    .findFirstSync()!;
+                                if (bookRecord.startedAt == null) {
+                                  bookRecord.startedAt = now;
+                                  bookRecord.lastReadAt = now;
+                                  bookRecord.currentChapter.value = isar
+                                      .bookChapterItems
+                                      .filter()
+                                      .idEqualTo(widget.tapChapterId)
+                                      .findFirstSync();
+                                  bookRecord.readChapters.add(bookChapterItem!);
 
                                   await isar.writeTxn(() async {
                                     await isar.bookRecords.put(bookRecord);
+                                    await bookRecord.currentChapter.save();
+                                    await bookRecord.readChapters.save();
                                   });
                                 } else {
-                                  var addBookRecord = isar.bookRecords
-                                      .filter()
-                                      .idEqualTo(widget.bookId)
-                                      .findFirstSync();
-
                                   var tapChapterBookItem = isar.bookChapterItems
                                       .filter()
                                       .idEqualTo(widget.tapChapterId)
                                       .findFirstSync();
 
-                                  addBookRecord!.readChapters
+                                  bookRecord.readChapters
                                       .add(tapChapterBookItem!);
 
-                                  addBookRecord.currentChapter.value =
+                                  bookRecord.currentChapter.value =
                                       tapChapterBookItem;
 
                                   await isar.writeTxn(() async {
-                                    await addBookRecord.readChapters.save();
-                                    await addBookRecord.currentChapter.save();
+                                    await bookRecord.readChapters.save();
+                                    await bookRecord.currentChapter.save();
                                   });
                                 }
-
-                                isar.close();
-                                // 코드 구분 주석
                               } else {
                                 showDialog(
                                   context: context,
@@ -346,6 +321,7 @@ class _BookViewPageState extends State<BookViewPage> {
                                   },
                                 );
                               }
+                              setState(() {});
                             },
                             label: Text(
                               'Read',
@@ -370,10 +346,10 @@ class _BookViewPageState extends State<BookViewPage> {
                                 42 / 2, 15 / 2, 16 / 2, 13 / 2),
                             backgroundColor: const Color(0xffF1F1F5),
                             heroTag: 'next',
-                            label: Row(
+                            label: const Row(
                               // ignore: prefer_const_literals_to_create_immutables
                               children: <Widget>[
-                                const Text(
+                                Text(
                                   "Next",
                                   style: TextStyle(
                                     fontSize: 27 / 2,
@@ -382,7 +358,7 @@ class _BookViewPageState extends State<BookViewPage> {
                                     color: Color(0xff767676),
                                   ),
                                 ),
-                                const Icon(
+                                Icon(
                                   Icons.navigate_next,
                                   color: Colors.black38,
                                 ),
@@ -390,14 +366,16 @@ class _BookViewPageState extends State<BookViewPage> {
                             ),
                             icon: Container(),
                             onPressed: () async {
-                              scrollControl.jumpTo(0);
-                              getData(widget.bookId, next);
-                              setState(
-                                () {
-                                  widget.tapChapterId = next;
-                                  recordProgress = 0;
-                                },
-                              );
+                              if (next != null) {
+                                scrollControl.jumpTo(0);
+                                getData(widget.bookId, next);
+                                setState(
+                                  () {
+                                    widget.tapChapterId = next!;
+                                    recordProgress = 0;
+                                  },
+                                );
+                              }
                             },
                             shape: const RoundedRectangleBorder(
                               borderRadius:

@@ -1,4 +1,5 @@
 import 'package:isar/isar.dart';
+import 'package:phopes/models/book_record.dart';
 
 part 'book.g.dart';
 
@@ -9,4 +10,5 @@ class Book {
   String? author;
   String? thumbnail;
   int? numChapters;
+  final bookRecord = IsarLink<BookRecord>();
 }

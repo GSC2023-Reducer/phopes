@@ -7,13 +7,14 @@ import 'package:phopes/models/book_record.dart';
 import 'package:phopes/models/daily_record.dart';
 
 class IsarService {
-  late Future<Isar> db;
+  late Isar? db;
   IsarService() {
-    db = openDB();
+    db = Isar.getInstance();
+    db ??= openDB();
   }
 
-  Future<Isar> openDB() async {
-    return await Isar.open(
+  Isar openDB() {
+    return Isar.openSync(
       [
         BookSchema,
         BookChapterItemSchema,
@@ -26,7 +27,7 @@ class IsarService {
   }
 
   Future<void> loadBooks() async {
-    final isar = await db;
+    final isar = db;
     var book = Book()
       ..author = '앙투안 드 생텍쥐페리'
       ..title = '어린왕자'
@@ -146,42 +147,66 @@ class IsarService {
       ..content = contents.ch01;
 
     ch27.prev.value = ch26;
-    ch26.prev.value = ch25..next.value = ch27;
-    ch25.prev.value = ch24..next.value = ch26;
-    ch24.prev.value = ch23..next.value = ch25;
-    ch23.prev.value = ch22..next.value = ch24;
-    ch22.prev.value = ch21..next.value = ch23;
-    ch21.prev.value = ch20..next.value = ch22;
-    ch20.prev.value = ch19..next.value = ch21;
-    ch19.prev.value = ch18..next.value = ch20;
-    ch18.prev.value = ch17..next.value = ch19;
-    ch17.prev.value = ch16..next.value = ch18;
-    ch16.prev.value = ch15..next.value = ch17;
-    ch15.prev.value = ch14..next.value = ch16;
-    ch14.prev.value = ch13..next.value = ch15;
-    ch13.prev.value = ch12..next.value = ch14;
-    ch12.prev.value = ch11..next.value = ch13;
-    ch11.prev.value = ch10..next.value = ch12;
-    ch10.prev.value = ch09..next.value = ch11;
-    ch09.prev.value = ch08..next.value = ch10;
-    ch08.prev.value = ch07..next.value = ch09;
-    ch07.prev.value = ch06..next.value = ch08;
-    ch06.prev.value = ch05..next.value = ch07;
-    ch05.prev.value = ch04..next.value = ch06;
-    ch04.prev.value = ch03..next.value = ch05;
-    ch03.prev.value = ch02..next.value = ch04;
-    ch02.prev.value = ch01..next.value = ch03;
+    ch26.prev.value = ch25;
+    ch26.next.value = ch27;
+    ch25.prev.value = ch24;
+    ch25.next.value = ch26;
+    ch24.prev.value = ch23;
+    ch24.next.value = ch25;
+    ch23.prev.value = ch22;
+    ch23.next.value = ch24;
+    ch22.prev.value = ch21;
+    ch22.next.value = ch23;
+    ch21.prev.value = ch20;
+    ch21.next.value = ch22;
+    ch20.prev.value = ch19;
+    ch20.next.value = ch21;
+    ch19.prev.value = ch18;
+    ch19.next.value = ch20;
+    ch18.prev.value = ch17;
+    ch18.next.value = ch19;
+    ch17.prev.value = ch16;
+    ch17.next.value = ch18;
+    ch16.prev.value = ch15;
+    ch16.next.value = ch17;
+    ch15.prev.value = ch14;
+    ch15.next.value = ch16;
+    ch14.prev.value = ch13;
+    ch14.next.value = ch15;
+    ch13.prev.value = ch12;
+    ch13.next.value = ch14;
+    ch12.prev.value = ch11;
+    ch12.next.value = ch13;
+    ch11.prev.value = ch10;
+    ch11.next.value = ch12;
+    ch10.prev.value = ch09;
+    ch10.next.value = ch11;
+    ch09.prev.value = ch08;
+    ch09.next.value = ch10;
+    ch08.prev.value = ch07;
+    ch08.next.value = ch09;
+    ch07.prev.value = ch06;
+    ch07.next.value = ch08;
+    ch06.prev.value = ch05;
+    ch06.next.value = ch07;
+    ch05.prev.value = ch04;
+    ch05.next.value = ch06;
+    ch04.prev.value = ch03;
+    ch04.next.value = ch05;
+    ch03.prev.value = ch02;
+    ch03.next.value = ch04;
+    ch02.prev.value = ch01;
+    ch02.next.value = ch03;
     ch01.next.value = ch02;
 
-    var bookChapters = BookChapters()..book.value = book;
+    var bookChapters = BookChapters()
+      ..book.value = book
+      ..firstChapter.value = ch01
+      ..lastChapter.value = ch27;
 
     var bookRecord = BookRecord()
       ..book.value = book
-      ..currentChapter.value = ch05
-      ..isFinished = false
-      ..startedAt = DateTime.utc(2022, 12, 31)
-      ..lastReadAt = DateTime.utc(2023, 3, 10)
-      ..readChapters.addAll({ch01, ch02, ch03, ch04});
+      ..isFinished = false;
 
     bookChapters.chapters.addAll({
       ch27,
@@ -212,9 +237,10 @@ class IsarService {
       ch02,
       ch01,
     });
-    isar.writeTxnSync(() async {
-      isar.bookRecords.putSync(bookRecord);
+    isar!.writeTxnSync(() async {
+      isar.bookChapters.putSync(bookChapters);
       isar.books.putSync(book);
+      isar.bookRecords.putSync(bookRecord);
       isar.bookChapterItems.putAllSync([
         ch27,
         ch26,
@@ -249,7 +275,7 @@ class IsarService {
 
   //Finished bookRecord리스트 반환
   Future<List<BookRecord>> finishedBooks() async {
-    final isar = await db;
+    final isar = db!;
     final finishedBooks =
         isar.bookRecords.filter().isFinishedEqualTo(true).findAll();
     return finishedBooks;
@@ -257,10 +283,32 @@ class IsarService {
 
   //lastReadAt 기준 book내림차순 정렬된 리스트 반환
   Future<List<BookRecord>> sortBookRecords() async {
-    final isar = await db;
+    final isar = db!;
     final sortedBookRecords =
         isar.bookRecords.where().sortByLastReadAtDesc().findAll();
     return sortedBookRecords;
+  }
+
+  Future<List<Book>> getBooks() async {
+    final isar = db!;
+    final books = isar.books.where().sortByTitle().findAll();
+    return books;
+  }
+
+  Future<List<Book>> getSortedBooks() async {
+    final isar = db!;
+
+    final books = await isar.books.where().sortByTitle().findAll();
+    books.sort((a, b) => b.bookRecord.value!.lastReadAt!
+        .compareTo(a.bookRecord.value!.lastReadAt!));
+
+    return Future(() => books);
+  }
+
+  getDailyRecords() {
+    final isar = db!;
+    final dailyRecords = isar.dailyRecords.where().findAll();
+    return dailyRecords;
   }
 
   //기타 필요한 함수들 넣을 예정

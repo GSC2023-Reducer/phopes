@@ -1,44 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
-import 'package:phopes/models/book.dart';
-import 'package:phopes/models/book_chapter.dart';
-import 'package:phopes/models/book_chapters.dart';
+import 'package:phopes/isar_services.dart';
 import 'package:phopes/models/book_record.dart';
 import 'package:phopes/models/daily_record.dart';
 import 'package:phopes/widgets/book_preview_card.dart';
 import 'package:phopes/widgets/daily_contribution.dart';
 import 'package:phopes/widgets/student_home_drawer.dart';
-
-final List<Map> item = [
-  {
-    "contribution": 5,
-    "date": DateTime.utc(2023, 1, 1),
-  },
-  {
-    "contribution": 3,
-    "date": DateTime.utc(2023, 1, 2),
-  },
-  {
-    "contribution": 2,
-    "date": DateTime.utc(2023, 1, 3),
-  },
-  {
-    "contribution": 0,
-    "date": DateTime.utc(2023, 1, 4),
-  },
-  {
-    "contribution": 1,
-    "date": DateTime.utc(2023, 1, 5),
-  },
-  {
-    "contribution": 2,
-    "date": DateTime.utc(2023, 1, 6),
-  },
-  {
-    "contribution": 7,
-    "date": DateTime.utc(2023, 1, 7),
-  },
-];
 
 class StudyPlanPage extends StatefulWidget {
   const StudyPlanPage({super.key});
@@ -48,26 +14,18 @@ class StudyPlanPage extends StatefulWidget {
 }
 
 class _StudyPlanPageState extends State<StudyPlanPage> {
+  final IsarService service = IsarService();
   late Future<List<DailyRecord>> dailyRecords;
-  late Future<List<BookRecord>> finishedBooks;
-  late Future<List<BookRecord>> readingBooks;
+  late Future<List<BookRecord>> finishedBookRecords;
+  late Future<List<BookRecord>> bookRecords;
 
   @override
   void initState() {
     super.initState();
-    final isar = Isar.openSync(
-      [
-        BookSchema,
-        BookRecordSchema,
-        BookChaptersSchema,
-        BookChapterItemSchema,
-        DailyRecordSchema,
-      ],
-    );
 
-    dailyRecords = isar.dailyRecords.where().findAll();
-    finishedBooks = isar.bookRecords.filter().isFinishedEqualTo(true).findAll();
-    readingBooks = isar.bookRecords.filter().isFinishedEqualTo(false).findAll();
+    dailyRecords = service.getDailyRecords();
+    finishedBookRecords = service.finishedBooks();
+    bookRecords = service.sortBookRecords();
     // TODO: get 가입 날짜
   }
 
@@ -187,7 +145,7 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
             Flexible(
               flex: 5,
               child: DefaultTabController(
-                length: 3,
+                length: 2,
                 initialIndex: 0,
                 child: Container(
                   decoration: const BoxDecoration(color: Colors.white),
@@ -202,9 +160,6 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                           ),
                           Tab(
                             text: '다 읽은 책',
-                          ),
-                          Tab(
-                            text: '학습 플랜',
                           )
                         ],
                       ),
@@ -213,14 +168,14 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                         child: TabBarView(
                           children: [
                             FutureBuilder(
-                              future: readingBooks,
+                              future: bookRecords,
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   return ListView.separated(
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (context, index) {
                                       return BookPreviewCard(
-                                          snapshot.data![index].book.value);
+                                          snapshot.data![index].book.value!);
                                     },
                                     separatorBuilder: (context, index) =>
                                         const SizedBox(
@@ -237,14 +192,14 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                               },
                             ),
                             FutureBuilder(
-                              future: finishedBooks,
+                              future: finishedBookRecords,
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   return ListView.separated(
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (context, index) {
                                       return BookPreviewCard(
-                                          snapshot.data![index].book.value);
+                                          snapshot.data![index].book.value!);
                                     },
                                     separatorBuilder: (context, index) =>
                                         const SizedBox(
@@ -260,7 +215,6 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                                 return const CircularProgressIndicator();
                               },
                             ),
-                            const Text('3'),
                           ],
                         ),
                       )
