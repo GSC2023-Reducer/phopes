@@ -55,6 +55,7 @@ dependencies:
   isar: ^3.0.5
   cloud_firestore: ^4.4.4
   isar_flutter_libs: ^3.0.5
+  table_calendar: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -78,6 +79,7 @@ flutter:
   uses-material-design: true
   assets:
     - repo/images/dog.png
+    - repo/images/artikelbandung1.jpg
     
   # To add assets to your application, add an assets section, like this:
   # assets:

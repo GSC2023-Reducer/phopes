@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'student_home_page.dart';
+import 'package:phopes/user_home_page.dart';
 
 class IdLoginPage extends StatelessWidget {
   @override
@@ -23,7 +23,7 @@ class IdLoginPage extends StatelessWidget {
             height: 50,
             onPressed: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => StudentHomePage()));
+                  MaterialPageRoute(builder: (context) => UserHomePage()));
             },
             color: Colors.blueAccent,
             child: const Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:phopes/isar_services.dart';
 import 'code_login_page.dart';
 import '/study_plan_page.dart';
@@ -11,6 +12,7 @@ import "update_page.dart";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await initializeDateFormatting();
   runApp(MyApp());
 }
 
