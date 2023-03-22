@@ -9,8 +9,7 @@ import 'models/book.dart';
 import 'package:phopes/models/daily_record.dart';
 
 class BookDetailPage extends StatefulWidget {
-  int bookId = 1;
-  //book 이건 받아옴 진우님 페이지
+  int? bookId;
 
   BookDetailPage({
     super.key,

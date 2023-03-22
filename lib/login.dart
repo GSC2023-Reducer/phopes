@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
-import 'package:phopes/code_login_page.dart';
 import 'id_login_page.dart';
 import 'code_login_page.dart';
-import 'student_home_page.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text("로그인",
               style: TextStyle(

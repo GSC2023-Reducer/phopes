@@ -64,7 +64,7 @@ class _CodeLoginPage extends State<CodeLoginPage>
                 height: 50,
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const StudentHomePage()));
+                      builder: (context) => StudentHomePage()));
                 },
                 color: Colors.blueAccent,
                 child: const Text(
