@@ -274,7 +274,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                     ),
                     Positioned(
                       bottom: 60 / 2,
-                      right: 65 / 2,
+                      right: 35 / 2,
                       child: SizedBox(
                         width: 619 / 2,
                         height: 98 / 2,
