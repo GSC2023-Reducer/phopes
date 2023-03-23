@@ -68,13 +68,13 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 36.5,
                           backgroundColor: Color.fromRGBO(112, 112, 112, 1),
                           child: CircleAvatar(
@@ -82,10 +82,10 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                             backgroundColor: Color.fromRGBO(241, 241, 245, 1),
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               '나의 서재',
                               style: TextStyle(

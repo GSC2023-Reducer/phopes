@@ -11,7 +11,6 @@ import 'models/book.dart';
 class BookDetailPage extends StatefulWidget {
   final int bookId;
 
-
   const BookDetailPage(
     this.bookId, {
     super.key,

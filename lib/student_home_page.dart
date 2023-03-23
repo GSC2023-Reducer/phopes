@@ -36,7 +36,6 @@ class _StudentHomePage extends State<StudentHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    service.loadBooks();
     return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Scaffold(

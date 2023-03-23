@@ -16,24 +16,24 @@ class StudentHomeDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
+          UserAccountsDrawerHeader(
+            decoration: const BoxDecoration(
               color: Color(0xffFFFFFF),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40.0),
               ),
             ),
-            accountEmail: Text(''),
+            accountEmail: const Text(''),
             accountName: Row(
               children: <Widget>[
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 26,
                   backgroundColor: Color(0xffF1F1F5),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
+                  children: const <Widget>[
                     SizedBox(
                       width: 110,
                       child: Text(
@@ -99,7 +99,6 @@ class StudentHomeDrawer extends StatelessWidget {
             ),
           ),
           Container(
-
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
               title: const Text('업데이트',
@@ -129,7 +128,6 @@ class StudentHomeDrawer extends StatelessWidget {
                         color: Color(0xff767676),
                         fontSize: 20)),
                 onTap: () {
-
                   Navigator.of(context).pop();
                   Navigator.of(context).pushReplacementNamed('/code');
                 }),

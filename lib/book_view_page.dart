@@ -346,10 +346,10 @@ class _BookViewPageState extends State<BookViewPage> {
                                 42 / 2, 15 / 2, 16 / 2, 13 / 2),
                             backgroundColor: const Color(0xffF1F1F5),
                             heroTag: 'next',
-                            label: const Row(
+                            label: Row(
                               // ignore: prefer_const_literals_to_create_immutables
                               children: <Widget>[
-                                Text(
+                                const Text(
                                   "Next",
                                   style: TextStyle(
                                     fontSize: 27 / 2,
@@ -358,7 +358,7 @@ class _BookViewPageState extends State<BookViewPage> {
                                     color: Color(0xff767676),
                                   ),
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.navigate_next,
                                   color: Colors.black38,
                                 ),

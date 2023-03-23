@@ -24,8 +24,8 @@ class LoginPage extends StatelessWidget {
               },
               color: const Color(0xff191919)),
         ),
-        body: const Column(
-          children: [
+        body: Column(
+          children: const [
             CodeLoginPage(),
             SizedBox(
               height: 60,
