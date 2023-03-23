@@ -35,6 +35,18 @@ const BookChaptersSchema = CollectionSchema(
       name: r'chapters',
       target: r'BookChapterItem',
       single: false,
+    ),
+    r'firstChapter': LinkSchema(
+      id: -6790228507070276103,
+      name: r'firstChapter',
+      target: r'BookChapterItem',
+      single: true,
+    ),
+    r'lastChapter': LinkSchema(
+      id: 7371003636343972286,
+      name: r'lastChapter',
+      target: r'BookChapterItem',
+      single: true,
     )
   },
   embeddedSchemas: {},
@@ -87,7 +99,12 @@ Id _bookChaptersGetId(BookChapters object) {
 }
 
 List<IsarLinkBase<dynamic>> _bookChaptersGetLinks(BookChapters object) {
-  return [object.book, object.chapters];
+  return [
+    object.book,
+    object.chapters,
+    object.firstChapter,
+    object.lastChapter
+  ];
 }
 
 void _bookChaptersAttach(
@@ -96,6 +113,10 @@ void _bookChaptersAttach(
   object.book.attach(col, col.isar.collection<Book>(), r'book', id);
   object.chapters
       .attach(col, col.isar.collection<BookChapterItem>(), r'chapters', id);
+  object.firstChapter
+      .attach(col, col.isar.collection<BookChapterItem>(), r'firstChapter', id);
+  object.lastChapter
+      .attach(col, col.isar.collection<BookChapterItem>(), r'lastChapter', id);
 }
 
 extension BookChaptersQueryWhereSort
@@ -309,6 +330,34 @@ extension BookChaptersQueryLinks
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(
           r'chapters', lower, includeLower, upper, includeUpper);
+    });
+  }
+
+  QueryBuilder<BookChapters, BookChapters, QAfterFilterCondition> firstChapter(
+      FilterQuery<BookChapterItem> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'firstChapter');
+    });
+  }
+
+  QueryBuilder<BookChapters, BookChapters, QAfterFilterCondition>
+      firstChapterIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'firstChapter', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<BookChapters, BookChapters, QAfterFilterCondition> lastChapter(
+      FilterQuery<BookChapterItem> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'lastChapter');
+    });
+  }
+
+  QueryBuilder<BookChapters, BookChapters, QAfterFilterCondition>
+      lastChapterIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'lastChapter', 0, true, 0, true);
     });
   }
 }

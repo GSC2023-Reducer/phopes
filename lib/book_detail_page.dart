@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/book_view_page.dart';
+import 'package:phopes/isar_services.dart';
 import 'package:phopes/models/book_chapter.dart';
 import 'package:phopes/models/book_chapters.dart';
 import 'package:phopes/models/book_record.dart';
-import 'book_view_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:isar/isar.dart';
 import 'models/book.dart';
-import 'package:phopes/models/daily_record.dart';
 
 class BookDetailPage extends StatefulWidget {
-  int bookId = 1;
+  final int bookId;
 
-  BookDetailPage({
+
+  const BookDetailPage(
+    this.bookId, {
     super.key,
-    // required this.bookId,
   });
 
   @override
@@ -21,54 +22,51 @@ class BookDetailPage extends StatefulWidget {
 }
 
 class _BookDetailPage extends State<BookDetailPage> {
-  Book? book;
-  BookChapters? bookChapters;
-  BookRecord? bookRecord;
-  bool isLoading = true;
-  List<BookChapterItem> bookChaptersList = [];
-  int chaptersLength = 0;
-
-  void getData() async {
-    Isar isar = await Isar.open(
-      [
-        BookSchema,
-        BookChapterItemSchema,
-        BookChaptersSchema,
-        BookRecordSchema,
-        DailyRecordSchema,
-      ],
-    );
-    book = await isar.books
-        .filter()
-        .idEqualTo(widget.bookId)
-        .findFirst()
-        .then((value) => value);
-
-    bookChapters =
-        await isar.bookChapters.filter().idEqualTo(widget.bookId).findFirst();
-
-    bookChaptersList = bookChapters!.chapters.toList();
-    bookChaptersList.sort((a, b) => b.id.compareTo(a.id));
-
-    bookRecord =
-        await isar.bookRecords.filter().idEqualTo(widget.bookId).findFirst();
-
-    chaptersLength = bookRecord!.readChapters.length;
-
-    setState(() {
-      isLoading = false;
-    });
-    isar.close();
-  }
+  Isar isar = IsarService().db!;
+  late Future<Book?> book;
+  late BookChapters? bookChapters;
+  late Future<BookRecord?> bookRecord;
+  late List chaptersOrder = [];
+  late List<BookChapterItem> finishedChapters = [];
+  late List finishedChaptersIds = [];
+  int finishedChaptersCount = 0;
+  late int tapChapterId;
 
   @override
   void initState() {
+    // TODO: 준형 Provider로 상태관리
     super.initState();
-    getData();
-  }
+    book = isar.books.filter().idEqualTo(widget.bookId).findFirst();
+    bookChapters = isar.bookChapters
+        .filter()
+        .book((q) => q.idEqualTo(widget.bookId))
+        .findFirstSync();
 
-  // ignore: prefer_typing_uninitialized_variables
-  var tapChapterId;
+    if (isar.bookRecords
+        .filter()
+        .book((q) => q.idEqualTo(widget.bookId))
+        .isNotEmptySync()) {
+      finishedChapters = isar.bookRecords
+          .filter()
+          .book((q) => q.idEqualTo(widget.bookId))
+          .findFirstSync()!
+          .readChapters
+          .toList();
+
+      for (var element in finishedChapters) {
+        finishedChaptersIds.add(element.id);
+      }
+
+      finishedChaptersCount = finishedChapters.length;
+    }
+
+    var chapter = bookChapters!.firstChapter;
+    chaptersOrder.add(chapter.value!.id);
+    while (chapter.value!.next.value != null) {
+      chapter = chapter.value!.next;
+      chaptersOrder.add(chapter.value!.id);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +86,11 @@ class _BookDetailPage extends State<BookDetailPage> {
           centerTitle: true,
           elevation: 0.0,
         ),
-        body: isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Padding(
+        body: FutureBuilder(
+          future: book,
+          builder: ((context, snapshot) {
+            if (snapshot.hasData) {
+              return Padding(
                 padding: const EdgeInsets.fromLTRB(48 / 2, 0, 48 / 2, 10),
                 child: Stack(
                   children: [
@@ -121,7 +119,8 @@ class _BookDetailPage extends State<BookDetailPage> {
                                           ],
                                         ),
                                         child: Image(
-                                          image: NetworkImage(book!.thumbnail!),
+                                          image: NetworkImage(
+                                              snapshot.data!.thumbnail!),
                                           width: 328 / 2,
                                           height: 490 / 2,
                                           fit: BoxFit.fill,
@@ -130,7 +129,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                     SizedBox(
                                       height: 70 / 2,
                                       child: Text(
-                                        book!.title!,
+                                        snapshot.data!.title!,
                                         style: const TextStyle(
                                             color: Colors.black,
                                             letterSpacing: -1.2 / 2,
@@ -144,7 +143,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                     SizedBox(
                                       height: 40 / 2,
                                       child: Text(
-                                        book!.author!,
+                                        snapshot.data!.author!,
                                         style: const TextStyle(
                                             color: Color(0xff767676),
                                             fontSize: 28 / 2,
@@ -160,8 +159,8 @@ class _BookDetailPage extends State<BookDetailPage> {
                                       animation: true,
                                       animationDuration: 1000,
                                       lineHeight: 14 / 2,
-                                      percent:
-                                          (chaptersLength) / book!.numChapters!,
+                                      percent: (finishedChaptersCount) /
+                                          snapshot.data!.numChapters!,
                                       progressColor: const Color(0xff2079FF),
                                       backgroundColor: const Color(0xffF1F1F5),
                                     ),
@@ -175,13 +174,13 @@ class _BookDetailPage extends State<BookDetailPage> {
                                       height: 662 / 2,
                                       child: ListView(
                                         scrollDirection: Axis.vertical,
-                                        children: bookChaptersList.map(
-                                          (x) {
+                                        children: chaptersOrder.map(
+                                          (id) {
                                             return GestureDetector(
                                               onTap: () {
                                                 setState(
                                                   () {
-                                                    tapChapterId = x.id;
+                                                    tapChapterId = id;
                                                   },
                                                 );
                                                 Navigator.push(
@@ -203,7 +202,12 @@ class _BookDetailPage extends State<BookDetailPage> {
                                                     contentPadding:
                                                         EdgeInsets.zero,
                                                     title: Text(
-                                                      x.name!,
+                                                      bookChapters!.chapters
+                                                          .firstWhere(
+                                                              (element) =>
+                                                                  element.id ==
+                                                                  id)
+                                                          .name!,
                                                       style: const TextStyle(
                                                         color:
                                                             Color(0xff767676),
@@ -219,20 +223,12 @@ class _BookDetailPage extends State<BookDetailPage> {
                                                         const Icon(Icons.book),
                                                     trailing: const Icon(
                                                         Icons.check_circle),
-                                                    iconColor: ((bookRecord !=
-                                                                null)
-                                                            ? (bookRecord!
-                                                                    .readChapters
-                                                                    .map((chapter) =>
-                                                                        chapter
-                                                                            .id)
-                                                                    .contains(
-                                                                        x.id) ==
-                                                                true)
-                                                            : false)
-                                                        ? const Color(
-                                                            0xff2079FF)
-                                                        : null,
+                                                    iconColor:
+                                                        finishedChaptersIds
+                                                                .contains(id)
+                                                            ? const Color(
+                                                                0xff2079FF)
+                                                            : null,
                                                     shape:
                                                         RoundedRectangleBorder(
                                                       borderRadius:
@@ -251,7 +247,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                           },
                                         ).toList(),
                                       ),
-                                    ),
+                                    )
                                   ],
                                 ),
                               ),
@@ -267,7 +263,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                         width: 60 / 2,
                         height: 35 / 2,
                         child: Text(
-                          "${(((bookRecord?.readChapters.length ?? 0) / book!.numChapters!) * 100).ceil()}%",
+                          "${((finishedChaptersCount / snapshot.data!.numChapters!) * 100).ceil()}%",
                           style: const TextStyle(
                               fontSize: 24 / 2,
                               color: Color(0xff767676),
@@ -278,7 +274,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                       ),
                     ),
                     Positioned(
-                      top: 1211 / 2,
+                      bottom: 60 / 2,
                       right: 65 / 2,
                       child: SizedBox(
                         width: 619 / 2,
@@ -288,8 +284,11 @@ class _BookDetailPage extends State<BookDetailPage> {
                               23 / 2, 27 / 2, 22 / 2, 27 / 2),
                           elevation: 3,
                           backgroundColor: const Color(0xff2079FF),
-                          label: ((bookRecord?.readChapters.length ?? 0) !=
-                                  book!.numChapters!)
+                          label: ((snapshot.data!.bookRecord.value != null
+                                      ? snapshot.data!.bookRecord.value!
+                                          .readChapters.length
+                                      : 0) !=
+                                  snapshot.data!.numChapters!)
                               ? const Text(
                                   "이어 읽기",
                                   style: TextStyle(
@@ -323,7 +322,12 @@ class _BookDetailPage extends State<BookDetailPage> {
                     ),
                   ],
                 ),
-              ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          }),
+        ),
       ),
     );
   }

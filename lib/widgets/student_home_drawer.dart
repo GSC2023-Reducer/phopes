@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:phopes/student_home_page.dart';
+import 'package:phopes/study_plan_page.dart';
+import 'package:phopes/update_page.dart';
 
 class StudentHomeDrawer extends StatelessWidget {
   const StudentHomeDrawer({super.key});
@@ -13,7 +16,7 @@ class StudentHomeDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
             decoration: BoxDecoration(
               color: Color(0xffFFFFFF),
               borderRadius: BorderRadius.only(
@@ -65,35 +68,57 @@ class StudentHomeDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         color: Color(0xff767676),
                         fontSize: 20)),
-                onTap: () {} /*홈이면 그냥 다른 곳 탭해도 되지않나? 홈 listtile이 굳이 필요?*/
-                ),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StudentHomePage(),
+                    ),
+                  );
+                }),
           ),
           Container(
-              margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: ListTile(
-                  title: const Text('학습플랜',
-                      style: TextStyle(
-                          fontFamily: 'NotoSansKR',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff767676),
-                          fontSize: 20)),
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/study_plan');
-                  } /*학습플랜 창으로 넘어가기*/
-                  )),
+            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+            child: ListTile(
+              title: const Text('학습플랜',
+                  style: TextStyle(
+                      fontFamily: 'NotoSansKR',
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff767676),
+                      fontSize: 20)),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const StudyPlanPage(),
+                  ),
+                );
+              } /*학습플랜 창으로 넘어가기*/,
+            ),
+          ),
           Container(
-              margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: ListTile(
-                  title: const Text('업데이트',
-                      style: TextStyle(
-                          fontFamily: 'NotoSansKR',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff767676),
-                          fontSize: 20)),
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/update');
-                  } /*학습플랜 창으로 넘어가기*/
-                  )),
+
+            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+            child: ListTile(
+              title: const Text('업데이트',
+                  style: TextStyle(
+                      fontFamily: 'NotoSansKR',
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff767676),
+                      fontSize: 20)),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const UpdatePage(),
+                  ),
+                );
+              },
+            ),
+          ),
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
@@ -104,7 +129,9 @@ class StudentHomeDrawer extends StatelessWidget {
                         color: Color(0xff767676),
                         fontSize: 20)),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed('/first');
+
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/code');
                 }),
           )
         ],

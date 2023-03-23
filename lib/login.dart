@@ -3,6 +3,8 @@ import 'id_login_page.dart';
 import 'code_login_page.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +24,13 @@ class LoginPage extends StatelessWidget {
               },
               color: const Color(0xff191919)),
         ),
-        body: Column(
+        body: const Column(
           children: [
             CodeLoginPage(),
-            const SizedBox(
+            SizedBox(
               height: 60,
             ),
-            const SizedBox(
+            SizedBox(
                 child: Center(
                     child: Text("또는",
                         style: TextStyle(
@@ -37,7 +39,7 @@ class LoginPage extends StatelessWidget {
                           color: Color(0xff767676),
                           fontSize: 13,
                         )))),
-            const SizedBox(
+            SizedBox(
               height: 50,
             ),
             IdLoginPage()

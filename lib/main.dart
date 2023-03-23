@@ -8,6 +8,7 @@ import 'first_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import "update_page.dart";
+
 import 'book_detail_page.dart';
 import 'check_before_donation.dart';
 import 'input_phone_info.dart';
@@ -20,7 +21,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeDateFormatting();
-  runApp(MyApp());
+  IsarService();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
