@@ -129,7 +129,7 @@ class StudentHomeDrawer extends StatelessWidget {
                         fontSize: 20)),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context).pushReplacementNamed('/code');
+                  Navigator.of(context).pushReplacementNamed('/first');
                 }),
           )
         ],
