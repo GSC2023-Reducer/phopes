@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:phopes/book_detail_page.dart';
+import 'package:phopes/models/book.dart';
 // import 'package:phopes/book_detail_page.dart';
-import 'package:phopes/models/book_record.dart';
+
 
 class BookPreviewCard extends StatelessWidget {
   final BookRecord singleBookRecord;
@@ -9,20 +12,21 @@ class BookPreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? bookThumbnail = singleBookRecord.book.value?.thumbnail;
-    String? bookTitle = singleBookRecord.book.value?.title;
-    String? bookAuthor = singleBookRecord.book.value?.author;
-    int? id = singleBookRecord.book.value?.id;
+
+    String? bookThumbnail = singleBook.thumbnail;
+    String? bookTitle = singleBook.title;
+    String? bookAuthor = singleBook.author;
     return GestureDetector(
         onTap: () {
-          // Navigator.of(context).push(MaterialPageRoute(
-          //     builder: (context) => BookDetailPage(bookId: id)));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => BookDetailPage(singleBook.id)));
         },
         child: Container(
           height: 500,
-          margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           width: 250,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
+
             gradient: LinearGradient(
                 colors: [Color(0xffE2EDFF), Color(0xffF7F5E1)], stops: [0, 1]),
             borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -34,7 +38,9 @@ class BookPreviewCard extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top: 25),
+
+                  margin: const EdgeInsets.only(top: 25),
+
                   decoration: const BoxDecoration(
                     color: Color(0xffF1F1F5),
                   ),
@@ -42,7 +48,9 @@ class BookPreviewCard extends StatelessWidget {
                 ),
                 Container(
                   width: 150,
-                  margin: EdgeInsets.only(top: 15),
+
+                  margin: const EdgeInsets.only(top: 15),
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -56,7 +64,9 @@ class BookPreviewCard extends StatelessWidget {
                                 color: Color(0xff191919),
                                 fontSize: 15)),
                       ),
-                      Icon(
+
+                      const Icon(
+
                         Icons.play_circle_outline,
                         color: Color(0xff707070),
                         size: 20.0,
@@ -65,7 +75,9 @@ class BookPreviewCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 5),
+
+                    margin: const EdgeInsets.only(top: 5),
+
                     width: 150,
                     color: Colors.transparent,
                     child: Text("$bookAuthor",

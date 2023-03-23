@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:phopes/isar_services.dart';
 import 'code_login_page.dart';
+
 import '/study_plan_page.dart';
 import 'student_home_page.dart';
 import 'first_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import "update_page.dart";
+
 import 'book_detail_page.dart';
 import 'check_before_donation.dart';
 import 'input_phone_info.dart';
@@ -16,11 +18,13 @@ import 'finish_phone_donation.dart';
 import 'checklist_before_start.dart';
 import 'thanks_for_donation.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await initializeDateFormatting();
-  runApp(MyApp());
+
+  IsarService();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -46,6 +50,7 @@ class MyApp extends StatelessWidget {
         '/finish_phone_donation': (context) => const FinishPhoneDontaion(),
         '/checklist_before_start': (context) => const CheckListBeforeStart(),
         '/thanks_for_donation': (context) => const ThanksForDonation(),
+
       },
     );
   }

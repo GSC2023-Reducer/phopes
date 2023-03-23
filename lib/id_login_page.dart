@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:phopes/user_home_page.dart';
 
 class IdLoginPage extends StatelessWidget {
+  const IdLoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
