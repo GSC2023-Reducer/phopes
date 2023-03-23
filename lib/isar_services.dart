@@ -15,6 +15,7 @@ class IsarService {
 
   Isar openDB() {
     return Isar.openSync(
+
       [
         BookSchema,
         BookChapterItemSchema,
@@ -27,6 +28,7 @@ class IsarService {
   }
 
   Future<void> loadBooks() async {
+
     final isar = db;
     var book = Book()
       ..author = '앙투안 드 생텍쥐페리'
@@ -208,6 +210,7 @@ class IsarService {
       ..book.value = book
       ..isFinished = false;
 
+
     bookChapters.chapters.addAll({
       ch27,
       ch26,
@@ -237,6 +240,7 @@ class IsarService {
       ch02,
       ch01,
     });
+
     isar!.writeTxnSync(() async {
       isar.bookChapters.putSync(bookChapters);
       isar.books.putSync(book);
@@ -275,6 +279,7 @@ class IsarService {
 
   //Finished bookRecord리스트 반환
   Future<List<BookRecord>> finishedBooks() async {
+
     final isar = db!;
     final finishedBooks =
         isar.bookRecords.filter().isFinishedEqualTo(true).findAll();
@@ -283,11 +288,13 @@ class IsarService {
 
   //lastReadAt 기준 book내림차순 정렬된 리스트 반환
   Future<List<BookRecord>> sortBookRecords() async {
+
     final isar = db!;
     final sortedBookRecords =
         isar.bookRecords.where().sortByLastReadAtDesc().findAll();
     return sortedBookRecords;
   }
+
 
   Future<List<Book>> getBooks() async {
     final isar = db!;

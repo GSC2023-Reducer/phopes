@@ -14,6 +14,7 @@ class StudentHomePage extends StatefulWidget {
 
 class _StudentHomePage extends State<StudentHomePage> {
   final IsarService service = IsarService();
+
   late Future<List<Book>> bookList; //전체 book이자 정렬된 book
   late Future<List<BookRecord>> finishedBookList; //끝난 book
   int finishedBookCount = 0;
@@ -35,6 +36,7 @@ class _StudentHomePage extends State<StudentHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    service.loadBooks();
     return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Scaffold(

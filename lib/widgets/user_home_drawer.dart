@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:phopes/student_home_page.dart';
-import 'package:phopes/study_plan_page.dart';
-import 'package:phopes/update_page.dart';
+import 'package:phopes/trip_record_page.dart';
 
-class StudentHomeDrawer extends StatelessWidget {
-  const StudentHomeDrawer({super.key});
+class UserHomeDrawer extends StatelessWidget {
+  const UserHomeDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class StudentHomeDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const UserAccountsDrawerHeader(
+          UserAccountsDrawerHeader(
             decoration: BoxDecoration(
               color: Color(0xffFFFFFF),
               borderRadius: BorderRadius.only(
@@ -68,56 +66,48 @@ class StudentHomeDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         color: Color(0xff767676),
                         fontSize: 20)),
+                onTap: () {} /*홈이면 그냥 다른 곳 탭해도 되지않나? 홈 listtile이 굳이 필요?*/
+                ),
+          ),
+          Container(
+              margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+              child: ListTile(
+                  title: const Text('착한 여행 기록',
+                      style: TextStyle(
+                          fontFamily: 'NotoSansKR',
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff767676),
+                          fontSize: 20)),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => TripRecordPage()));
+                  } /*나의 여행기록 창으로 넘어가기*/
+                  )),
+          Container(
+            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+            child: ListTile(
+                title: const Text('공기계 정보 수정하기',
+                    style: TextStyle(
+                        fontFamily: 'NotoSansKR',
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff767676),
+                        fontSize: 20)),
                 onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const StudentHomePage(),
-                    ),
-                  );
+                  //공기계 정보 수정하는 창으로 넘어가기//
                 }),
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-              title: const Text('학습플랜',
-                  style: TextStyle(
-                      fontFamily: 'NotoSansKR',
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff767676),
-                      fontSize: 20)),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const StudyPlanPage(),
-                  ),
-                );
-              } /*학습플랜 창으로 넘어가기*/,
-            ),
-          ),
-          Container(
-
-            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-            child: ListTile(
-              title: const Text('업데이트',
-                  style: TextStyle(
-                      fontFamily: 'NotoSansKR',
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff767676),
-                      fontSize: 20)),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UpdatePage(),
-                  ),
-                );
-              },
-            ),
+                title: const Text('유의사항',
+                    style: TextStyle(
+                        fontFamily: 'NotoSansKR',
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff767676),
+                        fontSize: 20)),
+                onTap: () {
+                  //유의사항 보여주는 창으로 넘어가기//
+                }),
           ),
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
@@ -129,9 +119,7 @@ class StudentHomeDrawer extends StatelessWidget {
                         color: Color(0xff767676),
                         fontSize: 20)),
                 onTap: () {
-
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushReplacementNamed('/code');
+                  Navigator.of(context).pushReplacementNamed('/first');
                 }),
           )
         ],

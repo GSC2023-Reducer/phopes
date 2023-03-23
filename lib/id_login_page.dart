@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'student_home_page.dart';
+import 'package:phopes/user_home_page.dart';
 
 class IdLoginPage extends StatelessWidget {
   const IdLoginPage({super.key});
@@ -24,8 +24,8 @@ class IdLoginPage extends StatelessWidget {
             minWidth: 340,
             height: 50,
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const StudentHomePage()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => UserHomePage()));
             },
             color: Colors.blueAccent,
             child: const Text(
