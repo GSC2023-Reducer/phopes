@@ -89,17 +89,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[0],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[0],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff191919),
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[0],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff191919),
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -116,17 +118,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[1],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[1],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[1],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -143,17 +147,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[2],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[2],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff191919),
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[2],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff191919),
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -170,17 +176,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[3],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[3],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[3],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -197,17 +205,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[4],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[4],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff191919),
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[4],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff191919),
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -224,17 +234,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[5],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[5],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[5],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -251,17 +263,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[6],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[6],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff191919),
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[6],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff191919),
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -278,17 +292,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[7],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[7],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white,
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[7],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -305,17 +321,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[8],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[8],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff191919),
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[8],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff191919),
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
@@ -332,17 +350,19 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                                         selectedCity: cities[9],
                                         selectedPeriod: "")));
                               },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(cities[9],
-                                        style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'NotoSansKR',
-                                            fontWeight: FontWeight.w500,
-                                            color: Color(0xff191919),
-                                            fontSize: 15)),
-                                  ],
+                              child: IntrinsicWidth(
+                                child: Container(
+                                  child: Row(
+                                    children: [
+                                      Text(cities[9],
+                                          style: TextStyle(
+                                              height: 1.2,
+                                              fontFamily: 'NotoSansKR',
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff191919),
+                                              fontSize: 15)),
+                                    ],
+                                  ),
                                 ),
                               )),
                           padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
