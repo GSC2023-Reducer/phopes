@@ -24,8 +24,9 @@ class IdLoginPage extends StatelessWidget {
             minWidth: 340,
             height: 50,
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => UserHomePage()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      UserHomePage(selectedCity: "", selectedPeriod: "")));
             },
             color: Colors.blueAccent,
             child: const Text(
