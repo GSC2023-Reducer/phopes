@@ -168,7 +168,8 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                         ),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const UserHomePage()));
+                              builder: (context) => UserHomePage(
+                                  selectedCity: "", selectedPeriod: "")));
                         },
                         shape: const RoundedRectangleBorder(
                           borderRadius:

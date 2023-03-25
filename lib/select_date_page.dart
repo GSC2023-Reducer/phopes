@@ -3,19 +3,23 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import 'user_home_page.dart';
+
 class SelectDatePage extends StatefulWidget {
-  const SelectDatePage({super.key});
+  String city;
+  SelectDatePage({super.key, required this.city});
 
   @override
   State<StatefulWidget> createState() => _SelectDatePage();
 }
 
 class _SelectDatePage extends State<SelectDatePage> {
+  late String cityName = "";
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime? selectedDay;
 
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-      .toggledOff; // Can be toggled on/off by longpressing a date
+      .toggledOn; // Can be toggled on/off by longpressing a date
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
@@ -31,6 +35,7 @@ class _SelectDatePage extends State<SelectDatePage> {
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
+    cityName = widget.city;
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -57,6 +62,8 @@ class _SelectDatePage extends State<SelectDatePage> {
 
   @override
   Widget build(BuildContext context) {
+    late String startDay = DateFormat('yyyy-MM-dd').format(_rangeStart!);
+    late String endDay = DateFormat('yyyy-MM-dd').format(_rangeEnd!);
     return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Scaffold(
@@ -79,15 +86,38 @@ class _SelectDatePage extends State<SelectDatePage> {
             ),
             body: Column(
               children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(15, 20, 0, 0),
-                  alignment: Alignment.topLeft,
-                  child: Text("Select a schedule",
-                      style: TextStyle(
-                          fontFamily: 'NotoSansCJKKR',
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff191919),
-                          fontSize: 18)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(15, 20, 0, 0),
+                      alignment: Alignment.topLeft,
+                      child: Text("Select a schedule",
+                          style: TextStyle(
+                              fontFamily: 'NotoSansCJKKR',
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xff191919),
+                              fontSize: 18)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 20, 60, 0),
+                      alignment: Alignment.topRight,
+                      child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => UserHomePage(
+                                    selectedCity: cityName,
+                                    selectedPeriod:
+                                        startDay + " ~ " + endDay)));
+                          },
+                          child: Text("confirm",
+                              style: TextStyle(
+                                  fontFamily: 'NotoSansCJKKR',
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff191919),
+                                  fontSize: 18))),
+                    )
+                  ],
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(15, 10, 0, 20),
@@ -95,9 +125,7 @@ class _SelectDatePage extends State<SelectDatePage> {
                   child: Text(
                       _rangeStart == null || _rangeEnd == null
                           ? "Please select a date"
-                          : DateFormat('yyyy-MM-dd').format(_rangeStart!) +
-                              "~" +
-                              DateFormat('yyyy-MM-dd').format(_rangeEnd!),
+                          : startDay + "~" + endDay,
                       style: TextStyle(
                           fontFamily: 'NotoSansCJKKR',
                           fontWeight: FontWeight.w500,
