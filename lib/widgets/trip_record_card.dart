@@ -11,7 +11,7 @@ class TripRecordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          (city == '남수마트라, 인도네시아')
+          (city == 'South Sumatra, Indonesia')
               ? Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ThanksForDonation()))
               : Navigator.of(context).push(MaterialPageRoute(

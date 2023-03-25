@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text("로그인",
+          title: const Text("Login",
               style: TextStyle(
                 fontFamily: 'NotoSansKR',
                 fontWeight: FontWeight.w500,
@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(
                 child: Center(
-                    child: Text("또는",
+                    child: Text("Or",
                         style: TextStyle(
                           fontFamily: 'NotoSansKR',
                           fontWeight: FontWeight.w700,

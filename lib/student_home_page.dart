@@ -68,7 +68,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                                 margin:
                                     const EdgeInsets.fromLTRB(20, 120, 0, 0),
                                 child: Text(
-                                    "Name 님\n현재까지 $finishedBookCount권 읽었어요!",
+                                    "James\nhas read the $finishedBookCount so far!",
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                         fontFamily: 'NotoSansKR',
@@ -78,7 +78,7 @@ class _StudentHomePage extends State<StudentHomePage> {
                         Container(
                           margin: const EdgeInsets.fromLTRB(20, 20, 0, 5),
                           width: 500,
-                          child: const Text("최근 읽은 책",
+                          child: const Text("Recently read book",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   fontFamily: 'NotoSansKR',

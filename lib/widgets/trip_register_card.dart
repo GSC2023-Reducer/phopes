@@ -42,7 +42,7 @@ class TripRegisterCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(Icons.location_on_outlined),
-                      Text("  여행지 검색"),
+                      Text("  Search for travel destinations"),
                     ],
                   ),
                 )),
@@ -60,7 +60,7 @@ class TripRegisterCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(Icons.event_available_outlined),
-                      Text("  날짜 선택"),
+                      Text("  Select a date"),
                     ],
                   ),
                 )),
@@ -78,7 +78,7 @@ class TripRegisterCard extends StatelessWidget {
                 },
                 color: Colors.blueAccent,
                 child: const Text(
-                  "기부 일정 등록하기",
+                  "Registering a donation schedule",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'NotoSansKR',

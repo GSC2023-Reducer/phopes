@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class SelectDatePage extends StatefulWidget {
   const SelectDatePage({super.key});
@@ -19,6 +20,13 @@ class _SelectDatePage extends State<SelectDatePage> {
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    initializeDateFormatting(Localizations.localeOf(context).languageCode);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -56,7 +64,7 @@ class _SelectDatePage extends State<SelectDatePage> {
               elevation: 0.0,
               backgroundColor: const Color(0xffFFFFFF),
               centerTitle: true,
-              title: const Text("날짜 선택",
+              title: const Text("Select a date",
                   style: TextStyle(
                       fontFamily: 'NotoSansCJKKR',
                       fontWeight: FontWeight.w700,
@@ -74,7 +82,7 @@ class _SelectDatePage extends State<SelectDatePage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(15, 20, 0, 0),
                   alignment: Alignment.topLeft,
-                  child: Text("일정 선택",
+                  child: Text("Select a schedule",
                       style: TextStyle(
                           fontFamily: 'NotoSansCJKKR',
                           fontWeight: FontWeight.w700,
@@ -86,7 +94,7 @@ class _SelectDatePage extends State<SelectDatePage> {
                   alignment: Alignment.topLeft,
                   child: Text(
                       _rangeStart == null || _rangeEnd == null
-                          ? "날짜를 선택해주세요"
+                          ? "Please select a date"
                           : DateFormat('yyyy-MM-dd').format(_rangeStart!) +
                               "~" +
                               DateFormat('yyyy-MM-dd').format(_rangeEnd!),

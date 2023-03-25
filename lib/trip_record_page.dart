@@ -23,7 +23,7 @@ class _TripRecordPage extends State<TripRecordPage>
           elevation: 0.0,
           backgroundColor: const Color(0xffFFFFFF),
           centerTitle: true,
-          title: const Text("착한 여행 기록",
+          title: const Text("Donation travel log",
               style: TextStyle(
                   fontFamily: 'NotoSansCJKKR',
                   fontWeight: FontWeight.w500,
@@ -43,7 +43,7 @@ class _TripRecordPage extends State<TripRecordPage>
                 margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
                 width: MediaQuery.of(context).size.width / 1,
                 child: const Text(
-                  "2023년 05월 31일",
+                  "2023/03/25",
                   style: TextStyle(
                     fontFamily: 'NotoSansKR',
                     fontWeight: FontWeight.w700,
@@ -56,7 +56,7 @@ class _TripRecordPage extends State<TripRecordPage>
                 margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
                 width: MediaQuery.of(context).size.width / 1,
                 child: const Text(
-                  "여행 2일차",
+                  "the firth day of trip",
                   style: TextStyle(
                     fontFamily: 'NotoSansKR',
                     fontWeight: FontWeight.w700,
@@ -67,7 +67,7 @@ class _TripRecordPage extends State<TripRecordPage>
               )
             ]),
             TripRecordCard(
-                city: '반둥, 인도네시아', period: '2023.03.22 ~ 2023.03.27'),
+                city: 'Bandung, Indonesia', period: '2023.03.25 ~ 2023.03.27'),
             const SizedBox(height: 10),
             Material(
               child: Container(
@@ -78,7 +78,7 @@ class _TripRecordPage extends State<TripRecordPage>
                   tabs: [
                     Container(
                       child: Text(
-                        '다가오는 여행',
+                        'Upcoming trips',
                         style: TextStyle(
                           fontFamily: 'NotoSansKR',
                           fontWeight: FontWeight.w500,
@@ -88,7 +88,7 @@ class _TripRecordPage extends State<TripRecordPage>
                     ),
                     Container(
                       child: Text(
-                        '지난 여행',
+                        'Past trips',
                         style: TextStyle(
                           fontFamily: 'NotoSansKR',
                           fontWeight: FontWeight.w500,
@@ -117,7 +117,7 @@ class _TripRecordPage extends State<TripRecordPage>
                             margin: const EdgeInsets.fromLTRB(20, 5, 0, 0),
                             width: MediaQuery.of(context).size.width / 1,
                             child: const Text(
-                              "2023년",
+                              "2023",
                               style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -128,7 +128,7 @@ class _TripRecordPage extends State<TripRecordPage>
                             margin: const EdgeInsets.fromLTRB(20, 10, 0, 10),
                             width: MediaQuery.of(context).size.width / 1,
                             child: const Text(
-                              "▷ 4월 12일",
+                              "▷ April 12",
                               style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -137,7 +137,7 @@ class _TripRecordPage extends State<TripRecordPage>
                               ),
                             )),
                         TripRecordCard(
-                            city: '호치민, 베트남',
+                            city: 'Ho Chi Minh, Vietnam',
                             period: '2023.04.12 ~ 2023.04.15'),
                       ],
                     ),
@@ -150,7 +150,7 @@ class _TripRecordPage extends State<TripRecordPage>
                             margin: const EdgeInsets.fromLTRB(20, 5, 0, 0),
                             width: MediaQuery.of(context).size.width / 1,
                             child: const Text(
-                              "2023년",
+                              "2023",
                               style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -161,7 +161,7 @@ class _TripRecordPage extends State<TripRecordPage>
                             margin: const EdgeInsets.fromLTRB(20, 10, 0, 10),
                             width: MediaQuery.of(context).size.width / 1,
                             child: const Text(
-                              "▷ 2월 28일",
+                              "▷ February 28th",
                               style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -170,7 +170,7 @@ class _TripRecordPage extends State<TripRecordPage>
                               ),
                             )),
                         TripRecordCard(
-                            city: '남수마트라, 인도네시아',
+                            city: 'South Sumatra, Indonesia',
                             period: '2023.02.24 ~ 2023.02.28'),
                       ],
                     ),

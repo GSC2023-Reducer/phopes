@@ -86,7 +86,7 @@ class _BookViewPageState extends State<BookViewPage> {
         toolbarHeight: 108 / 2,
         backgroundColor: Colors.white,
         title: (bookChapterItem == null)
-            ? const Text('잠시만 기다려 주세요.',
+            ? const Text('Please Wait',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 36 / 2,
@@ -307,11 +307,10 @@ class _BookViewPageState extends State<BookViewPage> {
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      content: const Text(
-                                          '80% 이상 읽었을 때 체크할 수 있습니다.'),
+                                      content: const Text('Read more than 80%'),
                                       actions: [
                                         TextButton(
-                                          child: const Text('확인'),
+                                          child: const Text('Confirm'),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },

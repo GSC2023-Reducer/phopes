@@ -11,7 +11,7 @@ class IdLoginPage extends StatelessWidget {
       children: [
         const SizedBox(
           width: 330,
-          child: Text("일반회원 로그인",
+          child: Text("Doner Login",
               style: TextStyle(
                   height: 1.3,
                   fontFamily: 'NotoSansKR',
@@ -29,7 +29,7 @@ class IdLoginPage extends StatelessWidget {
             },
             color: Colors.blueAccent,
             child: const Text(
-              "Google 계정으로 로그인",
+              "Google Account Login",
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'NotoSansKR',

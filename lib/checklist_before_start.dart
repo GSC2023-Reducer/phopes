@@ -59,7 +59,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                         height: 81 / 2,
                         width: 450 / 2,
                         child: Text(
-                          '출발 전 체크리스트',
+                          'Checklist before start',
                           style: TextStyle(
                               color: Color(0xff191919),
                               letterSpacing: -1.4 / 2,
@@ -85,7 +85,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '1) ',
+                                  text: '1) Did you pack your',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -96,7 +96,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '공기계',
+                                  text: 'phone',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -107,7 +107,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' 잘 챙기셨나요? \n2) 책',
+                                  text: ' well? \n2) Did you download the',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -118,7 +118,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' 다운로드',
+                                  text: ' book?',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -129,7 +129,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' 받으셨나요? \n3)',
+                                  text: '\n3) Is it a book that contains',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -140,7 +140,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' 해당 나라 언어',
+                                  text: ' the language of the country',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -151,7 +151,8 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '가 담긴 책인가요? \n4) 수혜자에게',
+                                  text:
+                                      ' you want to donate? \n4) Are you ready to tell the ',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -162,7 +163,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' 공기계 코드',
+                                  text: 'Unlock-Phone Code',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -173,7 +174,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '를 알려줄 준비가 되셨나요?',
+                                  text: ' to Recipient?',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,

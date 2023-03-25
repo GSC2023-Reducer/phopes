@@ -29,8 +29,8 @@ class IsarService {
   Future<void> loadBooks() async {
     final isar = db;
     var book = Book()
-      ..author = '앙투안 드 생텍쥐페리'
-      ..title = '어린왕자'
+      ..author = 'Antoine de Saint-Exupery'
+      ..title = 'Little Prince'
       ..numChapters = 27
       ..thumbnail =
           'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791187192596.jpg';

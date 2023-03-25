@@ -30,7 +30,7 @@ class _CodeLoginPage extends State<CodeLoginPage>
             const SizedBox(height: 60),
             const SizedBox(
               width: 330,
-              child: Text("공기계 코드 입력",
+              child: Text("Input Phone Code",
                   style: TextStyle(
                       height: 1.2,
                       fontFamily: 'NotoSansKR',
@@ -48,7 +48,7 @@ class _CodeLoginPage extends State<CodeLoginPage>
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffffffff)),
                       ),
-                      hintText: ('코드를 입력해주세요'),
+                      hintText: ('Input the code'),
                       hintStyle: TextStyle(
                         fontSize: 15,
                         color: Color(0xff999999),
@@ -68,7 +68,7 @@ class _CodeLoginPage extends State<CodeLoginPage>
                 },
                 color: Colors.blueAccent,
                 child: const Text(
-                  "로그인",
+                  "Login",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'NotoSansKR',

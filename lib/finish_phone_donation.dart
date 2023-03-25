@@ -90,7 +90,7 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                               height: 81 / 2,
                               width: 654 / 2,
                               child: Text(
-                                '기부가 완료되었습니다!',
+                                'Donation completed!',
                                 style: TextStyle(
                                     color: Color(0xff191919),
                                     letterSpacing: -1.05 / 2,
@@ -111,7 +111,7 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: '공기계 코드 : $phopesCode',
+                                      text: 'Unlock-Phone Code : $phopesCode',
                                       style: const TextStyle(
                                         color: Color(0xff999999),
                                         fontSize: 28 / 2,
@@ -122,7 +122,7 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                                     ),
                                     const TextSpan(
                                       text:
-                                          '\n공기계에 앱을 설치한 후 로그인해서 책을 다운받아주세요! ',
+                                          '\nPlease install the app and download the book!',
                                       style: TextStyle(
                                         color: Color(0xff999999),
                                         fontSize: 28 / 2,
@@ -155,7 +155,7 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                           width: 574 / 2,
                           child: Center(
                             child: Text(
-                              "기부 완료",
+                              "Donation complete",
                               style: TextStyle(
                                 fontSize: 32 / 2,
                                 letterSpacing: -0.8 / 2,

@@ -57,7 +57,7 @@ class _UpdatePage extends State<UpdatePage> {
           Container(
             alignment: Alignment.center,
             child: const Text(
-              "3월 업데이트 목록",
+              "March, Update List",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontFamily: 'NotoSansKR',
@@ -90,7 +90,7 @@ class _UpdatePage extends State<UpdatePage> {
                     children: [
                       Container(
                         color: Colors.transparent,
-                        child: const Text("어린왕자",
+                        child: const Text("Little Prince",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontFamily: 'NotoSansKR',
@@ -107,7 +107,7 @@ class _UpdatePage extends State<UpdatePage> {
                   width: 150,
                   color: Colors.transparent,
                   child: const Text(
-                    "앙투안 마리 드 생택쥐페리",
+                    "Antoine Marie de Saint-Taxupery",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
@@ -130,14 +130,14 @@ class _UpdatePage extends State<UpdatePage> {
                     content: const Text('Books downloaded'),
                     actions: <Widget>[
                       TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
+                        onPressed: () => Navigator.pop(context, 'Confirm'),
+                        child: const Text('Confirm'),
                       ),
                     ],
                   ),
                 );
               },
-              child: const Text('선택 도서 다운로드 하기'))
+              child: const Text('Download Selected Books'))
         ],
       ),
     );

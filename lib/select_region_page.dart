@@ -12,16 +12,16 @@ class SelectRegionPage extends StatefulWidget {
 
 class _SelectRegionPage extends State<SelectRegionPage> {
   List<String> cities = [
-    "자카르타",
-    "호치민",
-    "하노이",
-    "마닐라",
-    "프놈펜",
-    "쿠알라룸푸르",
-    "방콕",
-    "세부",
-    "보라카이",
-    "칸쿤"
+    "Jakarta",
+    "Ho Chi Minh",
+    "Hanoi",
+    "Manila",
+    "Phnom Penh",
+    "Kuala Lumpur",
+    "Bangkok",
+    "Cebu",
+    "Boracay",
+    "Cancun"
   ];
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _SelectRegionPage extends State<SelectRegionPage> {
             appBar: AppBar(
                 elevation: 0.0,
                 backgroundColor: const Color(0xffFFFFFF),
-                title: const Text("도시 또는 공항 이름으로 검색",
+                title: const Text("Search by city or airport name",
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,
@@ -55,7 +55,7 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 30, 0, 40),
                       width: 330,
-                      child: Text("최근 검색",
+                      child: Text("Recent searches",
                           style: TextStyle(
                               height: 1.2,
                               fontFamily: 'NotoSansKR',
@@ -66,7 +66,7 @@ class _SelectRegionPage extends State<SelectRegionPage> {
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 20, 0, 30),
                       width: 330,
-                      child: Text("인기 기부 도시",
+                      child: Text("a popular destination",
                           style: TextStyle(
                               height: 1.2,
                               fontFamily: 'NotoSansKR',

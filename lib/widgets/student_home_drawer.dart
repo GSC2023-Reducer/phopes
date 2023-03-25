@@ -48,7 +48,7 @@ class StudentHomeDrawer extends StatelessWidget {
                     ),
                     SizedBox(
                         width: 110,
-                        child: Text('2023년 1월 15일부터 함께했어요', //user정보로부터 받아야함
+                        child: Text('Since 2023. 01. 15.', //user정보로부터 받아야함
                             style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -62,7 +62,7 @@ class StudentHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-                title: const Text('홈',
+                title: const Text('Home',
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,
@@ -81,7 +81,7 @@ class StudentHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-              title: const Text('학습플랜',
+              title: const Text('Study Plan',
                   style: TextStyle(
                       fontFamily: 'NotoSansKR',
                       fontWeight: FontWeight.w500,
@@ -101,7 +101,7 @@ class StudentHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-              title: const Text('업데이트',
+              title: const Text('Update',
                   style: TextStyle(
                       fontFamily: 'NotoSansKR',
                       fontWeight: FontWeight.w500,
@@ -121,7 +121,7 @@ class StudentHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-                title: const Text('로그아웃',
+                title: const Text('Logout',
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,
