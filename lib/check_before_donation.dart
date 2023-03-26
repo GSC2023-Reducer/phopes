@@ -58,9 +58,9 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                       ),
                       const SizedBox(
                         height: 81 / 2,
-                        width: 380 / 2, // 375 -> 380-
+                        width: 700 / 2, // 375 -> 380-
                         child: Text(
-                          '기부 전 유의사항',
+                          'Precautions before donation',
                           style: TextStyle(
                               color: Color(0xff191919),
                               letterSpacing: -1.4 / 2,
@@ -73,14 +73,14 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                         height: 55 / 2,
                       ),
                       SizedBox(
-                        height: 1100 / 2, //1154하면 화면 넘침
+                        height: 1100 / 2,
                         width: 654 / 2,
                         child: SingleChildScrollView(
                           child: RichText(
                             text: const TextSpan(
                               children: [
                                 TextSpan(
-                                  text: '공기계 체크사항',
+                                  text: 'Unlock-phone checklist',
                                   style: TextStyle(
                                     color: Color(0XFF191919),
                                     fontSize: 40 / 2,
@@ -89,7 +89,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '\n1) 개인정보보호에 따라 ',
+                                  text: '\n1) It is essential to ',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -99,7 +99,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '초기화',
+                                  text: 'reset ',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -109,7 +109,8 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '는 필수입니다. \n2) 심한 수준의 ',
+                                  text:
+                                      'your phone according to personal information protection. \n2) Severe levels of ',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -119,7 +120,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '액정 손상',
+                                  text: 'mobile phone screen damage',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -129,7 +130,8 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '은 아이들의 시청이 어려울 수 있습니다.',
+                                  text:
+                                      ' can be difficult for children to watch.',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -139,7 +141,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '\n \n공기계 정상 여부 확인',
+                                  text: '\n \nCheck the state of Unlock Phone',
                                   style: TextStyle(
                                     color: Color(0XFF191919),
                                     fontSize: 40 / 2,
@@ -148,7 +150,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '\n1) ',
+                                  text: '\n1) Please check if it has been ',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -158,7 +160,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '분실 ',
+                                  text: 'lost ',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -168,7 +170,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '또는 ',
+                                  text: 'or ',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -178,7 +180,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '도난',
+                                  text: 'stolen.',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,
@@ -188,7 +190,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' 되지 않았는지 확인 부탁드립니다. \n2) ...',
+                                  text: '\n2) ...',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontSize: 32 / 2,
@@ -198,7 +200,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '\n \nPhopes에서는 이렇게 사용됩니다.',
+                                  text: '\n \nPhopes Promise!',
                                   style: TextStyle(
                                     color: Color(0XFF191919),
                                     fontSize: 40 / 2,
@@ -207,7 +209,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '\n1) 교육 환경이 어려운 국가의 아이들을 위한 ',
+                                  text: '\n1) It is only used for ',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontFamily: 'Noto Sans CJK KR, Medium',
@@ -217,7 +219,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '교육적 목적',
+                                  text: 'educational purposes ',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontFamily: 'Noto Sans CJK KR, Medium',
@@ -228,29 +230,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                                 ),
                                 TextSpan(
                                   text:
-                                      '으로 쓰일 뿐, 다른 의도로는 일체 사용되지 않습니다. \n2)...',
-                                  style: TextStyle(
-                                    color: Color(0xff707070),
-                                    fontFamily: 'Noto Sans CJK KR, Medium',
-                                    fontWeight: FontWeight.w500,
-                                    height: 2,
-                                    fontSize: 32 / 2,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      '으로 쓰일 뿐, 다른 의도로는 일체 사용되지 않습니다. \n2)...',
-                                  style: TextStyle(
-                                    color: Color(0xff707070),
-                                    fontFamily: 'Noto Sans CJK KR, Medium',
-                                    fontWeight: FontWeight.w500,
-                                    height: 2,
-                                    fontSize: 32 / 2,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text:
-                                      '으로 쓰일 뿐, 다른 의도로는 일체 사용되지 않습니다. \n2)...',
+                                      'for children in countries where the educational environment is difficult, and it is not used for any other purpose. \n2)...',
                                   style: TextStyle(
                                     color: Color(0xff707070),
                                     fontFamily: 'Noto Sans CJK KR, Medium',
@@ -281,7 +261,7 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                           width: 574 / 2,
                           child: Center(
                             child: Text(
-                              "다음 단계",
+                              "Next step",
                               style: TextStyle(
                                 fontSize: 32 / 2,
                                 letterSpacing: -0.8 / 2,

@@ -16,24 +16,24 @@ class StudentHomeDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
+          UserAccountsDrawerHeader(
+            decoration: const BoxDecoration(
               color: Color(0xffFFFFFF),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(40.0),
               ),
             ),
-            accountEmail: Text(''),
+            accountEmail: const Text(''),
             accountName: Row(
               children: <Widget>[
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 26,
                   backgroundColor: Color(0xffF1F1F5),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
+                  children: const <Widget>[
                     SizedBox(
                       width: 110,
                       child: Text(
@@ -48,7 +48,7 @@ class StudentHomeDrawer extends StatelessWidget {
                     ),
                     SizedBox(
                         width: 110,
-                        child: Text('2023년 1월 15일부터 함께했어요', //user정보로부터 받아야함
+                        child: Text('Since 2023. 01. 15.', //user정보로부터 받아야함
                             style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -62,7 +62,7 @@ class StudentHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-                title: const Text('홈',
+                title: const Text('Home',
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,
@@ -81,7 +81,7 @@ class StudentHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-              title: const Text('학습플랜',
+              title: const Text('Study Plan',
                   style: TextStyle(
                       fontFamily: 'NotoSansKR',
                       fontWeight: FontWeight.w500,
@@ -99,10 +99,9 @@ class StudentHomeDrawer extends StatelessWidget {
             ),
           ),
           Container(
-
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-              title: const Text('업데이트',
+              title: const Text('Update',
                   style: TextStyle(
                       fontFamily: 'NotoSansKR',
                       fontWeight: FontWeight.w500,
@@ -122,16 +121,15 @@ class StudentHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-                title: const Text('로그아웃',
+                title: const Text('Logout',
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,
                         color: Color(0xff767676),
                         fontSize: 20)),
                 onTap: () {
-
                   Navigator.of(context).pop();
-                  Navigator.of(context).pushReplacementNamed('/code');
+                  Navigator.of(context).pushReplacementNamed('/first');
                 }),
           )
         ],

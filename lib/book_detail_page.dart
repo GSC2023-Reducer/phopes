@@ -11,7 +11,6 @@ import 'models/book.dart';
 class BookDetailPage extends StatefulWidget {
   final int bookId;
 
-
   const BookDetailPage(
     this.bookId, {
     super.key,
@@ -275,7 +274,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                     ),
                     Positioned(
                       bottom: 60 / 2,
-                      right: 65 / 2,
+                      right: 35 / 2,
                       child: SizedBox(
                         width: 619 / 2,
                         height: 98 / 2,
@@ -290,7 +289,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                       : 0) !=
                                   snapshot.data!.numChapters!)
                               ? const Text(
-                                  "이어 읽기",
+                                  "Continue Reading",
                                   style: TextStyle(
                                     fontSize: 32 / 2,
                                     letterSpacing: -0.8 / 2,
@@ -299,7 +298,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   ),
                                 )
                               : const Text(
-                                  "독서 완료",
+                                  "Finished reading",
                                   style: TextStyle(
                                     fontSize: 32 / 2,
                                     letterSpacing: -0.8 / 2,

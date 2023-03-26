@@ -68,13 +68,13 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 24,
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 36.5,
                           backgroundColor: Color.fromRGBO(112, 112, 112, 1),
                           child: CircleAvatar(
@@ -82,18 +82,18 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                             backgroundColor: Color.fromRGBO(241, 241, 245, 1),
                           ),
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
-                              '나의 서재',
+                              'My library',
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text('2023.01.15.부터 함께했어요'),
+                            Text('Since 2023.01.15.'),
                           ],
                         )
                       ],
@@ -104,7 +104,7 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                       horizontal: 24,
                     ),
                     child: Text(
-                      "나의 독서기록",
+                      "My reading record",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -156,10 +156,10 @@ class _StudyPlanPageState extends State<StudyPlanPage> {
                         unselectedLabelColor: Color.fromRGBO(153, 153, 153, 1),
                         tabs: [
                           Tab(
-                            text: '읽고 있는 책',
+                            text: 'In progress',
                           ),
                           Tab(
-                            text: '다 읽은 책',
+                            text: 'Finished',
                           )
                         ],
                       ),

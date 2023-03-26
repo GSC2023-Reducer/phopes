@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:phopes/book_detail_page.dart';
 import 'package:phopes/models/book.dart';
-// import 'package:phopes/book_detail_page.dart';
-
 
 class BookPreviewCard extends StatelessWidget {
-  final BookRecord singleBookRecord;
-
-  const BookPreviewCard(this.singleBookRecord, {super.key});
+  final Book singleBook;
+  const BookPreviewCard(this.singleBook, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,6 @@ class BookPreviewCard extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-
                   margin: const EdgeInsets.only(top: 25),
                   decoration: const BoxDecoration(
                     color: Color(0xffF1F1F5),

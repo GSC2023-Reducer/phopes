@@ -4,7 +4,9 @@ import 'package:phopes/select_date_page.dart';
 import 'package:phopes/check_before_donation.dart';
 
 class TripRegisterCard extends StatelessWidget {
-  const TripRegisterCard({super.key});
+  String city;
+  String period;
+  TripRegisterCard({super.key, required this.city, required this.period});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class TripRegisterCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(Icons.location_on_outlined),
-                      Text("  여행지 검색"),
+                      Text(city),
                     ],
                   ),
                 )),
@@ -54,13 +56,13 @@ class TripRegisterCard extends StatelessWidget {
             child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SelectDatePage()));
+                      builder: (context) => SelectDatePage(city: city)));
                 },
                 child: Container(
                   child: Row(
                     children: [
                       Icon(Icons.event_available_outlined),
-                      Text("  날짜 선택"),
+                      Text(period),
                     ],
                   ),
                 )),
@@ -78,7 +80,7 @@ class TripRegisterCard extends StatelessWidget {
                 },
                 color: Colors.blueAccent,
                 child: const Text(
-                  "기부 일정 등록하기",
+                  "Registering a donation schedule",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'NotoSansKR',

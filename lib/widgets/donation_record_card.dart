@@ -58,7 +58,7 @@ class DonationRecordCard extends StatelessWidget {
                     child: Text.rich(
                       textAlign: TextAlign.center,
                       TextSpan(
-                          text: "인도네시아 남수마트라",
+                          text: "South Sumatra, Indonesia",
                           style: const TextStyle(
                             fontFamily: 'NotoSansKR',
                             fontWeight: FontWeight.w700,
@@ -67,31 +67,13 @@ class DonationRecordCard extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                                text: "에\n",
-                                style: const TextStyle(
-                                    fontFamily: 'NotoSansKR',
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.grey,
-                                    fontSize: 17),
-                                children: [
-                                  TextSpan(
-                                      text: "2023년 5월 5일",
-                                      style: const TextStyle(
-                                          fontFamily: 'NotoSansKR',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black,
-                                          fontSize: 17),
-                                      children: [
-                                        TextSpan(
-                                          text: " 기부했어요",
-                                          style: const TextStyle(
-                                              fontFamily: 'NotoSansKR',
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.grey,
-                                              fontSize: 17),
-                                        )
-                                      ]),
-                                ]),
+                              text: "\n\n2023 / 5 / 5",
+                              style: const TextStyle(
+                                  fontFamily: 'NotoSansKR',
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black,
+                                  fontSize: 17),
+                            ),
                           ]),
                     )),
               ],

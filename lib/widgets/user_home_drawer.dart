@@ -46,7 +46,7 @@ class UserHomeDrawer extends StatelessWidget {
                     ),
                     SizedBox(
                         width: 110,
-                        child: Text('2023년 1월 15일부터 함께했어요', //user정보로부터 받아야함
+                        child: Text('Since 2023. 01. 15.', //user정보로부터 받아야함
                             style: TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w500,
@@ -60,7 +60,7 @@ class UserHomeDrawer extends StatelessWidget {
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-                title: const Text('홈',
+                title: const Text('Home',
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,
@@ -72,7 +72,7 @@ class UserHomeDrawer extends StatelessWidget {
           Container(
               margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
               child: ListTile(
-                  title: const Text('착한 여행 기록',
+                  title: const Text('Donation travel log',
                       style: TextStyle(
                           fontFamily: 'NotoSansKR',
                           fontWeight: FontWeight.w500,
@@ -83,36 +83,36 @@ class UserHomeDrawer extends StatelessWidget {
                         builder: (context) => TripRecordPage()));
                   } /*나의 여행기록 창으로 넘어가기*/
                   )),
+          // Container(
+          //   margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+          //   child: ListTile(
+          //       title: const Text('공기계 정보 수정하기',
+          //           style: TextStyle(
+          //               fontFamily: 'NotoSansKR',
+          //               fontWeight: FontWeight.w500,
+          //               color: Color(0xff767676),
+          //               fontSize: 20)),
+          //       onTap: () {
+          //         //공기계 정보 수정하는 창으로 넘어가기//
+          //       }),
+          // ),
+          // Container(
+          //   margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+          //   child: ListTile(
+          //       title: const Text('Precautions',
+          //           style: TextStyle(
+          //               fontFamily: 'NotoSansKR',
+          //               fontWeight: FontWeight.w500,
+          //               color: Color(0xff767676),
+          //               fontSize: 20)),
+          //       onTap: () {
+          //         //유의사항 보여주는 창으로 넘어가기//
+          //       }),
+          // ),
           Container(
             margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
             child: ListTile(
-                title: const Text('공기계 정보 수정하기',
-                    style: TextStyle(
-                        fontFamily: 'NotoSansKR',
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff767676),
-                        fontSize: 20)),
-                onTap: () {
-                  //공기계 정보 수정하는 창으로 넘어가기//
-                }),
-          ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-            child: ListTile(
-                title: const Text('유의사항',
-                    style: TextStyle(
-                        fontFamily: 'NotoSansKR',
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff767676),
-                        fontSize: 20)),
-                onTap: () {
-                  //유의사항 보여주는 창으로 넘어가기//
-                }),
-          ),
-          Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-            child: ListTile(
-                title: const Text('로그아웃',
+                title: const Text('Logout',
                     style: TextStyle(
                         fontFamily: 'NotoSansKR',
                         fontWeight: FontWeight.w500,

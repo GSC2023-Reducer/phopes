@@ -84,10 +84,10 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                             ),
                           ),
                           const SizedBox(
-                            height: 81 / 2,
-                            width: 380 / 2, // 375 -> 380-
+                            height: 120 / 2,
+                            width: 654 / 2, // 375 -> 380-
                             child: Text(
-                              '공기계 정보 입력',
+                              'Input Unlock-Phone infomation',
                               style: TextStyle(
                                   color: Color(0xff191919),
                                   letterSpacing: -1.4 / 2,
@@ -117,7 +117,7 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                       child: SizedBox(
                                         height: 60 / 2,
                                         child: Text(
-                                          '기종',
+                                          'Model',
                                           style: TextStyle(
                                             color: Color(0xff999999),
                                             letterSpacing: -0.7 / 2,
@@ -164,7 +164,7 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   children: [
                                     const TableCell(
                                       child: Text(
-                                        '메모리',
+                                        'Memory',
                                         style: TextStyle(
                                           color: Color(0xff999999),
                                           letterSpacing: -0.7 / 2,
@@ -210,7 +210,7 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   children: [
                                     const TableCell(
                                       child: Text(
-                                        '고유번호',
+                                        'IMEI',
                                         style: TextStyle(
                                           color: Color(0xff999999),
                                           letterSpacing: -0.7 / 2,
@@ -255,10 +255,10 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                             height: 76 / 2,
                           ),
                           const SizedBox(
-                            height: 45 / 2,
+                            height: 80 / 2,
                             width: 654 / 2,
                             child: Text(
-                              '화면이 보이지 않을 정도의 액정 파손은 기부가 어렵습니다.',
+                              'It is difficult to donate if the screen is damaged enough to be invisible.',
                               style: TextStyle(
                                   color: Color(0xff191919),
                                   letterSpacing: -0.7 / 2,
@@ -280,7 +280,7 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   child: const Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
-                                      '위의 내용을 확인했습니다.',
+                                      'Checked the content above.',
                                       style: TextStyle(
                                           color: Color(0xff999999),
                                           letterSpacing: -0.7 / 2,
@@ -338,7 +338,7 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                               width: 574 / 2,
                               child: Center(
                                 child: Text(
-                                  "다음 단계",
+                                  "Next Step",
                                   style: TextStyle(
                                     fontSize: 32 / 2,
                                     letterSpacing: -0.8 / 2,
@@ -361,10 +361,11 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      content: const Text('핸드폰 기종을 입력하세요.'),
+                                      content: const Text(
+                                          'Please enter your cell phone model.'),
                                       actions: [
                                         TextButton(
-                                          child: const Text('확인'),
+                                          child: const Text('Confirm'),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -379,10 +380,11 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      content: const Text('핸드폰 메모리를 입력하세요.'),
+                                      content: const Text(
+                                          'Please enter your cell phone memory.'),
                                       actions: [
                                         TextButton(
-                                          child: const Text('확인'),
+                                          child: const Text('Confirm'),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -397,10 +399,11 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      content: const Text('핸드폰 고유번호를 입력하세요.'),
+                                      content: const Text(
+                                          'Please enter your mobile phone IMEI number.'),
                                       actions: [
                                         TextButton(
-                                          child: const Text('확인'),
+                                          child: const Text('Confirm'),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
@@ -415,10 +418,11 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      content: const Text('체크 박스를 확인하세요.'),
+                                      content: const Text(
+                                          'Please check the check box.'),
                                       actions: [
                                         TextButton(
-                                          child: const Text('확인'),
+                                          child: const Text('Confirm'),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },

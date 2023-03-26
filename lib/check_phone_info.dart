@@ -70,7 +70,7 @@ class _CheckPhoneInfo extends State<CheckPhoneInfo> {
                           height: 81 / 2,
                           width: 654 / 2,
                           child: Text(
-                            '입력 내용을 확인해주세요!',
+                            'Please Recheck the Input!',
                             style: TextStyle(
                                 color: Color(0xff191919),
                                 letterSpacing: -1.4 / 2,
@@ -100,7 +100,7 @@ class _CheckPhoneInfo extends State<CheckPhoneInfo> {
                                     child: SizedBox(
                                       height: 60 / 2,
                                       child: Text(
-                                        '기종',
+                                        'Model',
                                         style: TextStyle(
                                           color: Color(0xff999999),
                                           letterSpacing: -0.7 / 2,
@@ -135,7 +135,7 @@ class _CheckPhoneInfo extends State<CheckPhoneInfo> {
                                     child: SizedBox(
                                       height: 60 / 2,
                                       child: Text(
-                                        '메모리',
+                                        'Memory',
                                         style: TextStyle(
                                           color: Color(0xff999999),
                                           letterSpacing: -0.7 / 2,
@@ -170,7 +170,7 @@ class _CheckPhoneInfo extends State<CheckPhoneInfo> {
                                     child: SizedBox(
                                       height: 60 / 2,
                                       child: Text(
-                                        '고유번호',
+                                        'IMEI',
                                         style: TextStyle(
                                           color: Color(0xff999999),
                                           letterSpacing: -0.7 / 2,
@@ -219,7 +219,7 @@ class _CheckPhoneInfo extends State<CheckPhoneInfo> {
                           width: 574 / 2,
                           child: Center(
                             child: Text(
-                              "다음 단계",
+                              "Next step",
                               style: TextStyle(
                                 fontSize: 32 / 2,
                                 letterSpacing: -0.8 / 2,

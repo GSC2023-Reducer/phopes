@@ -2,18 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:phopes/widgets/donation_record_card.dart';
 import 'package:phopes/widgets/trip_register_card.dart';
 import 'package:phopes/widgets/user_home_drawer.dart';
+import 'package:phopes/select_region_page.dart';
 
 class UserHomePage extends StatefulWidget {
-  const UserHomePage({super.key});
+  final String selectedCity;
+  final String selectedPeriod;
+  UserHomePage(
+      {super.key, required this.selectedCity, required this.selectedPeriod});
 
   @override
   State<StatefulWidget> createState() => _UserHomePage();
 }
 
 class _UserHomePage extends State<UserHomePage> {
+  late String cityName = "";
+  late String periodName = "";
   @override
   void initState() {
     super.initState();
+    cityName = widget.selectedCity;
+    periodName = widget.selectedPeriod;
   }
 
   @override
@@ -52,21 +60,23 @@ class _UserHomePage extends State<UserHomePage> {
                     child: Column(
                   children: [
                     Container(
-                        margin: EdgeInsets.fromLTRB(5, 20, 110, 10),
-                        child: Text("여행 가는 김에\n공기계 기부, 어떠세요?",
+                        width: 654 / 2,
+                        margin: EdgeInsets.fromLTRB(30, 20, 90, 20),
+                        child: Text(
+                            "How about donation \non your way to travel?",
                             textAlign: TextAlign.left,
                             style: const TextStyle(
                                 fontFamily: 'NotoSansKR',
                                 fontWeight: FontWeight.w700,
                                 color: Color(0xffFFFFFF),
                                 fontSize: 25))),
-                    TripRegisterCard(),
+                    TripRegisterCard(city: cityName, period: periodName),
                   ],
                 )),
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
                   width: 500,
-                  child: const Text("벌써 3개나 \n기부하셨네요!",
+                  child: const Text("You already have donated\n3 phones!",
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontFamily: 'NotoSansCJKKR',

@@ -14,18 +14,19 @@ class FirstPage extends StatelessWidget {
             body: Stack(
               children: <Widget>[
                 const Positioned(
-                  top: 430,
+                  top: 340,
                   left: 25,
                   child: SizedBox(
-                      width: 220,
-                      height: 150,
-                      child: Text("나의 공기계가\n아이들에게\n교육의 기회를",
+                      width: 654 / 2,
+                      height: 300,
+                      child: Text(
+                          "Give an\nopportunity of learning\nThrough your\nUnlock-Phone",
                           style: TextStyle(
                               height: 1.2,
                               fontFamily: 'NotoSansKR',
                               fontWeight: FontWeight.w700,
                               color: Color(0xff707070),
-                              fontSize: 36))),
+                              fontSize: 35))),
                 ),
                 const Positioned(
                   top: 575,
@@ -33,7 +34,7 @@ class FirstPage extends StatelessWidget {
                   child: SizedBox(
                       width: 250,
                       height: 100,
-                      child: Text("나눔의 주인공이 되어보세요",
+                      child: Text("Be the Hope of global friends",
                           style: TextStyle(
                               fontFamily: 'NotoSansKR',
                               fontWeight: FontWeight.w500,

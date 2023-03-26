@@ -38,7 +38,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
               color: const Color(0xff191919)),
           centerTitle: true,
           title: const Text(
-            '착한 여행 기록',
+            'Donation travel log',
             style: TextStyle(
               color: Color(0xff191919),
               fontSize: 40 / 2,
@@ -64,7 +64,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: '$userName 님, \n나눔에',
+                              text: '$userName, \nthank you for your',
                               style: const TextStyle(
                                 color: Color(0XFF191919),
                                 fontSize: 44 / 2,
@@ -73,7 +73,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                               ),
                             ),
                             const TextSpan(
-                              text: ' 참여',
+                              text: ' Donation',
                               style: TextStyle(
                                 color: Color(0xff2079FF),
                                 fontSize: 44 / 2,
@@ -82,7 +82,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                               ),
                             ),
                             const TextSpan(
-                              text: '해주셔서 감사합니다!',
+                              text: '!',
                               style: TextStyle(
                                 color: Color(0XFF191919),
                                 fontSize: 44 / 2,
@@ -120,10 +120,11 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                               barrierDismissible: true,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  content: const Text('앨범에서 사진을 선택하세요.'),
+                                  content: const Text(
+                                      'Select a picture from the album.'),
                                   actions: [
                                     TextButton(
-                                      child: const Text('확인'),
+                                      child: const Text('Confirm'),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
@@ -161,10 +162,10 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                               barrierDismissible: true,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  content: const Text('원하는 글을 입력하세요.'),
+                                  content: const Text('Enter the text.'),
                                   actions: [
                                     TextButton(
-                                      child: const Text('확인'),
+                                      child: const Text('Confirm'),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
@@ -178,7 +179,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                             width: 256 / 2,
                             height: 57 / 2,
                             child: Text(
-                              '문구를 입력해주세요',
+                              'Enter the text.',
                               style: TextStyle(
                                 fontSize: 50 / 2,
                                 fontFamily: 'NANUMPEN',
@@ -198,17 +199,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                       text: const TextSpan(
                         children: [
                           TextSpan(
-                            text: '인도네시아 남수마트라',
-                            style: TextStyle(
-                              color: Color(0xff2079FF),
-                              fontSize: 32 / 2,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '에, ',
+                            text: 'You delivered ',
                             style: TextStyle(
                               color: Color(0xff999999),
                               fontSize: 32 / 2,
@@ -218,7 +209,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                             ),
                           ),
                           TextSpan(
-                            text: 'iphone6',
+                            text: 'iPhone 6',
                             style: TextStyle(
                               color: Color(0xff2079FF),
                               fontSize: 32 / 2,
@@ -228,9 +219,19 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                             ),
                           ),
                           TextSpan(
-                            text: '를 전달했어요',
+                            text: ' to ',
                             style: TextStyle(
                               color: Color(0xff999999),
+                              fontSize: 32 / 2,
+                              fontFamily: 'Noto Sans CJK KR, Medium',
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'South Sumatra, Indonesia.',
+                            style: TextStyle(
+                              color: Color(0xff2079FF),
                               fontSize: 32 / 2,
                               fontFamily: 'Noto Sans CJK KR, Medium',
                               fontWeight: FontWeight.w500,
@@ -251,7 +252,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                           width: 135 / 2,
                           height: 40 / 2,
                           child: Text(
-                            '메모 남기기',
+                            'Memo',
                             style: TextStyle(
                               color: Color(0xff999999),
                               fontSize: 28 / 2,
