@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "991669421746",
+    "project_id": "phopesreducer-412c7",
+    "storage_bucket": "phopesreducer-412c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991669421746:android:86804e930ed9b6b745abab",
+        "android_client_info": {
+          "package_name": "com.example.phopes_cjw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991669421746-pl3t6hgphl55tncl12uvciofg48j85el.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.phopes_cjw",
+            "certificate_hash": "9a8d177881b7811b765cbdc265bb05383ebadf3b"
+          }
+        },
+        {
+          "client_id": "991669421746-3hvcjnem7a6ik60ap10l1lljk72ri1jv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbpJp67qgdhOyi5lTs6Q1FIbEGb6cWWCg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991669421746-3hvcjnem7a6ik60ap10l1lljk72ri1jv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

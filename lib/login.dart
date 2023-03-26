@@ -1,9 +1,39 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:phopes/user_home_page.dart';
 import 'id_login_page.dart';
 import 'code_login_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPage();
+}
+
+class _LoginPage extends State<LoginPage> {
+  Future<UserCredential> googleAuthSignIn() async {
+    //구글 Sign in 플로우 오픈!
+    print("a");
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    //구글 인증 정보 읽어왓!
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    //읽어온 인증정보로 파이어베이스 인증 로그인!
+    final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+
+    //파이어 베이스 Signin하고 결과(userCredential) 리턴햇!
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  @override
+  void initaState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +55,7 @@ class LoginPage extends StatelessWidget {
               color: const Color(0xff191919)),
         ),
         body: Column(
-          children: const [
+          children: [
             CodeLoginPage(),
             SizedBox(
               height: 60,
@@ -42,7 +72,57 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            IdLoginPage()
+            SizedBox(
+                child: Column(
+              children: [
+                SizedBox(
+                  width: 330,
+                  child: Text("Doner Login",
+                      style: TextStyle(
+                          height: 1.3,
+                          fontFamily: 'NotoSansKR',
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xff191919),
+                          fontSize: 30)),
+                ),
+                SizedBox(height: 20),
+                MaterialButton(
+                    minWidth: 340,
+                    height: 50,
+                    onPressed: () async {
+                      try {
+                        // Sign in with Google
+                        UserCredential userCredential =
+                            await googleAuthSignIn();
+
+                        // Check if sign-in was successful
+                        if (userCredential.user != null) {
+                          // Navigate to the next page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserHomePage(
+                                      selectedCity: "",
+                                      selectedPeriod: "",
+                                    )),
+                          );
+                        }
+                      } catch (e) {
+                        // Handle sign-in error
+                        print(e);
+                      }
+                    },
+                    color: Colors.blueAccent,
+                    child: Text(
+                      "Google Account Login",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'NotoSansKR',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )),
+              ],
+            ))
           ],
         ));
   }
