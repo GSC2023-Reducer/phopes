@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phopes/isar_services.dart';
+import 'package:phopes/provider/reading_progress_provider.dart';
+import 'package:provider/provider.dart';
 import '/study_plan_page.dart';
 import 'student_home_page.dart';
 import 'first_page.dart';
@@ -15,7 +17,9 @@ import 'thanks_for_donation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+      name: "phopes", options: DefaultFirebaseOptions.currentPlatform);
+
   IsarService();
   runApp(const MyApp());
 }
@@ -25,26 +29,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "login",
-      theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/first',
-      routes: {
-        '/first': (context) => FirstPage(),
-        '/main': (context) => const StudentHomePage(),
-        '/study_plan': (context) => const StudyPlanPage(),
-        '/update': (context) => const UpdatePage(),
-        '/check_before_donation': (context) => const CheckBeforeDonation(),
-        '/input_phone_info': (context) => const InputPhoneInfo(),
-        '/check_phone_info': (context) => CheckPhoneInfo(
-              cellPhoneMem: '',
-              cellPhoneType: '',
-              serialNumber: '',
-            ),
-        '/finish_phone_donation': (context) => const FinishPhoneDontaion(),
-        '/checklist_before_start': (context) => const CheckListBeforeStart(),
-        '/thanks_for_donation': (context) => const ThanksForDonation(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ReadingProgressProvider(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "login",
+        theme: ThemeData(primarySwatch: Colors.blue),
+        initialRoute: '/first',
+        routes: {
+          '/first': (context) => FirstPage(),
+          '/main': (context) => const StudentHomePage(),
+          '/study_plan': (context) => const StudyPlanPage(),
+          '/update': (context) => const UpdatePage(),
+          '/check_before_donation': (context) => const CheckBeforeDonation(),
+          '/input_phone_info': (context) => const InputPhoneInfo(),
+          '/check_phone_info': (context) => CheckPhoneInfo(
+                cellPhoneMem: '',
+                cellPhoneType: '',
+                serialNumber: '',
+              ),
+          '/finish_phone_donation': (context) => const FinishPhoneDontaion(),
+          '/checklist_before_start': (context) => const CheckListBeforeStart(),
+          '/thanks_for_donation': (context) => const ThanksForDonation(),
+        },
+      ),
     );
   }
 }

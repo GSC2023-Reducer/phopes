@@ -3,6 +3,8 @@ import 'package:phopes/isar_services.dart';
 import 'package:phopes/models/book_chapter.dart';
 import 'package:phopes/models/book_record.dart';
 import 'package:phopes/models/daily_record.dart';
+import 'package:phopes/provider/reading_progress_provider.dart';
+import 'package:provider/provider.dart';
 import 'models/book.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:isar/isar.dart';
@@ -301,6 +303,11 @@ class _BookViewPageState extends State<BookViewPage> {
                                     await bookRecord.currentChapter.save();
                                   });
                                 }
+                                final myState =
+                                    Provider.of<ReadingProgressProvider>(
+                                        context,
+                                        listen: false);
+                                myState.refresReadingProgress(widget.bookId);
                               } else {
                                 showDialog(
                                   context: context,

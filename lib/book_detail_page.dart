@@ -6,6 +6,8 @@ import 'package:phopes/models/book_chapters.dart';
 import 'package:phopes/models/book_record.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:isar/isar.dart';
+import 'package:phopes/provider/reading_progress_provider.dart';
+import 'package:provider/provider.dart';
 import 'models/book.dart';
 
 class BookDetailPage extends StatefulWidget {
@@ -33,7 +35,6 @@ class _BookDetailPage extends State<BookDetailPage> {
 
   @override
   void initState() {
-    // TODO: 준형 Provider로 상태관리
     super.initState();
     book = isar.books.filter().idEqualTo(widget.bookId).findFirst();
     bookChapters = isar.bookChapters
@@ -65,10 +66,23 @@ class _BookDetailPage extends State<BookDetailPage> {
       chapter = chapter.value!.next;
       chaptersOrder.add(chapter.value!.id);
     }
+    changeProgress();
+  }
+
+  changeProgress() async {
+    ReadingProgressProvider _readingProgressProvider =
+        Provider.of(context, listen: false);
+    await _readingProgressProvider.refresReadingProgress(widget.bookId);
   }
 
   @override
   Widget build(BuildContext context) {
+    int finishedChaptersCount =
+        Provider.of<ReadingProgressProvider>(context).getInt;
+
+    List finishedChaptersIds =
+        Provider.of<ReadingProgressProvider>(context).getList;
+
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
