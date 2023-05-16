@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "720240151951",
+    "project_id": "phopes-339d8",
+    "storage_bucket": "phopes-339d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720240151951:android:e9696f87e67b02cba68ffa",
+        "android_client_info": {
+          "package_name": "com.example.phopes_cjw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720240151951-r8vnkn05tv437tdeaviaaojvfsv9egtd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.phopes_cjw",
+            "certificate_hash": "9a8d177881b7811b765cbdc265bb05383ebadf3b"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH7cq1wt_-icowU9G1W-rQghRjoYldwII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
