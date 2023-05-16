@@ -17,9 +17,13 @@ import 'thanks_for_donation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      name: "phopes", options: DefaultFirebaseOptions.currentPlatform);
-
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (Firebase.apps.length == 0) {
+    Firebase.initializeApp(
+        name: 'name-here', options: DefaultFirebaseOptions.currentPlatform);
+  } else {
+    Firebase.app(); // if already initialized, use that one
+  }
   IsarService();
   runApp(const MyApp());
 }

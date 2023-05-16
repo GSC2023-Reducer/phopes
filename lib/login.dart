@@ -14,19 +14,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPage extends State<LoginPage> {
   Future<UserCredential> googleAuthSignIn() async {
-    //구글 Sign in 플로우 오픈!
-    print("a");
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    //구글 인증 정보 읽어왓!
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    //읽어온 인증정보로 파이어베이스 인증 로그인!
     final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
 
-    //파이어 베이스 Signin하고 결과(userCredential) 리턴햇!
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 

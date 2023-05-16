@@ -44,39 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDZmJ9vlLQNAu--MOU7yRiq6X__a-hrwok',
-    appId: '1:943822923765:web:2ebc6e1e94df357036a2bc',
-    messagingSenderId: '943822923765',
-    projectId: 'phopesreducer',
-    authDomain: 'phopesreducer.firebaseapp.com',
-    storageBucket: 'phopesreducer.appspot.com',
+    apiKey: 'AIzaSyC-5hzpQNPRmgIYIxhCCdU4YoTMY9DuHhI',
+    appId: '1:976206450178:web:0aa1ebcbd59ab9f416e11b',
+    messagingSenderId: '976206450178',
+    projectId: 'phopes0515',
+    authDomain: 'phopes0515.firebaseapp.com',
+    storageBucket: 'phopes0515.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBaRPB6akqU7QPL8APj08rEN-O-6ufgmSM',
-    appId: '1:943822923765:android:2381427142ea9f1536a2bc',
-    messagingSenderId: '943822923765',
-    projectId: 'phopesreducer',
-    storageBucket: 'phopesreducer.appspot.com',
+    apiKey: 'AIzaSyC0HktimsrXrIjLS_PvJxKG9gsS1s7A7cU',
+    appId: '1:976206450178:android:60c0244ce158565216e11b',
+    messagingSenderId: '976206450178',
+    projectId: 'phopes0515',
+    storageBucket: 'phopes0515.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAyogKsOy1bvQ7E2BoA8G2bXjH5hU11p1c',
-    appId: '1:943822923765:ios:304e810061c3ac8f36a2bc',
-    messagingSenderId: '943822923765',
-    projectId: 'phopesreducer',
-    storageBucket: 'phopesreducer.appspot.com',
-    iosClientId: '943822923765-q596tfeal4qqrsbdq02jn7hstekn7502.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBOc8w9Q1wQgTxrKnuTcq8Jek4hk3n34SI',
+    appId: '1:976206450178:ios:7626ff6bbfb7b24e16e11b',
+    messagingSenderId: '976206450178',
+    projectId: 'phopes0515',
+    storageBucket: 'phopes0515.appspot.com',
+    iosClientId: '976206450178-q6io7l8a00uklqpuvbo3n1chul2f8807.apps.googleusercontent.com',
     iosBundleId: 'com.example.phopesCjw',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAyogKsOy1bvQ7E2BoA8G2bXjH5hU11p1c',
-    appId: '1:943822923765:ios:12e76b0df375b59836a2bc',
-    messagingSenderId: '943822923765',
-    projectId: 'phopesreducer',
-    storageBucket: 'phopesreducer.appspot.com',
-    iosClientId: '943822923765-r5qdp4hbsneagfm5a8te7kiucrar3nao.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBOc8w9Q1wQgTxrKnuTcq8Jek4hk3n34SI',
+    appId: '1:976206450178:ios:8e6d70593b89f0fa16e11b',
+    messagingSenderId: '976206450178',
+    projectId: 'phopes0515',
+    storageBucket: 'phopes0515.appspot.com',
+    iosClientId: '976206450178-u3skk2nnp4fve7mriifbh32njlv80a8s.apps.googleusercontent.com',
     iosBundleId: 'com.example.phopesCjw.RunnerTests',
   );
 }
