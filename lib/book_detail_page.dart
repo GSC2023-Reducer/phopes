@@ -297,11 +297,11 @@ class _BookDetailPage extends State<BookDetailPage> {
                               23 / 2, 27 / 2, 22 / 2, 27 / 2),
                           elevation: 3,
                           backgroundColor: const Color(0xff2079FF),
-                          label: ((snapshot.data!.bookRecord.value != null
-                                      ? snapshot.data!.bookRecord.value!
-                                          .readChapters.length
-                                      : 0) !=
-                                  snapshot.data!.numChapters!)
+                          label: (((finishedChaptersCount /
+                                            snapshot.data!.numChapters!) *
+                                        100)
+                                    .ceil() <
+                                80)
                               ? const Text(
                                   "Continue Reading",
                                   style: TextStyle(
