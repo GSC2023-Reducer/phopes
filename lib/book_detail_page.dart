@@ -321,10 +321,40 @@ class _BookDetailPage extends State<BookDetailPage> {
                                   ),
                                 ),
                           onPressed: () async {
-                            /*80퍼센트 달성시 (변화 없고)
-                              버튼 활성화 해서
-                              누르면 isfinishied를 바꾼다
-                             */
+                            if (((finishedChaptersCount /
+                                            snapshot.data!.numChapters!) *
+                                        100)
+                                    .ceil() <
+                                80) {
+                              var bookRecord = isar.bookRecords
+                                  .filter()
+                                  .book((q) => q.idEqualTo(widget.bookId))
+                                  .findFirstSync()!;
+
+                              isar.writeTxnSync(() async {
+                                bookRecord.isFinished = true;
+                                isar.bookRecords.putSync(bookRecord);
+                              });
+                            } else {
+                              var bookRecord = isar.bookRecords
+                                  .filter()
+                                  .book((q) => q.idEqualTo(widget.bookId))
+                                  .findFirstSync()!;
+
+                              int currentChapterId =
+                                  bookRecord.currentChapter.value!.id;
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BookViewPage(
+                                    tapChapterId: currentChapterId,
+                                    bookId: widget.bookId,
+                                  ),
+                                  fullscreenDialog: true,
+                                ),
+                              );
+                            }
                           },
                           shape: const RoundedRectangleBorder(
                             borderRadius:
