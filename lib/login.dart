@@ -39,7 +39,7 @@ class _LoginPage extends State<LoginPage> {
 
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-    await _firestore.collection('users').doc(credential.idToken).set(
+    await _firestore.collection('users').doc(user.email).set(
           userData.toJson(),
         );
 
