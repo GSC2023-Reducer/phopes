@@ -267,6 +267,7 @@ class _BookViewPageState extends State<BookViewPage> {
                                     await addDailyRecord.chaptersRead.save();
                                   });
                                 }
+
                                 var bookRecord = isar.bookRecords
                                     .filter()
                                     .book((q) => q.idEqualTo(widget.bookId))

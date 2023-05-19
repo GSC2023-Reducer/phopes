@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phopes/user_home_page.dart';
 import 'id_login_page.dart';
 import 'code_login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:phopes/models/user_model.dart' as model;
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -21,6 +23,21 @@ class _LoginPage extends State<LoginPage> {
 
     final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    final user = userCredential.user;
+
+    // 만약 유저 정보가 있으면 실행을 안시키는 것도 효율적인 방법
+    model.User userData = model.User(
+        email: user!.email!,
+        username: user.displayName!,
+        joinedAt: user.metadata.creationTime!);
+
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    await _firestore.collection('users').doc(user.email).set(
+          userData.toJson(),
+        );
 
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
