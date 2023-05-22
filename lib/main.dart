@@ -18,7 +18,7 @@ import 'thanks_for_donation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  if (Firebase.apps.length == 0) {
+  if (Firebase.apps.isEmpty) {
     Firebase.initializeApp(
         name: 'name-here', options: DefaultFirebaseOptions.currentPlatform);
   } else {
