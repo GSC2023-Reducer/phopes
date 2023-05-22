@@ -47,13 +47,13 @@ dependencies:
   path: ^1.8.0
   shared_preferences: ^2.0.5
   crypto: ^3.0.1
-  firebase_storage: ^11.0.14
+  firebase_storage: ^11.2.1
   firebase_core_platform_interface: ^4.5.3
   firebase_messaging: ^14.2.5
   google_maps_flutter: ^2.0.3
   firebase_auth: ^4.6.0
   isar: ^3.0.5
-  cloud_firestore: ^4.4.4
+  cloud_firestore: ^4.7.1
   isar_flutter_libs: ^3.0.5
   table_calendar: ^3.0.0
   google_sign_in: ^6.1.0

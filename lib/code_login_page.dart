@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'id_login_page.dart';
 import 'student_home_page.dart';
+import 'update_page.dart';
 
 class CodeLoginPage extends StatefulWidget {
   const CodeLoginPage({super.key});

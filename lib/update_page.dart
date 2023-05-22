@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:phopes/isar_services.dart';
 import 'package:phopes/student_home_page.dart';
+import 'package:phopes/widgets/book_update_card.dart';
 import 'package:phopes/widgets/student_home_drawer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UpdatePage extends StatefulWidget {
   const UpdatePage({super.key});
@@ -12,134 +14,125 @@ class UpdatePage extends StatefulWidget {
 
 class _UpdatePage extends State<UpdatePage> {
   final IsarService service = IsarService();
-  //TODO: firebase에서 불러오기
+  final db = FirebaseFirestore.instance;
+  List<String> titles = [];
+  List<String> authors = [];
+  List<String> thumbnails = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: const Color(0xffFFFFFF),
-        centerTitle: true,
-        title: const Text("Phopes",
-            style: TextStyle(
-                fontFamily: 'Modak',
-                fontWeight: FontWeight.w500,
-                color: Color(0xff2079FF),
-                fontSize: 24)),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.close,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const StudentHomePage(),
-              ),
-            );
-          },
-        ),
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              color: Colors.black,
-              onPressed: () => Scaffold.of(context).openEndDrawer(),
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            ),
-          ),
-        ],
-      ),
-      endDrawer: const StudentHomeDrawer(),
-      body: Column(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            child: const Text(
-              "March, Update List",
-              textAlign: TextAlign.center,
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: const Color(0xffFFFFFF),
+          centerTitle: true,
+          title: const Text("Phopes",
               style: TextStyle(
-                  fontFamily: 'NotoSansKR',
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff191919),
-                  fontSize: 30),
+                  fontFamily: 'Modak',
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xff2079FF),
+                  fontSize: 24)),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.close,
+              color: Colors.black,
             ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const StudentHomePage(),
+                ),
+              );
+            },
           ),
-          Card(
-            elevation: 0,
-            color: Colors.transparent,
-            surfaceTintColor: Colors.white,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(top: 25),
-                  decoration: const BoxDecoration(
-                    color: Color(0xffF1F1F5),
-                  ),
-                  child: Image.network(
-                      "https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791187192596.jpg",
-                      height: 220,
-                      width: 150),
-                ),
-                Container(
-                  width: 150,
-                  margin: const EdgeInsets.only(top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        color: Colors.transparent,
-                        child: const Text("Little Prince",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontFamily: 'NotoSansKR',
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xff191919),
-                                fontSize: 15)),
-                      ),
-                      Checkbox(value: false, onChanged: (value) {}),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  width: 150,
-                  color: Colors.transparent,
-                  child: const Text(
-                    "Antoine Marie de Saint-Taxupery",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontFamily: 'NotoSansKR',
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff767676),
-                        fontSize: 15),
-                  ),
-                ),
-              ],
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.menu),
+                color: Colors.black,
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
             ),
-          ),
-          TextButton(
+          ],
+        ),
+        endDrawer: const StudentHomeDrawer(),
+        body: Container(
+          child: Column(children: [
+            Container(
+              alignment: Alignment.center,
+              child: const Text(
+                "March, Update List",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'NotoSansKR',
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xff191919),
+                    fontSize: 30),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: db.collection("Book").snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+                  return ListView.builder(
+                      itemCount: snapshot.data?.docs.length,
+                      itemBuilder: (context, index) {
+                        if (index % 2 != 0) {
+                          return Row(children: [
+                            Expanded(
+                              child: BookUpdateCard(
+                                  snapshot.data?.docs[index - 1]["title"],
+                                  snapshot.data?.docs[index - 1]["author"],
+                                  snapshot.data?.docs[index - 1]["thumbnail"]),
+                            ),
+                            SizedBox(width: 8.0),
+                            Expanded(
+                              child: BookUpdateCard(
+                                  snapshot.data?.docs[index]["title"],
+                                  snapshot.data?.docs[index]["author"],
+                                  snapshot.data?.docs[index]["thumbnail"]),
+                            )
+                          ]);
+                        } else {
+                          return SizedBox.shrink();
+                        }
+                      });
+                },
+              ),
+            ),
+            TextButton(
               onPressed: () async {
                 await service.loadBooks();
                 if (!context.mounted) return;
                 showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Download Done'),
-                    content: const Text('Books downloaded'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'Confirm'),
-                        child: const Text('Confirm'),
-                      ),
-                    ],
-                  ),
-                );
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Download Done'),
+                          content: const Text("Books downloaded"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () =>
+                                  Navigator.pop(context, 'Confirm'),
+                              child: const Text('Confirm'),
+                            )
+                          ],
+                        ));
               },
-              child: const Text('Download Selected Books'))
-        ],
-      ),
-    );
+              child: const Text('Download Selected Books'),
+            )
+          ]),
+        ));
   }
 }
