@@ -3,5 +3,6 @@
     "emulator.emulatorPathWindows": "",
     "editor.cursorSmoothCaretAnimation": "on",
     "editor.formatOnSave": true,
-    "debug.javascript.debugByLinkOptions": "on"
+    "debug.javascript.debugByLinkOptions": "on",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

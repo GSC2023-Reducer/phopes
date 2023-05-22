@@ -112,7 +112,7 @@ class StudentHomeDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const UpdatePage(),
+                    builder: (context) => UpdatePage(),
                   ),
                 );
               },
