@@ -20,30 +20,30 @@ class TripRegisterCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       width: 350,
       height: 170,
-      padding: EdgeInsets.all(10),
-      child: Container(
+      padding: const EdgeInsets.all(10),
+      child: SizedBox(
         width: 200,
         height: 60,
         child: Column(children: [
           Container(
             height: 45,
-            decoration:
-                BoxDecoration(border: Border.all(color: Color(0xff707070))),
+            decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xff707070))),
             child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SelectRegionPage()));
+                      builder: (context) => const SelectRegionPage()));
                 },
                 child: Container(
                   child: Row(
                     children: [
-                      Icon(Icons.location_on_outlined),
+                      const Icon(Icons.location_on_outlined),
                       Text(city),
                     ],
                   ),
@@ -51,8 +51,8 @@ class TripRegisterCard extends StatelessWidget {
           ),
           Container(
             height: 45,
-            decoration:
-                BoxDecoration(border: Border.all(color: Color(0xff707070))),
+            decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xff707070))),
             child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -61,14 +61,14 @@ class TripRegisterCard extends StatelessWidget {
                 child: Container(
                   child: Row(
                     children: [
-                      Icon(Icons.event_available_outlined),
+                      const Icon(Icons.event_available_outlined),
                       Text(period),
                     ],
                   ),
                 )),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+            margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
             width: 400,
             height: 40,
             child: MaterialButton(
@@ -80,7 +80,7 @@ class TripRegisterCard extends StatelessWidget {
                 },
                 color: Colors.blueAccent,
                 child: const Text(
-                  "Registering a donation schedule",
+                  "Register your donation schedule",
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'NotoSansKR',
