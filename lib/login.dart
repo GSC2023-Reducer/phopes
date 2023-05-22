@@ -2,13 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phopes/user_home_page.dart';
-import 'id_login_page.dart';
 import 'code_login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:phopes/models/user_model.dart' as model;
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPage();
@@ -33,9 +32,9 @@ class _LoginPage extends State<LoginPage> {
         username: user.displayName!,
         joinedAt: user.metadata.creationTime!);
 
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    await _firestore.collection('users').doc(user.email).set(
+    await firestore.collection('users').doc(user.email).set(
           userData.toJson(),
         );
 
@@ -43,7 +42,7 @@ class _LoginPage extends State<LoginPage> {
   }
 
   @override
-  void initaState() {
+  void initState() {
     super.initState();
   }
 
@@ -68,11 +67,11 @@ class _LoginPage extends State<LoginPage> {
         ),
         body: Column(
           children: [
-            CodeLoginPage(),
-            SizedBox(
+            const CodeLoginPage(),
+            const SizedBox(
               height: 60,
             ),
-            SizedBox(
+            const SizedBox(
                 child: Center(
                     child: Text("Or",
                         style: TextStyle(
@@ -81,13 +80,13 @@ class _LoginPage extends State<LoginPage> {
                           color: Color(0xff767676),
                           fontSize: 13,
                         )))),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             SizedBox(
                 child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 330,
                   child: Text("Doner Login",
                       style: TextStyle(
@@ -97,7 +96,7 @@ class _LoginPage extends State<LoginPage> {
                           color: Color(0xff191919),
                           fontSize: 30)),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 MaterialButton(
                     minWidth: 340,
                     height: 50,
@@ -125,7 +124,7 @@ class _LoginPage extends State<LoginPage> {
                       }
                     },
                     color: Colors.blueAccent,
-                    child: Text(
+                    child: const Text(
                       "Google Account Login",
                       style: TextStyle(
                         color: Colors.white,
