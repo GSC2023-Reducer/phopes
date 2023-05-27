@@ -298,10 +298,10 @@ class _BookDetailPage extends State<BookDetailPage> {
                           elevation: 3,
                           backgroundColor: const Color(0xff2079FF),
                           label: (((finishedChaptersCount /
-                                            snapshot.data!.numChapters!) *
-                                        100)
-                                    .ceil() <
-                                80)
+                                              snapshot.data!.numChapters!) *
+                                          100)
+                                      .ceil() <
+                                  80)
                               ? const Text(
                                   "Continue Reading",
                                   style: TextStyle(
@@ -324,7 +324,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                             if (((finishedChaptersCount /
                                             snapshot.data!.numChapters!) *
                                         100)
-                                    .ceil() <
+                                    .ceil() >
                                 80) {
                               var bookRecord = isar.bookRecords
                                   .filter()
