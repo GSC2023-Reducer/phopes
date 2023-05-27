@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phopes/page_28.dart';
+import 'package:phopes/check_phone_info_travel.dart';
 import 'package:phopes/thanks_for_donation.dart';
 
 class BeforeTravelDetails extends StatefulWidget {
