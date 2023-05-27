@@ -49,14 +49,21 @@ class MyApp extends StatelessWidget {
           '/main': (context) => const StudentHomePage(),
           '/study_plan': (context) => const StudyPlanPage(),
           '/update': (context) => const UpdatePage(),
-          '/check_before_donation': (context) => const CheckBeforeDonation(),
-          '/input_phone_info': (context) => const InputPhoneInfo(),
+          '/check_before_donation': (context) => CheckBeforeDonation(
+                city: "",
+                period: "",
+              ),
+          '/input_phone_info': (context) =>
+              InputPhoneInfo(city: "", period: ""),
           '/check_phone_info': (context) => CheckPhoneInfo(
+                city: "",
+                period: "",
                 cellPhoneMem: '',
                 cellPhoneType: '',
                 serialNumber: '',
               ),
-          '/finish_phone_donation': (context) => const FinishPhoneDontaion(),
+          '/finish_phone_donation': (context) =>
+              FinishPhoneDontaion(authcode: ""),
           '/checklist_before_start': (context) => const CheckListBeforeStart(),
           '/thanks_for_donation': (context) => const ThanksForDonation(),
         },

@@ -1,18 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'user_home_page.dart';
 
 class FinishPhoneDontaion extends StatefulWidget {
-  const FinishPhoneDontaion({
+  String authcode;
+  FinishPhoneDontaion({
+    required this.authcode,
     super.key,
   });
-
   @override
   State<FinishPhoneDontaion> createState() => _FinishPhoneDontaion();
 }
 
 class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
-  String phopesCode = 'PHOPES1234';
-
   @override
   void initState() {
     super.initState();
@@ -20,6 +20,8 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
 
   @override
   Widget build(BuildContext context) {
+    String phoneCode = widget.authcode.substring(24);
+    FirebaseFirestore db = FirebaseFirestore.instance;
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -111,7 +113,7 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Unlock-Phone Code : $phopesCode',
+                                      text: 'Unlock-Phone Code : ' + phoneCode,
                                       style: const TextStyle(
                                         color: Color(0xff999999),
                                         fontSize: 28 / 2,
@@ -167,6 +169,11 @@ class _FinishPhoneDontaion extends State<FinishPhoneDontaion> {
                           ),
                         ),
                         onPressed: () {
+                          final data = <String, String>{
+                            /*student에 필요한 데이터*/
+                          };
+                          /*phoneCode firebase - student collection에 넣기 */
+                          db.collection("students").doc(phoneCode).set(data);
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => UserHomePage(
                                   selectedCity: "", selectedPeriod: "")));

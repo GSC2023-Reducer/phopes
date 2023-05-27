@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'input_phone_info.dart';
+import 'package:uuid/uuid.dart';
 
 class CheckBeforeDonation extends StatefulWidget {
-  const CheckBeforeDonation({
+  String city;
+  String period;
+  CheckBeforeDonation({
+    required this.city,
+    required this.period,
     super.key,
   });
 
@@ -274,7 +279,8 @@ class _CheckBeforeDonation extends State<CheckBeforeDonation> {
                         ),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const InputPhoneInfo()));
+                              builder: (context) => InputPhoneInfo(
+                                  city: widget.city, period: widget.period)));
                         },
                         shape: const RoundedRectangleBorder(
                           borderRadius:

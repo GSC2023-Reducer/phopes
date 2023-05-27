@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'finish_phone_donation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:phopes/widgets/trip_register_card.dart';
 
 class CheckPhoneInfo extends StatefulWidget {
+  String city;
+  String period;
   String cellPhoneType;
   String cellPhoneMem;
   String serialNumber;
-
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
   CheckPhoneInfo({
+    required this.city,
+    required this.period,
     required this.cellPhoneMem,
     required this.cellPhoneType,
     required this.serialNumber,
@@ -231,9 +240,27 @@ class _CheckPhoneInfo extends State<CheckPhoneInfo> {
                           ),
                         ),
                         onPressed: () {
+                          var randomCode = Uuid().v4();
+                          /*firestore에 phone 정보 넣기 */
+                          final data = <String, String>{
+                            "phoneModel": widget.cellPhoneType,
+                            "memory": widget.cellPhoneMem,
+                            "IMEI": widget.serialNumber,
+                            "authcode": randomCode
+                          };
+                          widget.db
+                              .collection("users")
+                              .doc(widget.auth.currentUser!.email!)
+                              .collection("travels")
+                              .doc("travel - " + widget.city)
+                              .collection("phone")
+                              .doc("phone - " + widget.city)
+                              .set(data)
+                              .onError((e, _) =>
+                                  print("Error writing document: $e"));
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  const FinishPhoneDontaion()));
+                                  FinishPhoneDontaion(authcode: randomCode)));
                         },
                         shape: const RoundedRectangleBorder(
                           borderRadius:
