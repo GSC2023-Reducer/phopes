@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'check_phone_info.dart';
 
 class InputPhoneInfo extends StatefulWidget {
-  const InputPhoneInfo({
+  String city;
+  String period;
+  InputPhoneInfo({
+    required this.city,
+    required this.period,
     super.key,
   });
 
@@ -434,6 +438,8 @@ class _InputPhoneInfo extends State<InputPhoneInfo> {
                               } else {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => CheckPhoneInfo(
+                                          city: widget.city,
+                                          period: widget.period,
                                           cellPhoneType: cellPhoneType,
                                           cellPhoneMem: cellPhoneMem,
                                           serialNumber: serialNumber,
