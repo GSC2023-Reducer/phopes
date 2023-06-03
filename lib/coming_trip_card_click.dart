@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phopes/check_phone_info_travel.dart';
-import 'package:phopes/thanks_for_donation.dart';
+
+import 'checklist_before_start.dart';
 
 class BeforeTravelDetails extends StatefulWidget {
   String period;
@@ -88,7 +89,7 @@ class _BeforeTravelDetails extends State<BeforeTravelDetails> {
                 child: MaterialButton(
                     elevation: 14,
                     minWidth: 340,
-                    height: 104 / 2,
+                    height: 50,
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -114,17 +115,17 @@ class _BeforeTravelDetails extends State<BeforeTravelDetails> {
                 child: MaterialButton(
                     elevation: 14,
                     minWidth: 340,
-                    height: 104 / 2,
+                    height: 50,
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ThanksForDonation()),
+                            builder: (context) => const CheckListBeforeStart()),
                       );
                     },
                     color: Colors.blueAccent,
                     child: const Text(
-                      "Donation Travel Log",
+                      "Check-List before travel",
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'NotoSansKR',

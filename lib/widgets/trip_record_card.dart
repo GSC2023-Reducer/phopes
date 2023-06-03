@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:phopes/past_trip_card_click.dart';
 
-import '../page_29.dart';
-import '../page_30.dart';
+import '../coming_trip_card_click.dart';
 
 class TripRecordCard extends StatelessWidget {
   String city;
@@ -17,12 +17,12 @@ class TripRecordCard extends StatelessWidget {
         onTap: () {
           (now.isBefore(format.parse(period.split('~')[0])))
               ? Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AfterTravelDetails(
+                  builder: (context) => BeforeTravelDetails(
                         period: this.period,
                         region: this.city,
                       )))
               : Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => BeforeTravelDetails(
+                  builder: (context) => AfterTravelDetails(
                         period: this.period,
                         region: this.city,
                       )));

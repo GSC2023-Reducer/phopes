@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:phopes/page_28.dart';
-
-import 'checklist_before_start.dart';
+import 'package:phopes/check_phone_info_travel.dart';
+import 'package:phopes/models/user_model.dart';
+import 'package:phopes/provider/user_provider.dart';
+import 'package:phopes/thanks_for_donation.dart';
+import 'package:provider/provider.dart';
 
 class AfterTravelDetails extends StatefulWidget {
   String period;
@@ -18,13 +20,21 @@ class AfterTravelDetails extends StatefulWidget {
 }
 
 class _AfterTravelDetails extends State<AfterTravelDetails> {
+  User? user;
   @override
   void initState() {
     super.initState();
+    addData();
+  }
+
+  addData() async {
+    UserProvider userprovider = Provider.of(context, listen: false);
+    await userprovider.refresUser();
   }
 
   @override
   Widget build(BuildContext context) {
+    User? user = Provider.of<UserProvider>(context).getUser;
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
@@ -89,7 +99,7 @@ class _AfterTravelDetails extends State<AfterTravelDetails> {
                 child: MaterialButton(
                     elevation: 14,
                     minWidth: 340,
-                    height: 50,
+                    height: 104 / 2,
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -115,17 +125,20 @@ class _AfterTravelDetails extends State<AfterTravelDetails> {
                 child: MaterialButton(
                     elevation: 14,
                     minWidth: 340,
-                    height: 50,
+                    height: 104 / 2,
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CheckListBeforeStart()),
+                            builder: (context) => ThanksForDonation(
+                                  region: widget.region,
+                                  email: user!.email,
+                                )),
                       );
                     },
                     color: Colors.blueAccent,
                     child: const Text(
-                      "Check-List before travel",
+                      "Donation Travel Log",
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'NotoSansKR',
