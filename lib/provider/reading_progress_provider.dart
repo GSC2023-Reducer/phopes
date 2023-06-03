@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:phopes/models/book.dart';
 import 'package:phopes/models/book_record.dart';
+
 import '../isar_services.dart';
 
 class ReadingProgressProvider with ChangeNotifier {

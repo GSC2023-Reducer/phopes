@@ -1,31 +1,146 @@
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:phopes/provider/user_provider.dart';
+import 'package:phopes/resources/firestore_methods.dart';
+import 'package:phopes/utils.dart';
+import 'package:provider/provider.dart';
+
+import 'models/user_model.dart' as model;
 
 class ThanksForDonation extends StatefulWidget {
-  const ThanksForDonation({
-    super.key,
-  });
+  String region;
+  String email;
+
+  ThanksForDonation({super.key, required this.region, required this.email});
 
   @override
   State<ThanksForDonation> createState() => _ThanksForDonation();
 }
 
 class _ThanksForDonation extends State<ThanksForDonation> {
-  final String userName = 'Name';
-  String imageUrl =
-      'https://media.istockphoto.com/id/1078297298/ko/%EC%82%AC%EC%A7%84/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%8F%B0-%EB%B6%81%EB%B6%80-%EB%9D%BC%EC%98%A4%EC%8A%A4%EC%97%90%EC%84%9C-%EB%B9%8C%EB%A6%AC%EC%A7%80%EC%97%90-%EB%9D%BC%EC%98%A4%EC%8A%A4-%EC%9E%91%EC%9D%80-%EC%86%8C%EB%85%84.jpg?s=1024x1024&w=is&k=20&c=yUxf6sVBsdXnw1FVWK00oy4c5NIMYaWmJ8-bxeW2hbA=';
-  TextEditingController _textEditingController = TextEditingController();
-  String textMemo = '';
+  Uint8List? _file;
+  final TextEditingController _descriptionController = TextEditingController();
+  bool _isLoading = false;
+  String imageUrl = '';
+  String text = '';
+  model.User? user;
+
+  Future<String> getCertificateImageUrl(String userEmail, String region) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userEmail)
+        .collection('travels')
+        .doc("travel - $region")
+        .collection("certificate")
+        .doc("image")
+        .get();
+
+    if (snapshot.exists) {
+      final data = snapshot.data();
+      imageUrl = data!['postUrl'].toString();
+      text = data['description'].toString();
+    } else {
+      imageUrl = '';
+      text = '';
+    }
+
+    return "success";
+  }
+
+  void postImage(
+    String email,
+  ) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    await FirestoreMethods().uploadPost(
+      _descriptionController.text,
+      _file!,
+      email,
+      widget.region,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  _selectImage(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            title: const Text('creat a post'),
+            children: [
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Take a photo'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Uint8List file = await pickImage(
+                    ImageSource.camera,
+                  );
+                  setState(() {
+                    _file = file;
+                  });
+                },
+              ),
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Choose from gallery'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Uint8List file = await pickImage(
+                    ImageSource.gallery,
+                  );
+                  setState(() {
+                    _file = file;
+                  });
+                },
+              ),
+              SimpleDialogOption(
+                padding: const EdgeInsets.all(20),
+                child: const Text('Cancel'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   @override
   void initState() {
     super.initState();
+    addData();
+  }
+
+  addData() async {
+    UserProvider userprovider = Provider.of(context, listen: false);
+    await userprovider.refresUser();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _descriptionController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<UserProvider>(context).getUser;
+    if (user != null) {
+      getCertificateImageUrl(widget.email, widget.region);
+    }
+
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xffF1F1F5),
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -49,257 +164,252 @@ class _ThanksForDonation extends State<ThanksForDonation> {
           ),
           elevation: 0.0,
         ),
-        body: Stack(
-          children: [
-            Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        48 / 2, 70 / 2, 99 / 2, 40 / 2),
-                    child: SizedBox(
-                      height: 134 / 2,
-                      width: 603 / 2,
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '$userName, \nthank you for your',
-                              style: const TextStyle(
-                                color: Color(0XFF191919),
-                                fontSize: 44 / 2,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Noto Sans CJK KR, Bold',
-                              ),
-                            ),
-                            const TextSpan(
-                              text: ' Donation',
-                              style: TextStyle(
-                                color: Color(0xff2079FF),
-                                fontSize: 44 / 2,
-                                fontFamily: 'Noto Sans CJK KR, Bold',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const TextSpan(
-                              text: '!',
-                              style: TextStyle(
-                                color: Color(0XFF191919),
-                                fontSize: 44 / 2,
-                                fontFamily: 'Noto Sans CJK KR, Bold',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+        body: user == null
+            ? const Center(
+                child: SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: CircularProgressIndicator(
+                    color: Color(0xff2079FF),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 0,
-                          blurRadius: 7,
-                          offset: const Offset(8 / 2, 10 / 2),
-                        ),
-                      ],
-                    ),
-                    padding:
-                        const EdgeInsets.fromLTRB(25 / 2, 39 / 2, 26 / 2, 0),
-                    width: 469 / 2,
-                    height: 734 / 2,
+                ),
+              )
+            : Stack(
+                children: [
+                  Center(
                     child: Column(
                       children: [
-                        GestureDetector(
-                          onLongPress: () {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: true,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: const Text(
-                                      'Select a picture from the album.'),
-                                  actions: [
-                                    TextButton(
-                                      child: const Text('Confirm'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                              48 / 2, 70 / 2, 99 / 2, 40 / 2),
+                          child: SizedBox(
+                            height: 134 / 2,
+                            width: 603 / 2,
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        '${user?.username}, \nthank you for your',
+                                    style: const TextStyle(
+                                      color: Color(0XFF191919),
+                                      fontSize: 44 / 2,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Noto Sans CJK KR, Bold',
                                     ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          child: Container(
-                            height: 493 / 2,
-                            width: 418 / 2,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1 / 2,
-                                color: const Color(0xff707070),
-                              ),
-                              image: const DecorationImage(
-                                image: AssetImage('assets/images/2.png'),
-                                // image: (changeImage == false)
-                                //     ?  AssetImage('assets/images/2.png')
-                                //     :  NetworkImage(imageUrl),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 78 / 2,
-                        ),
-                        GestureDetector(
-                          onLongPress: () {
-                            showDialog(
-                              context: context,
-                              barrierDismissible: true,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  content: const Text('Enter the text.'),
-                                  actions: [
-                                    TextButton(
-                                      child: const Text('Confirm'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
+                                  ),
+                                  const TextSpan(
+                                    text: ' Donation',
+                                    style: TextStyle(
+                                      color: Color(0xff2079FF),
+                                      fontSize: 44 / 2,
+                                      fontFamily: 'Noto Sans CJK KR, Bold',
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          child: const SizedBox(
-                            width: 256 / 2,
-                            height: 57 / 2,
-                            child: Text(
-                              'Enter the text.',
-                              style: TextStyle(
-                                fontSize: 50 / 2,
-                                fontFamily: 'NANUMPEN',
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0,
+                                  ),
+                                  const TextSpan(
+                                    text: '!',
+                                    style: TextStyle(
+                                      color: Color(0XFF191919),
+                                      fontSize: 44 / 2,
+                                      fontFamily: 'Noto Sans CJK KR, Bold',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 57 / 2),
-                    width: 654 / 2,
-                    child: RichText(
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'You delivered ',
-                            style: TextStyle(
-                              color: Color(0xff999999),
-                              fontSize: 32 / 2,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'iPhone 6',
-                            style: TextStyle(
-                              color: Color(0xff2079FF),
-                              fontSize: 32 / 2,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0,
-                            ),
-                          ),
-                          TextSpan(
-                            text: ' to ',
-                            style: TextStyle(
-                              color: Color(0xff999999),
-                              fontSize: 32 / 2,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'South Sumatra, Indonesia.',
-                            style: TextStyle(
-                              color: Color(0xff2079FF),
-                              fontSize: 32 / 2,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 49 / 2),
-                    width: 654 / 2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const SizedBox(
-                          width: 135 / 2,
-                          height: 40 / 2,
-                          child: Text(
-                            'Memo',
-                            style: TextStyle(
-                              color: Color(0xff999999),
-                              fontSize: 28 / 2,
-                              fontFamily: 'Noto Sans CJK KR, Medium',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 40 / 2,
                           height: 40 / 2,
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            onPressed: () {},
-                            // {
-                            //   setState(() {
-                            //     textMemo = _textEditingController.text;
-                            //   });
-                            // },
-                            icon: const Icon(
-                              Icons.add,
-                              color: Color(0xff999999),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 0,
+                                blurRadius: 7,
+                                offset: const Offset(8 / 2, 10 / 2),
+                              ),
+                            ],
+                          ),
+                          padding: const EdgeInsets.fromLTRB(
+                              25 / 2, 39 / 2, 26 / 2, 0),
+                          width: 469 / 2,
+                          height: 734 / 2,
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onLongPress: () => _selectImage(context),
+                                child: Container(
+                                  height: 493 / 2,
+                                  width: 418 / 2,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1 / 2,
+                                      color: const Color(0xff707070),
+                                    ),
+                                    image: imageUrl == ''
+                                        ? _file == null
+                                            ? const DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/images/2.png'),
+                                                fit: BoxFit.cover,
+                                              )
+                                            : DecorationImage(
+                                                image: MemoryImage(
+                                                  _file!,
+                                                ),
+                                                fit: BoxFit.fill,
+                                                alignment:
+                                                    FractionalOffset.topCenter)
+                                        : DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                              imageUrl,
+                                            ),
+                                          ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10 / 2,
+                              ),
+                              SizedBox(
+                                child: SizedBox(
+                                  child: text == ''
+                                      ? TextField(
+                                          controller: _descriptionController,
+                                          decoration: const InputDecoration(
+                                            hintText:
+                                                'write your description...',
+                                            border: InputBorder.none,
+                                          ),
+                                          style: TextStyle(
+                                            fontSize: 40 / 2,
+                                            fontFamily: 'NANUMPEN',
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: 0,
+                                          ),
+                                          maxLines: 2,
+                                        )
+                                      : Container(
+                                          margin: EdgeInsets.only(
+                                            top: 20,
+                                          ),
+                                          child: Text(
+                                            text,
+                                            style: TextStyle(
+                                              fontSize: 40 / 2,
+                                              fontFamily: 'NANUMPEN',
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 0,
+                                            ),
+                                          ),
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20 / 2,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 49 / 2),
+                          width: 654 / 2,
+                          child: imageUrl == ""
+                              ? TextButton(
+                                  onPressed: () => postImage(
+                                    user!.email,
+                                  ),
+                                  child: _isLoading
+                                      ? const CircularProgressIndicator(
+                                          color: Color(0xff2079FF),
+                                        )
+                                      : const Text(
+                                          'UPLOAD',
+                                          style: TextStyle(
+                                            fontSize: 50 / 2,
+                                            fontFamily:
+                                                'Noto Sans CJK KR, Medium',
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: 0,
+                                            color: Color(0xff2079FF),
+                                          ),
+                                        ),
+                                )
+                              : Text(''),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 57 / 2),
+                          width: 654 / 2,
+                          child: RichText(
+                            text: const TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'You delivered ',
+                                  style: TextStyle(
+                                    color: Color(0xff999999),
+                                    fontSize: 32 / 2,
+                                    fontFamily: 'Noto Sans CJK KR, Medium',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: 'iPhone 6',
+                                  style: TextStyle(
+                                    color: Color(0xff2079FF),
+                                    fontSize: 32 / 2,
+                                    fontFamily: 'Noto Sans CJK KR, Medium',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' to ',
+                                  style: TextStyle(
+                                    color: Color(0xff999999),
+                                    fontSize: 32 / 2,
+                                    fontFamily: 'Noto Sans CJK KR, Medium',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: 'South Sumatra, Indonesia.',
+                                  style: TextStyle(
+                                    color: Color(0xff2079FF),
+                                    fontSize: 32 / 2,
+                                    fontFamily: 'Noto Sans CJK KR, Medium',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 27 / 2),
-                    width: 654 / 2,
-                    child: Image.asset('assets/images/3.png'),
+                  Positioned(
+                    top: 100,
+                    left: 50,
+                    child: Image.asset(
+                      'assets/images/1.png',
+                      height: 493 / 2 / 2,
+                    ),
                   )
                 ],
               ),
-            ),
-            Positioned(
-              top: 100,
-              left: 50,
-              child: Image.asset(
-                'assets/images/1.png',
-                height: 493 / 2 / 2,
-              ),
-            )
-          ],
-        ),
       ),
     );
   }

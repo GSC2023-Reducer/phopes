@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User {
   // primary key
   final String email;
@@ -15,4 +17,13 @@ class User {
         "email": email,
         'joinedAt': joinedAt,
       };
+
+  static User fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return User(
+      username: snapshot['username'],
+      email: snapshot['email'],
+      joinedAt: snapshot['joinedAt'].toDate(),
+    );
+  }
 }

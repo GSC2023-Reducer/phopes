@@ -170,8 +170,7 @@ class _TripRecordPage extends State<TripRecordPage>
                               ),
                             )),
                         TripRecordCard(
-                            city: 'South Sumatra, Indonesia',
-                            period: '2023.02.24 ~ 2023.02.28'),
+                            city: 'Boracay', period: '2023.02.24 ~ 2023.02.28'),
                       ],
                     ),
                     alignment: Alignment.center,
