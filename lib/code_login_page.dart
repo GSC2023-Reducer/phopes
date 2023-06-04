@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'id_login_page.dart';
+
 import 'student_home_page.dart';
-import 'update_page.dart';
 
 class CodeLoginPage extends StatefulWidget {
   const CodeLoginPage({super.key});
@@ -13,6 +13,7 @@ class CodeLoginPage extends StatefulWidget {
 class _CodeLoginPage extends State<CodeLoginPage>
     with SingleTickerProviderStateMixin {
   TextEditingController? _codeTextController;
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -63,9 +64,31 @@ class _CodeLoginPage extends State<CodeLoginPage>
             MaterialButton(
                 minWidth: 340,
                 height: 50,
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => StudentHomePage()));
+                onPressed: () async {
+                  DocumentSnapshot studentInfo = await db
+                      .collection("students")
+                      .doc(_codeTextController!.text)
+                      .get();
+                  print(studentInfo);
+                  if (!studentInfo.exists) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              content: Text("Check your code"),
+                              actions: [
+                                MaterialButton(
+                                  child: Text("confirm"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ]);
+                        });
+                  } else {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => StudentHomePage()));
+                  }
                 },
                 color: Colors.blueAccent,
                 child: const Text(

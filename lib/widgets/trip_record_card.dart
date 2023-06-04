@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:phopes/thanks_for_donation.dart';
-import 'package:phopes/checklist_before_start.dart';
+import 'package:intl/intl.dart';
+import 'package:phopes/past_trip_card_click.dart';
+
+import '../coming_trip_card_click.dart';
 
 class TripRecordCard extends StatelessWidget {
   String city;
   String period;
   TripRecordCard({super.key, required this.city, required this.period});
+  DateTime now = DateTime.now();
+  DateFormat format = DateFormat('yyyy.MM.dd');
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          (city == 'South Sumatra, Indonesia')
+          (now.isBefore(format.parse(period.split('~')[0])))
               ? Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ThanksForDonation()))
+                  builder: (context) => BeforeTravelDetails(
+                        period: this.period,
+                        region: this.city,
+                      )))
               : Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const CheckListBeforeStart()));
+                  builder: (context) => AfterTravelDetails(
+                        period: this.period,
+                        region: this.city,
+                      )));
         },
         child: Container(
             height: 200,

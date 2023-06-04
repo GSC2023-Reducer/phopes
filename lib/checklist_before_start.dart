@@ -56,7 +56,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                         ),
                       ),
                       const SizedBox(
-                        height: 81 / 2,
+                        // height: 81 / 2,
                         width: 450 / 2,
                         child: Text(
                           'Checklist before start',
@@ -72,7 +72,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                         height: 55 / 2,
                       ),
                       SizedBox(
-                        height: 1154 / 2,
+                        // height: 1154 / 2,
                         width: 654 / 2,
                         child: SingleChildScrollView(
                           child: RichText(
@@ -96,7 +96,7 @@ class _CheckListBeforeStart extends State<CheckListBeforeStart> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: 'phone',
+                                  text: ' phone',
                                   style: TextStyle(
                                     color: Color(0xff2079FF),
                                     fontSize: 32 / 2,

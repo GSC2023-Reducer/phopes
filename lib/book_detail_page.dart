@@ -325,7 +325,7 @@ class _BookDetailPage extends State<BookDetailPage> {
                             if (((finishedChaptersCount /
                                             snapshot.data!.numChapters!) *
                                         100)
-                                    .ceil() <
+                                    .ceil() >
                                 80) {
                               var bookRecord = isar.bookRecords
                                   .filter()

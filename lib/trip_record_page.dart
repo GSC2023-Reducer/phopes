@@ -138,7 +138,7 @@ class _TripRecordPage extends State<TripRecordPage>
                             )),
                         TripRecordCard(
                             city: 'Ho Chi Minh, Vietnam',
-                            period: '2023.04.12 ~ 2023.04.15'),
+                            period: '2023.07.12 ~ 2023.07.15'),
                       ],
                     ),
                     alignment: Alignment.center,
@@ -170,8 +170,7 @@ class _TripRecordPage extends State<TripRecordPage>
                               ),
                             )),
                         TripRecordCard(
-                            city: 'South Sumatra, Indonesia',
-                            period: '2023.02.24 ~ 2023.02.28'),
+                            city: 'Boracay', period: '2023.02.24 ~ 2023.02.28'),
                       ],
                     ),
                     alignment: Alignment.center,
