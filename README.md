@@ -2,7 +2,16 @@
 
 ## 🥅 Project Description, Motivation, and Goals
 
-There are many students around the world who lack access to education due to various reasons, resulting in significant disparities in literacy rates between developed and underdeveloped nations. Many students, due to their economic circumstances, do not have the time or resources to learn in traditional ways. Despite the presence of many unused smartphones, they are not being utilized to their full potential, and often end up as electronic waste. To address these issues, we aim to find a solution that utilizes these unused smartphones to provide new learning opportunities for children worldwide, based on Google's technology.
+There are many students around the world who lack access to education due to various reasons, resulting in significant disparities in literacy rates between developed and underdeveloped nations. 
+
+1. Many students, due to their economic circumstances, do not have the time or resources to learn in traditional ways. 
+2. Despite the presence of many unused smartphones, they are not being utilized to their full potential, and often end up as electronic waste. 
+
+To address these issues, we aim to find a solution that utilizes these unused smartphones to provide new learning opportunities for children worldwide, based on Google's technology. 
+
+By incorporating a travel-based donation system, we can create a more proactive approach to donating, allowing individuals to directly connect with students in need and provide them with educational resources during their travels.
+
+<a href="https://youtu.be/2_Zm0gZg1RQ">Watch Demo Video &rarr;</a>
 
 ## 🚀 Installation
 
