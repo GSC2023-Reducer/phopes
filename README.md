@@ -1,4 +1,4 @@
-# Phopes
+# 📱✈️ Phopes
 
 ## 🥅 Project Description, Motivation, and Goals
 
