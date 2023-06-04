@@ -59,20 +59,21 @@ class _BookDetailPage extends State<BookDetailPage> {
 
       finishedChaptersCount = finishedChapters.length;
     }
-
-    var chapter = bookChapters!.firstChapter;
-    chaptersOrder.add(chapter.value!.id);
-    while (chapter.value!.next.value != null) {
-      chapter = chapter.value!.next;
+    if (bookChapters != null) {
+      var chapter = bookChapters!.firstChapter;
       chaptersOrder.add(chapter.value!.id);
+      while (chapter.value!.next.value != null) {
+        chapter = chapter.value!.next;
+        chaptersOrder.add(chapter.value!.id);
+      }
     }
     changeProgress();
   }
 
   changeProgress() async {
-    ReadingProgressProvider _readingProgressProvider =
+    ReadingProgressProvider readingProgressProvider =
         Provider.of(context, listen: false);
-    await _readingProgressProvider.refresReadingProgress(widget.bookId);
+    await readingProgressProvider.refresReadingProgress(widget.bookId);
   }
 
   @override

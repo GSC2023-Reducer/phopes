@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:phopes/user_home_page.dart';
 import 'code_login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:phopes/models/user_model.dart' as model;
+import 'package:phopes/models/firebase/user_model.firebase.dart' as model;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

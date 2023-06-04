@@ -69,16 +69,15 @@ class _CodeLoginPage extends State<CodeLoginPage>
                       .collection("students")
                       .doc(_codeTextController!.text)
                       .get();
-                  print(studentInfo);
                   if (!studentInfo.exists) {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                              content: Text("Check your code"),
+                              content: const Text("Check your code"),
                               actions: [
                                 MaterialButton(
-                                  child: Text("confirm"),
+                                  child: const Text("confirm"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -87,7 +86,7 @@ class _CodeLoginPage extends State<CodeLoginPage>
                         });
                   } else {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => StudentHomePage()));
+                        builder: (context) => const StudentHomePage()));
                   }
                 },
                 color: Colors.blueAccent,

@@ -43,12 +43,15 @@ class _StudentHomePage extends State<StudentHomePage> {
                 elevation: 0.0,
                 backgroundColor: const Color(0xff2079FF),
                 centerTitle: true,
-                title: const Text("Phopes",
-                    style: TextStyle(
-                        fontFamily: 'Modak',
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xffFFFFFF),
-                        fontSize: 24)),
+                title: const Text(
+                  "Phopes",
+                  style: TextStyle(
+                    fontFamily: 'Modak',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xffFFFFFF),
+                    fontSize: 24,
+                  ),
+                ),
                 leading: Container()),
             endDrawer: const StudentHomeDrawer(),
             body: Center(

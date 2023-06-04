@@ -3,12 +3,11 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:phopes/models/firebase/user_model.firebase.dart';
 import 'package:phopes/provider/user_provider.dart';
 import 'package:phopes/resources/firestore_methods.dart';
 import 'package:phopes/utils.dart';
 import 'package:provider/provider.dart';
-
-import 'models/user_model.dart' as model;
 
 class ThanksForDonation extends StatefulWidget {
   String region;
@@ -26,7 +25,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
   bool _isLoading = false;
   String imageUrl = '';
   String text = '';
-  model.User? user;
+  User? user;
 
   Future<String> getCertificateImageUrl(String userEmail, String region) async {
     final snapshot = await FirebaseFirestore.instance
@@ -221,7 +220,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 40 / 2,
                         ),
                         Container(
@@ -288,7 +287,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                                                 'write your description...',
                                             border: InputBorder.none,
                                           ),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 40 / 2,
                                             fontFamily: 'NANUMPEN',
                                             fontWeight: FontWeight.w500,
@@ -297,12 +296,12 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                                           maxLines: 2,
                                         )
                                       : Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                             top: 20,
                                           ),
                                           child: Text(
                                             text,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontSize: 40 / 2,
                                               fontFamily: 'NANUMPEN',
                                               fontWeight: FontWeight.w500,
@@ -315,7 +314,7 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20 / 2,
                         ),
                         Container(
@@ -342,9 +341,9 @@ class _ThanksForDonation extends State<ThanksForDonation> {
                                           ),
                                         ),
                                 )
-                              : Text(''),
+                              : const Text(''),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Container(
