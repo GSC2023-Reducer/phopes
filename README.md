@@ -1,28 +1,17 @@
-# phopes_cjw
+# Phopes
 
-A new Flutter project.
+## 🥅 Project Description, Motivation, and Goals
 
-## Getting Started
+There are many students around the world who lack access to education due to various reasons, resulting in significant disparities in literacy rates between developed and underdeveloped nations. Many students, due to their economic circumstances, do not have the time or resources to learn in traditional ways. Despite the presence of many unused smartphones, they are not being utilized to their full potential, and often end up as electronic waste. To address these issues, we aim to find a solution that utilizes these unused smartphones to provide new learning opportunities for children worldwide, based on Google's technology.
 
-This project is a starting point for a Flutter application.
+## 🚀 Installation
 
-A few resources to get you started if this is your first Flutter project:
+This project is developed using Flutter. To install and run this project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Install [Flutter](https://flutter.dev/docs/get-started/install) on your machine.
+2. Clone this repository.
+3. Checkout to the `develop` branch.
+4. Navigate to the project directory and run `flutter pub get` to install the dependencies.
+5. Run `flutter run` to start the project.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## 협업 프로세스
-
-1. develop 브랜치가 최신인지 확인 (`git pull origin develop`)
-2. `git checkout -b <브랜치명>`: 새로운 브랜치 | `git checkout <브랜치명>` : 이미 있는 브랜치
-3. 작업
-4. `git add <파일명>` : 특정 파일 스테이징 | `git add .` : 전체 스테이징
-5. `git commit -m "<커밋내용>"` : 커밋
-6. `git push origin <브랜치명>` : 푸쉬 (깃허브로)
-7. 깃허브에서 풀리퀘스트 날리기
-8. 풀리퀘 날렸다고 카톡에 알려주기
-9. 책임자가 PR을 remote의 develop에 merge
+## 🎥 Example Video
