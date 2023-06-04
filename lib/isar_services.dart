@@ -93,6 +93,7 @@ class IsarService {
         if (i != bookChapterItems.length - 1) {
           await bookChapterItems[i].next.save();
         }
+        await bookChapterItems[i].book.save();
       }
     });
   }

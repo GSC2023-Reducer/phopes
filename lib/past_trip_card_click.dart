@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phopes/check_phone_info_travel.dart';
-import 'package:phopes/models/user_model.dart';
+import 'package:phopes/models/firebase/user_model.firebase.dart';
 import 'package:phopes/provider/user_provider.dart';
 import 'package:phopes/thanks_for_donation.dart';
 import 'package:provider/provider.dart';
@@ -63,25 +63,25 @@ class _AfterTravelDetails extends State<AfterTravelDetails> {
             children: [
               Container(
                 width: 654 / 2,
-                padding: EdgeInsets.fromLTRB(0, 105 / 2, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 105 / 2, 0, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       widget.period,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xff999999),
                         fontFamily: 'Noto Sans CJK KR',
                         fontWeight: FontWeight.normal,
                         fontSize: 32 / 2,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20 / 2,
                     ),
                     Text(
                       widget.region,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xff2079FF),
                         fontFamily: 'Noto Sans CJK KR',
                         fontWeight: FontWeight.bold,
@@ -91,7 +91,7 @@ class _AfterTravelDetails extends State<AfterTravelDetails> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 279 / 2,
               ),
               SizedBox(
@@ -117,7 +117,7 @@ class _AfterTravelDetails extends State<AfterTravelDetails> {
                       ),
                     )),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               SizedBox(

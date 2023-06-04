@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:phopes/models/firebase/user_model.firebase.dart';
 
-import '../models/user_model.dart';
 import '../resources/auth.dart';
 
 class UserProvider with ChangeNotifier {
